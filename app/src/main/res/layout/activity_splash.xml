@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SplashActivity"
+    android:background="@color/primary"
+    >
+
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="@dimen/_120sdp"
+        android:layout_centerInParent="true"
+        android:backgroundTint="#8f7f26"
+        >
+
+
+
+
+
+        <ImageView
+            android:visibility="gone"
+            android:layout_width="@dimen/_200sdp"
+            android:layout_height="@dimen/_200sdp"
+            android:src="@drawable/app_logo"
+            />
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imageView"
+            android:layout_width="@dimen/_200sdp"
+            android:layout_height="@dimen/_200sdp"
+            android:clickable="false"
+            android:focusable="false"
+            android:src="@drawable/app_logo"
+            app:civ_border_color="@color/white"
+            app:civ_border_width="0dp"
+            tools:ignore="UnusedAttribute" />
+
+
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>

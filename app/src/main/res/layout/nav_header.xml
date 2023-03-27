@@ -1,0 +1,36 @@
+<LinearLayout android:id="@+id/nav_header_container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/primary"
+    android:orientation="vertical"
+    android:padding="16dp"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Your header layout content here, for example, an ImageView and two TextViews -->
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/nav_header_image"
+        android:layout_width="72dp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_height="72dp"
+        android:src="@drawable/app_logo"
+        android:layout_gravity="center_horizontal"/>
+
+    <TextView
+        android:id="@+id/nav_header_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ajay"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:layout_marginTop="8dp"/>
+
+    <TextView
+        android:id="@+id/nav_header_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ajay@example.com"
+        android:textColor="@color/white"
+        android:textSize="14sp"/>
+
+</LinearLayout>
