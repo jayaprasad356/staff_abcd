@@ -1,10 +1,11 @@
-package com.app.staffabcd
+package com.app.staffabcd.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.app.staffabcd.R
 
 class HomeFragment : Fragment() {
 
