@@ -1,14 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:orientation="vertical"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.WithdrawalFragment">
-
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_40sdp"
 
-</FrameLayout>
+        android:layout_marginStart="@dimen/_15sdp"
+        style="@style/LoginTextInputLayoutStyle"
+        app:hintTextColor="@color/primary"
+        android:layout_marginEnd="@dimen/_15sdp"
+        android:hint="Enter Amount">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etAmount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLength="6"
+            android:inputType="number"
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnWithdraw"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginHorizontal="@dimen/_40sdp"
+        android:layout_marginTop="35dp"
+        android:backgroundTint="@color/primary"
+        android:padding="@dimen/_8sdp"
+        android:text="Withdrawal"
+        android:textAllCaps="false"
+        android:textSize="@dimen/_12sdp"
+        app:cornerRadius="@dimen/_8sdp" />
+</LinearLayout>

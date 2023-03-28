@@ -4,24 +4,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".fragments.ProfileFragment">
+    tools:context=".fragments.BankDetailFragment">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_marginTop="@dimen/_40sdp"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
+
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
-            style="@style/LoginTextInputLayoutStyle"
-            app:hintTextColor="@color/primary"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_15sdp"
+            style="@style/LoginTextInputLayoutStyle"
+            app:hintTextColor="@color/primary"
             android:layout_marginTop="@dimen/_20sdp"
             android:layout_marginEnd="@dimen/_15sdp"
-            android:hint="Name">
+            android:hint="Bank Account Number">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etName"
+                android:id="@+id/etBank"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 />
@@ -31,67 +33,68 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_15sdp"
-            android:layout_marginTop="@dimen/_20sdp"
             style="@style/LoginTextInputLayoutStyle"
             app:hintTextColor="@color/primary"
-            android:layout_marginEnd="@dimen/_15sdp"
-            android:hint="Email Id">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etEmail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_15sdp"
             android:layout_marginTop="@dimen/_20sdp"
             android:layout_marginEnd="@dimen/_15sdp"
-            style="@style/LoginTextInputLayoutStyle"
-            app:hintTextColor="@color/primary"
-            app:endIconMode="password_toggle"
-            android:hint="Password">
+            android:hint="IFSC Code">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etPassword"
+                android:id="@+id/etIfsc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPassword"
-                />
-
-        </com.google.android.material.textfield.TextInputLayout>
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            style="@style/LoginTextInputLayoutStyle"
-            app:hintTextColor="@color/primary"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_15sdp"
-            android:layout_marginTop="@dimen/_20sdp"
-            android:layout_marginEnd="@dimen/_15sdp"
-            android:hint="Mobile Number">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etMobile"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:maxLength="6"
                 android:inputType="number"
-                android:maxLength="10"
                 />
 
         </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/LoginTextInputLayoutStyle"
+            app:hintTextColor="@color/primary"
+            android:layout_marginStart="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:layout_marginEnd="@dimen/_15sdp"
+            android:hint="Bank Name">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etBankName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLength="6"
+                android:inputType="number"
+                />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/LoginTextInputLayoutStyle"
+            app:hintTextColor="@color/primary"
+            android:layout_marginStart="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:layout_marginEnd="@dimen/_15sdp"
+            android:hint="Branch Name">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etBranch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLength="6"
+                android:inputType="number"
+                />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
 
 
     </LinearLayout>
 
-
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnUpload"
+        android:id="@+id/btnUpdate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -105,5 +108,4 @@
         android:textAllCaps="false"
         android:textSize="@dimen/_12sdp"
         app:cornerRadius="@dimen/_8sdp" />
-
 </RelativeLayout>

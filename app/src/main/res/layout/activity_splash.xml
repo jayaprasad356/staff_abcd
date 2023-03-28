@@ -30,8 +30,8 @@
             />
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imageView"
-            android:layout_width="@dimen/_200sdp"
-            android:layout_height="@dimen/_200sdp"
+            android:layout_width="@dimen/_160sdp"
+            android:layout_height="@dimen/_160sdp"
             android:clickable="false"
             android:focusable="false"
             android:src="@drawable/app_logo"

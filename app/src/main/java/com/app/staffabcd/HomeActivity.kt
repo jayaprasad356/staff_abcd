@@ -25,7 +25,7 @@ class HomeActivity : AppCompatActivity() {
 
         // Initialize the drawer layout and toggle button
         drawerLayout = binding.drawerLayout
-        container=binding.FrameLyt
+        container = binding.FrameLyt
         val toggle = ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close)
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
@@ -35,6 +35,7 @@ class HomeActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction().replace(container.id, HomeFragment()).commit()
         navView.setCheckedItem(R.id.nav_home)
         val toolbar: androidx.appcompat.widget.Toolbar = binding.toolbar
+        toolbar.setTitle(R.string.home)
         setSupportActionBar(toolbar)
         toolbar.setNavigationOnClickListener {
             drawerLayout.openDrawer(GravityCompat.START)
@@ -42,27 +43,35 @@ class HomeActivity : AppCompatActivity() {
         navView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.nav_home -> {
-                    supportFragmentManager.beginTransaction().replace(container.id, HomeFragment()).commit()
+                    supportFragmentManager.beginTransaction().replace(container.id, HomeFragment())
+                        .commit()
+                    toolbar.setTitle(R.string.home)
                     drawerLayout.closeDrawer(GravityCompat.START)
                     true
                 }
                 R.id.nav_profile -> {
-                    supportFragmentManager.beginTransaction().replace(container.id, ProfileFragment()).commit()
+                    supportFragmentManager.beginTransaction()
+                        .replace(container.id, ProfileFragment()).commit()
+                    toolbar.setTitle(R.string.profile)
                     drawerLayout.closeDrawer(GravityCompat.START)
                     true
                 }
                 R.id.nav_incentive -> {
-                    supportFragmentManager.beginTransaction().replace(container.id, IncentiveFragment()).commit()
+                    supportFragmentManager.beginTransaction()
+                        .replace(container.id, IncentiveFragment()).commit()
+                    toolbar.setTitle(R.string.incentive)
                     drawerLayout.closeDrawer(GravityCompat.START)
                     true
                 }
                 R.id.nav_withdrawal -> {
-                    supportFragmentManager.beginTransaction().replace(container.id, WithdrawalFragment()).commit()
+                    supportFragmentManager.beginTransaction()
+                        .replace(container.id, WithdrawalFragment()).commit()
+                    toolbar.setTitle(R.string.withdrawal)
                     drawerLayout.closeDrawer(GravityCompat.START)
                     true
                 }
                 R.id.nav_logout -> {
-                    // Handle the logout option
+                    logout()
                     drawerLayout.closeDrawer(GravityCompat.START)
                     true
                 }
@@ -72,6 +81,7 @@ class HomeActivity : AppCompatActivity() {
         }
         return setContentView(binding.root)
     }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         // Handle the toggle button click
         if (item.itemId == android.R.id.home) {
@@ -83,5 +93,9 @@ class HomeActivity : AppCompatActivity() {
             return true
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun logout() {
+        finishAffinity()
     }
 }
