@@ -10,7 +10,6 @@ import android.widget.RelativeLayout;
 
 import com.app.staffabcd.R;
 
-
 public class ProgressDisplay {
 
     public static ProgressBar mProgressBar;

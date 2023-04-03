@@ -9,16 +9,22 @@ import com.app.staffabcd.LoginActivity;
 
 
 public class Session {
-    public static final String PREFER_NAME = "bigwigg";
+    public static final String PREFER_NAME = "staffabcd";
     final int PRIVATE_MODE = 0;
     SharedPreferences pref;
     SharedPreferences.Editor editor;
     Context _activity;
 
+
+    private SharedPreferences sharedPreferences;
+
+
+
     public Session(Context activity) {
         try {
             this._activity = activity;
             pref = _activity.getSharedPreferences(PREFER_NAME, PRIVATE_MODE);
+            sharedPreferences = _activity.getSharedPreferences("user_session", Context.MODE_PRIVATE);
             editor = pref.edit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -36,13 +42,7 @@ public class Session {
         editor.putBoolean(id, val);
         editor.commit();
     }
-    public void setUserData(String id,String profile, String name, String email) {
-//        editor.putString(Constant.ID, id);
-//        editor.putString(Constant.NAME, name);
-//        editor.putString(Constant.EMAIL, email);
-//        editor.putString(Constant.PROFILE, profile);
-        editor.commit();
-    }
+
     public String getData(String id) {
         return pref.getString(id, "");
     }
@@ -63,4 +63,13 @@ public class Session {
     public boolean getBoolean(String id) {
         return pref.getBoolean(id, false);
     }
+
+
+    public void clearData() {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear();
+        editor.apply();
+    }
+
+
 }

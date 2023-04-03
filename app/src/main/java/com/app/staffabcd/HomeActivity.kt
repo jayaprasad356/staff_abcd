@@ -9,10 +9,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.app.staffabcd.databinding.ActivityHomeBinding
-import com.app.staffabcd.fragments.HomeFragment
-import com.app.staffabcd.fragments.IncentiveFragment
-import com.app.staffabcd.fragments.ProfileFragment
-import com.app.staffabcd.fragments.WithdrawalFragment
+import com.app.staffabcd.fragments.*
 import com.google.android.material.navigation.NavigationView
 
 class HomeActivity : AppCompatActivity() {
@@ -67,6 +64,20 @@ class HomeActivity : AppCompatActivity() {
                     supportFragmentManager.beginTransaction()
                         .replace(container.id, WithdrawalFragment()).commit()
                     toolbar.setTitle(R.string.withdrawal)
+                    drawerLayout.closeDrawer(GravityCompat.START)
+                    true
+                }
+                R.id.nav_documents -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(container.id, DocumentsFragment()).commit()
+                    toolbar.setTitle(R.string.documents)
+                    drawerLayout.closeDrawer(GravityCompat.START)
+                    true
+                }
+                R.id.nav_transaction -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(container.id, TransactionFragment()).commit()
+                    toolbar.setTitle(R.string.transaction)
                     drawerLayout.closeDrawer(GravityCompat.START)
                     true
                 }

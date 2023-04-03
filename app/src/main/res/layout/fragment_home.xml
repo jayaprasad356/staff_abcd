@@ -13,26 +13,40 @@
         android:background="@color/primary"
         android:orientation="vertical">
 
-        <RelativeLayout
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:layout_marginTop="@dimen/_40sdp"
-            android:layout_marginEnd="@dimen/_10sdp">
+            android:layout_marginTop="@dimen/_30sdp"
+            android:weightSum="2">
 
-            <ImageView
-                android:id="@+id/iv"
-                android:layout_marginRight="@dimen/_10sdp"
-                android:layout_width="@dimen/_25sdp"
-                android:layout_height="@dimen/_25sdp"
-                android:src="@drawable/wallet" />
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/imageView"
+                android:layout_width="@dimen/_60sdp"
+                android:layout_height="@dimen/_60sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:layout_weight="1"
+                android:clickable="false"
+                android:focusable="false"
+                android:src="@drawable/app_logo"
+                app:civ_border_color="@color/white"
+                app:civ_border_width="0dp"
+                tools:ignore="UnusedAttribute" />
+
 
             <LinearLayout
+                android:id="@+id/llWallet"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_toEndOf="@+id/iv"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
                 android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/iv"
+                    android:layout_width="@dimen/_25sdp"
+                    android:layout_height="@dimen/_25sdp"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/wallet" />
 
                 <TextView
                     android:id="@+id/tvWallet"
@@ -56,9 +70,52 @@
                     android:textColor="@color/primary_light"
                     android:textSize="@dimen/_12sdp" />
             </LinearLayout>
-        </RelativeLayout>
+        </LinearLayout>
 
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_10sdp"
+
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="R.Arunkumar"
+                android:textSize="@dimen/_12sdp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvMobil"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:text="7092310035"
+                android:textSize="@dimen/_12sdp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center_vertical"
+            android:textSize="@dimen/_12sdp"
+            android:text="attendence 28 days"/>
+    </LinearLayout>
+
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -180,62 +237,133 @@
         </com.google.android.material.card.MaterialCardView>
 
     </LinearLayout>
-
-    <com.google.android.material.card.MaterialCardView
-        android:layout_width="@dimen/_130sdp"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_margin="@dimen/_10sdp"
-        android:backgroundTint="@color/primary_light"
-        app:cardCornerRadius="@dimen/_10sdp"
-        app:cardElevation="@dimen/_5sdp">
+        android:orientation="horizontal"
+        android:weightSum="2">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:orientation="vertical">
+            android:layout_margin="@dimen/_10sdp"
+            android:layout_gravity="center_horizontal"
+            android:backgroundTint="@color/primary_light"
+            app:cardCornerRadius="@dimen/_10sdp"
+            app:cardElevation="@dimen/_5sdp">
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                app:cardCornerRadius="@dimen/_100sdp">
+                android:layout_marginTop="@dimen/_10sdp"
+                android:orientation="vertical">
 
-                <ImageView
-                    android:layout_width="@dimen/_30sdp"
-                    android:layout_height="@dimen/_30sdp"
-                    android:background="@drawable/ic_lead" />
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    app:cardCornerRadius="@dimen/_100sdp">
+
+                    <ImageView
+                        android:layout_width="@dimen/_30sdp"
+                        android:layout_height="@dimen/_30sdp"
+                        android:background="@drawable/ic_lead" />
 
 
-            </androidx.cardview.widget.CardView>
+                </androidx.cardview.widget.CardView>
 
 
-            <TextView
-                android:layout_width="wrap_content"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    android:gravity="center"
+                    android:text="Total Lead"
+                    android:textColor="@color/black" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="@dimen/_8sdp"
+                    android:gravity="center"
+                    android:text="1238"
+                    android:textColor="@color/black"
+                    android:textStyle="italic|bold" />
+
+
+            </LinearLayout>
+
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_10sdp"
+            android:layout_weight="1"
+            android:layout_gravity="center_horizontal"
+            android:backgroundTint="@color/primary_light"
+            app:cardCornerRadius="@dimen/_10sdp"
+            app:cardElevation="@dimen/_5sdp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="@dimen/_4sdp"
-                android:gravity="center"
-                android:text="Total Lead"
-                android:textColor="@color/black" />
+                android:layout_marginTop="@dimen/_10sdp"
+                android:orientation="vertical">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    app:cardCornerRadius="@dimen/_100sdp">
+
+                    <ImageView
+                        android:id="@+id/ivsales2"
+                        android:layout_width="@dimen/_30sdp"
+                        android:layout_height="@dimen/_30sdp"
+                        android:background="@drawable/ic_joining" />
 
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginBottom="@dimen/_8sdp"
-                android:gravity="center"
-                android:text="1238"
-                android:textColor="@color/black"
-                android:textStyle="italic|bold" />
+                </androidx.cardview.widget.CardView>
 
 
-        </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    android:gravity="center"
+                    android:text="Salary"
+                    android:textColor="@color/black" />
 
 
-    </com.google.android.material.card.MaterialCardView>
+                <TextView
+                    android:id="@+id/tvSalary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="@dimen/_8sdp"
+                    android:gravity="center"
+                    android:text="0"
+                    android:textColor="@color/black"
+                    android:textStyle="italic|bold" />
+
+
+            </LinearLayout>
+
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </LinearLayout>
+
+
+
+
 
 
 </LinearLayout>

@@ -9,8 +9,11 @@
     <string name="profile">Profile</string>
     <string name="incentive">Incentive</string>
     <string name="withdrawal">Withdrawal</string>
+    <string name="documents">Documents</string>
+    <string name="transaction">Transaction</string>
     <string name="update">Update</string>
     <string name="email_error">Please enter a Valid Email </string>
+    <string name="mobile_error">Please enter a Valid Mobile Number </string>
     <string name="pass_empty">Please enter a Valid Password </string>
 
 </resources>

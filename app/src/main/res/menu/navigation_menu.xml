@@ -17,6 +17,14 @@
         android:icon="@drawable/ic_withdrawal"
         android:title="Withdrawal" />
     <item
+        android:id="@+id/nav_documents"
+        android:icon="@drawable/ic_withdrawal"
+        android:title="Documents" />
+    <item
+        android:id="@+id/nav_transaction"
+        android:icon="@drawable/ic_withdrawal"
+        android:title="@string/transaction" />
+    <item
         android:id="@+id/nav_logout"
         android:icon="@drawable/ic_logout"
         android:title="Logout" />
