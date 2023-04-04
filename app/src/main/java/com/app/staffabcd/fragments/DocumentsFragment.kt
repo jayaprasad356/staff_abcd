@@ -2,6 +2,7 @@ package com.app.staffabcd.fragments
 
 import android.Manifest
 import android.app.Activity
+import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
 import android.database.Cursor
@@ -9,25 +10,42 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
+import com.android.volley.*
+import com.app.staffabcd.VolleyMultipartRequest
+import com.app.staffabcd.VolleySingleton
 import com.app.staffabcd.databinding.FragmentDocumentsBinding
+import com.app.staffabcd.helper.Constant
+import com.app.staffabcd.helper.Session
+import org.apache.commons.io.IOUtils
+import org.json.JSONException
+import org.json.JSONObject
 import java.io.File
+import java.io.IOException
+import java.io.InputStream
 
 
 class DocumentsFragment : Fragment() {
 
     lateinit var binding: FragmentDocumentsBinding
 
+    var aadharFileBytes: ByteArray? = null
+    var resumeFileBytes: ByteArray? = null
+    var photoFileBytes: ByteArray? = null
+    var certificateFileBytes: ByteArray? = null
+    lateinit var session: Session
 
-    private var aadhar: File? = null
-    private var resume: File? = null
-    private var photo: File? = null
-    private var eduCirtificate: File? = null
+
+    lateinit var aadhar: Uri
+    lateinit var resume: Uri
+    lateinit var photo: Uri
+    lateinit var eduCirtificate: Uri
     var tapped: String = ""
 
     override fun onCreateView(
@@ -37,11 +55,12 @@ class DocumentsFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentDocumentsBinding.inflate(inflater, container, false)
         requestStoragePermission()
+        session= Session(requireActivity())
 
         binding.btnUpdate.setOnClickListener {
-            if (validateFields()) {
-                Toast.makeText(requireContext(), "Documents Updated Success", Toast.LENGTH_SHORT).show()
-            }
+           // if (validateFields()) {
+                saveProfileAccount(aadhar,resume,photo,eduCirtificate)
+           // }
         }
 
         binding.rlAadhar.setOnClickListener {
@@ -77,26 +96,25 @@ class DocumentsFragment : Fragment() {
             val uri = data.data
             if (uri != null) {
                 if (tapped.equals("aadhar")) {
-                    val filePath: String? = getRealPathFromUri(requireContext(), uri)
-                    aadhar = filePath?.let { File(it) }
+                    aadhar = uri
                     binding.ivAadhar.visibility = View.VISIBLE
                     binding.rlAadhar.visibility= View.GONE
                 }
                 if (tapped.equals("resume")) {
-                    val filePath: String? = getRealPathFromUri(requireContext(), uri)
-                    resume = filePath?.let { File(it) }
+                   // val filePath: String? = getRealPathFromUri(requireContext(), uri)
+                    resume = uri
                     binding.ivResume.visibility = View.VISIBLE
                     binding.rlResume.visibility= View.GONE
                 }
                 if (tapped.equals("photo")) {
-                    val filePath: String? = getRealPathFromUri(requireContext(), uri)
-                    photo = filePath?.let { File(it) }
+                    //val filePath: String? = getRealPathFromUri(requireContext(), uri)
+                    photo = uri
                     binding.ivPhoto.visibility = View.VISIBLE
                     binding.rlPhoto.visibility= View.GONE
                 }
                 if (tapped.equals("cirtificate")) {
                     val filePath: String? = getRealPathFromUri(requireContext(), uri)
-                    eduCirtificate = filePath?.let { File(it) }
+                    eduCirtificate = uri
                     binding.ivCirtificate.visibility = View.VISIBLE
                     binding.rlEduCirtifi.visibility= View.GONE
                 }
@@ -185,5 +203,120 @@ class DocumentsFragment : Fragment() {
         }
 
         return isValid
+    }
+    private fun saveProfileAccount(aadharUri: Uri,resumeUri: Uri,photoUri: Uri,cirtificatURi:Uri) {
+        try {
+            val aadharInputStream: InputStream = requireActivity().contentResolver.openInputStream(aadharUri)!!
+            aadharFileBytes = IOUtils.toByteArray(aadharInputStream)
+
+            val resumeInputStream: InputStream = requireActivity().contentResolver.openInputStream(resumeUri)!!
+            resumeFileBytes = IOUtils.toByteArray(resumeInputStream)
+
+            val photoInputStream: InputStream = requireActivity().contentResolver.openInputStream(photoUri)!!
+            photoFileBytes = IOUtils.toByteArray(photoInputStream)
+
+            val cirtificateInputStream: InputStream = requireActivity().contentResolver.openInputStream(cirtificatURi)!!
+            certificateFileBytes = IOUtils.toByteArray(cirtificateInputStream)
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+        val cR: ContentResolver = requireActivity().contentResolver
+
+
+        val aadharType = cR.getType(aadharUri)
+        val aadgarFile = File(aadharUri.path)
+        val aadharName = aadgarFile.name
+
+        val resumeType = cR.getType(resumeUri)
+        val resumeFile = File(resumeUri.path)
+        val resumeName = resumeFile.name
+
+        val photoType = cR.getType(photoUri)
+        val photoFile = File(photoUri.path)
+        val photoName = photoFile.name
+
+        val cirtificateType = cR.getType(cirtificatURi)
+        val cirtificateFile = File(cirtificatURi.path)
+        val cirtificateName = cirtificateFile.name
+
+
+        val url: String = "https://demoabcd.graymatterworks.com/api/staffs_document.php"
+        val multipartRequest: VolleyMultipartRequest = object : VolleyMultipartRequest(
+            Request.Method.POST, url,
+            Response.Listener<NetworkResponse> { response ->
+                val resultResponse = String(response.data)
+                Log.d("RESPONSE", resultResponse)
+                Toast.makeText(requireContext(), "" + resultResponse, Toast.LENGTH_SHORT).show()
+                try {
+                    val result = JSONObject(resultResponse)
+                    val status = result.getString("status")
+                    val message = result.getString("message")
+                    Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+
+
+
+                    //                    if (status.equals(Constant.REQUEST_SUCCESS)) {
+                    //                        // tell everybody you have succed upload image and post strings
+                    //                        Log.i("Messsage", message);
+                    //                    } else {
+                    //                        Log.i("Unexpected", message);
+                    //                    }
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                }
+            },
+            Response.ErrorListener { error ->
+                val networkResponse = error.networkResponse
+                var errorMessage = "Unknown error"
+                if (networkResponse == null) {
+                    if (error.javaClass == TimeoutError::class.java) {
+                        errorMessage = "Request timeout"
+                    } else if (error.javaClass == NoConnectionError::class.java) {
+                        errorMessage = "Failed to connect server"
+                    }
+                } else {
+                    val result = String(networkResponse.data)
+                    try {
+                        val response = JSONObject(result)
+                        val status = response.getString("status")
+                        val message = response.getString("message")
+                        Log.e("Error Status", status)
+                        Log.e("Error Message", message)
+                        if (networkResponse.statusCode == 404) {
+                            errorMessage = "Resource not found"
+                        } else if (networkResponse.statusCode == 401) {
+                            errorMessage = "$message Please login again"
+                        } else if (networkResponse.statusCode == 400) {
+                            errorMessage = "$message Check your inputs"
+                        } else if (networkResponse.statusCode == 500) {
+                            errorMessage = "$message Something is getting wrong"
+                        }
+                    } catch (e: JSONException) {
+                        e.printStackTrace()
+                    }
+                }
+                Log.i("Error", errorMessage)
+                error.printStackTrace()
+            }) {
+            override fun getParams(): MutableMap<String, String> {
+                val params: MutableMap<String, String> = HashMap()
+                params[Constant.STAFF_ID] = session.getData(Constant.STAFF_ID)
+                params["salary_date"] ="21"
+
+                return params
+            }
+
+
+            override fun getByteData(): Map<String, DataPart> {
+                val params: MutableMap<String, DataPart> = HashMap()
+                params[Constant.AADHAR_CARD] = DataPart(aadharName, aadharFileBytes, aadharType)
+                params[Constant.RESUME] = DataPart(resumeName, resumeFileBytes, resumeType)
+                params[Constant.PHOTO] = DataPart(photoName, photoFileBytes, photoType)
+                params[Constant.EDUCATION_CERTIFICATE] = DataPart(cirtificateName, certificateFileBytes, cirtificateType)
+                return params
+            }
+
+        }
+        VolleySingleton.getInstance(requireContext()).addToRequestQueue(multipartRequest)
     }
 }

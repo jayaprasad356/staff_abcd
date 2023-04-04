@@ -1,20 +1,17 @@
 package com.app.staffabcd
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Patterns
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
-import com.app.staffabcd.adapter.TransactionAdapter
+import androidx.appcompat.app.AppCompatActivity
 import com.app.staffabcd.databinding.ActivityLoginBinding
 import com.app.staffabcd.helper.ApiConfig
 import com.app.staffabcd.helper.Constant
 import com.app.staffabcd.helper.Session
-import com.app.staffabcd.model.Transanction
 import com.google.gson.Gson
-import org.json.JSONArray
+import com.google.gson.JsonObject
 import org.json.JSONException
 import org.json.JSONObject
 
@@ -34,8 +31,8 @@ class LoginActivity : AppCompatActivity() {
         session= Session(activity)
 
         if (Constant.DEBUG){
-            binding.etMobile.text?.append("7545787012")
-            binding.etPassword.text?.append("Sanjay@123")
+            binding.etMobile.text?.append("7092923100")
+            binding.etPassword.text?.append("sanjay@123")
         }
 
         btnLogin.setOnClickListener {
@@ -78,17 +75,26 @@ class LoginActivity : AppCompatActivity() {
             if (result) {
                 try {
                     val jsonObject = JSONObject(response)
-                    val jsondataObject=jsonObject.getJSONArray("data")
                     if (jsonObject.getBoolean(Constant.SUCCESS)) {
-//                        session.setData(Constant.NAME,jsondataObject.getString(Constant.NAME))
-//                        session.setData(Constant.EMAIL,jsondataObject.getString(Constant.EMAIL))
-//                        session.setData(Constant.BANK_ACCOUNT_NUMBER,jsondataObject.getString(Constant.BANK_ACCOUNT_NUMBER))
-//                        session.setData(Constant.BANK_NAME,jsondataObject.getString(Constant.BANK_NAME))
-//                        session.setData(Constant.IFSC_CODE,jsondataObject.getString(Constant.IFSC_CODE))
-//                        session.setData(Constant.MOBILE,jsondataObject.getString(Constant.MOBILE))
+                        Toast.makeText(activity,jsonObject.getString(Constant.MESSAGE).toString(),
+                            Toast.LENGTH_SHORT).show()
+
+                        val data = jsonObject.getJSONArray("data")
+                        session.setData(Constant.STAFF_ID,data.getJSONObject(0).getString(Constant.ID))
+                        session.setData(Constant.NAME,data.getJSONObject(0).getString(Constant.NAME))
+                        session.setData(Constant.EMAIL,data.getJSONObject(0).getString(Constant.EMAIL))
+                        session.setData(Constant.BANK_ACCOUNT_NUMBER,data.getJSONObject(0).getString(Constant.BANK_ACCOUNT_NUMBER))
+                        session.setData(Constant.BANK_NAME,data.getJSONObject(0).getString(Constant.BANK_NAME))
+                        session.setData(Constant.IFSC_CODE,data.getJSONObject(0).getString(Constant.IFSC_CODE))
+                        session.setData(Constant.MOBILE,data.getJSONObject(0).getString(Constant.MOBILE))
                         val intent = Intent(this, HomeActivity::class.java)
                         startActivity(intent)
                         finish()
+                        // extract other values as needed
+                    } else {
+                        Toast.makeText(activity,jsonObject.getString(Constant.MESSAGE).toString(),
+                            Toast.LENGTH_SHORT).show()
+
                     }
                 } catch (e: JSONException) {
                     e.printStackTrace()

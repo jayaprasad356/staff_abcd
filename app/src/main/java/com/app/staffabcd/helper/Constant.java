@@ -12,9 +12,9 @@ public class Constant {
     public static final String BaseUrl = MainBaseUrl + "api/";
     public static final String LOGIN_URL = BaseUrl + "login.php";
     public static final String SIGN_UP = BaseUrl + "signup.php";
-    public static final String SEARCH_LIST = BaseUrl + "searchproducts.php";
-    public static final String CATEGORY_LIST = BaseUrl + "category-list.php";
-    public static final String TYRE_PRODUCTLIST = BaseUrl + "tyre_productlist.php";
+    public static final String UPDATE_STAFFBANK = BaseUrl + "update_staffbank.php";
+    public static final String UPDATE_STAFF = BaseUrl + "update_staff.php";
+    public static final String STAFFS_SIGNUP = BaseUrl + "staffs_signup.php";
     public static final String STAFFS_LOGIN = BaseUrl + "staffs_login.php";
     public static final String PASSWORD = "password";
 
@@ -22,13 +22,18 @@ public class Constant {
     public static final String TRNSACTION_LIST_URL = BaseUrl + "transaction_lists.php";
     public static final boolean DEBUG = true;
 
-
+    public static final String ID = "id";
     public static final String SUCCESS = "success";
     public static final String MESSAGE = "message";
 
     public static final String DATA = "data";
 
     public static final String NAME = "name";
+    public static final String STAFF_ID = "staff_id";
+
+    public static final String FIRST_NAME = "first_name";
+    public static final String LAST_NAME = "last_name";
+
     public static final String EMAIL = "email";
     public static final String ADDRESS = "address";
     public static final String BANK_ACCOUNT_NUMBER = "bank_account_number";
@@ -36,5 +41,11 @@ public class Constant {
     public static final String BRANCH = "branch";
     public static final String IFSC_CODE = "ifsc_code";
     public static final String MOBILE = "mobile";
+
+    public static final String EDUCATION_CERTIFICATE = "education_certificate";
+    public static final String AADHAR_CARD = "aadhar_card";
+    public static final String RESUME = "resume";
+    public static final String PHOTO = "photo";
+    public static final String SALARY_DATE = "salary_date";
 
 }

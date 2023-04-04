@@ -23,7 +23,7 @@
             android:hint="Bank Account Number">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etBank"
+                android:id="@+id/etBankAccountNumber"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 />

@@ -15,45 +15,77 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.app.staffabcd.databinding.ActivityRegistrationBinding
+import com.app.staffabcd.helper.ApiConfig
+import com.app.staffabcd.helper.Constant
+import com.app.staffabcd.helper.Session
+import org.json.JSONException
+import org.json.JSONObject
 import java.io.File
 
 class RegistrationActivity : AppCompatActivity() {
     var binding: ActivityRegistrationBinding? = null
     lateinit var btnRegister: Button
-    private val IMAGE_PICK_CODE = 999
-    private var imageData: File? = null
-    private var aadhar: File? = null
-    private var resume: File? = null
-    private var photo: File? = null
-    private var eduCirtificate: File? = null
-
-    private val PERMISSION_CODE = 100
-    var tapped: String = ""
+    lateinit var session:Session
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRegistrationBinding.inflate(layoutInflater)
         btnRegister = binding!!.btnRegister
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            ContextCompat.checkSelfPermission(
-                this,
-                Manifest.permission.READ_MEDIA_IMAGES
-            )
-        }
+        session=Session(this);
+
 
 
 
         btnRegister.setOnClickListener {
             if (validateFields()) {
-                val intent = Intent(this, HomeActivity::class.java)
-                startActivity(intent)
-                finish()
+                doRegister()
+
             }
         }
 
 
 
         return setContentView(binding!!.root)
+    }
+
+    private fun doRegister() {
+        val params : HashMap<String,String> = hashMapOf()
+        params.apply {
+            this[Constant.FIRST_NAME] =  binding!!.etFirstName.text.toString()
+            this[Constant.LAST_NAME] =  binding!!.etLastName.text.toString()
+            this[Constant.EMAIL] =  binding!!.etEmail.text.toString()
+            this[Constant.MOBILE] =  binding!!.etMobile.text.toString()
+            this[Constant.PASSWORD] =  binding!!.etPassword.text.toString()
+
+        }
+        ApiConfig.RequestToVolley({ result, response ->
+            if (result) {
+                try {
+                    val jsonObject = JSONObject(response)
+                    if (jsonObject.getBoolean(Constant.SUCCESS)) {
+                        Toast.makeText(this,jsonObject.getString(Constant.MESSAGE).toString(),
+                            Toast.LENGTH_SHORT).show()
+
+                        val data = jsonObject.getJSONArray("data")
+                        session.setData(Constant.NAME,data.getJSONObject(0).getString(Constant.NAME))
+                        session.setData(Constant.EMAIL,data.getJSONObject(0).getString(Constant.EMAIL))
+                        session.setData(Constant.PASSWORD,data.getJSONObject(0).getString(Constant.PASSWORD))
+                        session.setData(Constant.MOBILE,data.getJSONObject(0).getString(Constant.MOBILE))
+                        val intent = Intent(this, HomeActivity::class.java)
+                        startActivity(intent)
+                        finish()
+                        // extract other values as needed
+                    } else {
+                        Toast.makeText(this,jsonObject.getString(Constant.MESSAGE).toString(),
+                            Toast.LENGTH_SHORT).show()
+
+                    }
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                }
+            }
+        }, this, Constant.STAFFS_SIGNUP, params, true)
+
     }
 
     private fun validateFields(): Boolean {
