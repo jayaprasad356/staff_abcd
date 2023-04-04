@@ -11,6 +11,7 @@
     <string name="withdrawal">Withdrawal</string>
     <string name="documents">Documents</string>
     <string name="transaction">Transaction</string>
+    <string name="report">Report</string>
     <string name="update">Update</string>
     <string name="email_error">Please enter a Valid Email </string>
     <string name="mobile_error">Please enter a Valid Mobile Number </string>

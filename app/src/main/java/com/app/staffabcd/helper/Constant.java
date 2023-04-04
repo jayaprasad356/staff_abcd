@@ -19,7 +19,7 @@ public class Constant {
     public static final String PASSWORD = "password";
 
 
-    public static final String TRNSACTION_LIST_URL = BaseUrl + "transaction_lists.php";
+    public static final String TRNSACTION_LIST_URL = "https://abcd.graymatterworks.com/api/transaction_lists.php";
     public static final boolean DEBUG = true;
 
     public static final String ID = "id";

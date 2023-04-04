@@ -200,6 +200,9 @@ class DocumentsFragment : Fragment() {
         } else if (eduCirtificate == null) {
             Toast.makeText(requireContext(), "Please upload Educational Cirtificate", Toast.LENGTH_SHORT).show()
             isValid = false
+        } else if (binding!!.etSalaryDate.text.isNullOrEmpty()) {
+            binding!!.etSalaryDate.error = "Please enter Salary Date"
+            isValid = false
         }
 
         return isValid

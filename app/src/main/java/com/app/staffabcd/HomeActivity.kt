@@ -81,6 +81,13 @@ class HomeActivity : AppCompatActivity() {
                     drawerLayout.closeDrawer(GravityCompat.START)
                     true
                 }
+                R.id.nav_report -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(container.id, ReportFragment()).commit()
+                    toolbar.setTitle(R.string.report)
+                    drawerLayout.closeDrawer(GravityCompat.START)
+                    true
+                }
                 R.id.nav_logout -> {
                     logout()
                     drawerLayout.closeDrawer(GravityCompat.START)
