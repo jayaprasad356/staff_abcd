@@ -20,7 +20,7 @@ public class Constant {
 
 
     public static final String TRNSACTION_LIST_URL = "https://abcd.graymatterworks.com/api/transaction_lists.php";
-    public static final boolean DEBUG = true;
+    public static final boolean DEBUG = false;
 
     public static final String ID = "id";
     public static final String SUCCESS = "success";

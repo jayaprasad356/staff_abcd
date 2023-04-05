@@ -33,6 +33,7 @@ class LoginActivity : AppCompatActivity() {
         if (Constant.DEBUG){
             binding.etMobile.text?.append("7092923100")
             binding.etPassword.text?.append("sanjay@123")
+            validateAndLogin()
         }
 
         btnLogin.setOnClickListener {

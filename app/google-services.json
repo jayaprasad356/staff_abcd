@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "984718475790",
+    "project_id": "staff-abcd",
+    "storage_bucket": "staff-abcd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:984718475790:android:8a31f2f36e0103dc79325f",
+        "android_client_info": {
+          "package_name": "com.app.staffabcd"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "984718475790-0pgmj2ord83hldfov7ojdfbf71gquqap.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCUbV3mbXlZEzH2G52duFkpN8Hhx6PnQiA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "984718475790-0pgmj2ord83hldfov7ojdfbf71gquqap.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

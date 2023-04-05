@@ -162,6 +162,7 @@ class DocumentsFragment : Fragment() {
     }
     private fun validateFields(): Boolean {
         var isValid = true
+        val salaryDate = binding!!.etSalaryDate.text.toString().trim()
 
         if (binding!!.etBank.text.isNullOrEmpty()) {
             binding!!.etBank.error = "Please enter your bank account number"
@@ -204,6 +205,17 @@ class DocumentsFragment : Fragment() {
             binding!!.etSalaryDate.error = "Please enter Salary Date"
             isValid = false
         }
+        if (salaryDate.isEmpty()) {
+            binding!!.etSalaryDate.error = "Please enter Salary Date"
+            isValid = false
+        } else {
+            val dateNumber = salaryDate.toIntOrNull()
+            if (dateNumber == null || dateNumber !in 1..31) {
+                binding!!.etSalaryDate.error = "Please enter a number between 1 to 31"
+                isValid = false
+            }
+        }
+
 
         return isValid
     }

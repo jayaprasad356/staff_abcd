@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/primary_light"
+    android:orientation="horizontal"
+    android:paddingVertical="@dimen/_4sdp"
+    android:weightSum="5">
+
+    <TextView
+        android:id="@+id/tvDate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:paddingStart="@dimen/_10sdp"
+        android:text="12/02/2022"
+        android:textSize="@dimen/_12sdp" />
+
+
+    <TextView
+        android:id="@+id/tvJoining"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="35"
+        android:textSize="@dimen/_12sdp" />
+
+    <TextView
+        android:id="@+id/tvLead"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="12"
+        android:textSize="@dimen/_12sdp" />
+
+    <TextView
+        android:id="@+id/tvEarning"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="235"
+        android:textSize="@dimen/_12sdp" />
+</LinearLayout>

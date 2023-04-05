@@ -4,8 +4,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.FrameLayout
-import android.widget.Toolbar
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AlertDialog
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.app.staffabcd.databinding.ActivityHomeBinding
@@ -32,6 +32,8 @@ class HomeActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction().replace(container.id, HomeFragment()).commit()
         navView.setCheckedItem(R.id.nav_home)
         val toolbar: androidx.appcompat.widget.Toolbar = binding.toolbar
+        showFillDocumentPopup(toolbar)
+
         toolbar.setTitle(R.string.home)
         setSupportActionBar(toolbar)
         toolbar.setNavigationOnClickListener {
@@ -98,6 +100,23 @@ class HomeActivity : AppCompatActivity() {
 
         }
         return setContentView(binding.root)
+    }
+
+    private fun showFillDocumentPopup(toolbar: androidx.appcompat.widget.Toolbar) {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Please Upload Document")
+        builder.setMessage("Do you want to upload a document now?")
+        builder.setPositiveButton("OK") { dialog, which ->
+            supportFragmentManager.beginTransaction()
+                .replace(container.id, DocumentsFragment()).commit()
+            toolbar.setTitle(R.string.documents)
+            drawerLayout.closeDrawer(GravityCompat.START)
+            true
+        }
+        builder.setNegativeButton("Cancel", null)
+        val alertDialog = builder.create()
+        alertDialog.show()
+
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

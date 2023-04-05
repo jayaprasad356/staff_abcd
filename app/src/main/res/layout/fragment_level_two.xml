@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.reportFragments.LevelTwoFragment">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/levelTwoRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_marginHorizontal="@dimen/_4sdp"
+        android:layout_height="wrap_content"/>
+</LinearLayout>

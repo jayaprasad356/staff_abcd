@@ -1,26 +1,17 @@
 package com.app.staffabcd
 
-import android.Manifest
-import android.app.Activity
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.net.Uri
-import android.os.Build
 import android.os.Bundle
-import android.provider.MediaStore
-import android.view.View
+
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import com.app.staffabcd.databinding.ActivityRegistrationBinding
 import com.app.staffabcd.helper.ApiConfig
 import com.app.staffabcd.helper.Constant
 import com.app.staffabcd.helper.Session
 import org.json.JSONException
 import org.json.JSONObject
-import java.io.File
 
 class RegistrationActivity : AppCompatActivity() {
     var binding: ActivityRegistrationBinding? = null
@@ -32,8 +23,6 @@ class RegistrationActivity : AppCompatActivity() {
         binding = ActivityRegistrationBinding.inflate(layoutInflater)
         btnRegister = binding!!.btnRegister
         session=Session(this);
-
-
 
 
         btnRegister.setOnClickListener {

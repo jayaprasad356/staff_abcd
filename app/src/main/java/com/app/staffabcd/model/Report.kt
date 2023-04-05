@@ -1,23 +1,21 @@
 package com.app.staffabcd.model
 
 class Report {
-    var date: String? = null
-    var earning: String? = null
+    var name: String? = null
+    var mobile: String? = null
     var joining: String? = null
-    var lead: String? = null
 
     constructor() {}
     constructor(
-        date: String?,
-        earning: String?,
+        name: String?,
+        mobile: String?,
         joining: String?,
-        lead: String?,
 
-    ) {
-        this.date = date
-        this.earning = earning
+        ) {
+        this.name = name
+        this.mobile = mobile
         this.joining = joining
-        this.lead = lead
+
 
     }
 }

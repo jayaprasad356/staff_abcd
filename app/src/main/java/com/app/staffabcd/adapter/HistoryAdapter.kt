@@ -11,17 +11,15 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.content.ContextCompat.startActivity
-import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.app.staffabcd.R
 import com.app.staffabcd.model.Report
 
-class ReportAdapter(
+class HistoryAdapter (
     val activity: Activity,
     wallets: ArrayList<Report>,
 ) :
-RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     val reports: ArrayList<Report>
     val activitys: Activity
 
@@ -32,7 +30,7 @@ RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view: View =
-            LayoutInflater.from(activity).inflate(R.layout.report_lyt, parent, false)
+            LayoutInflater.from(activity).inflate(R.layout.history_lyt, parent, false)
         return ItemHolder(view)
     }
 
@@ -41,12 +39,11 @@ RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         val report: Report = reports[position]
         holder.name.text=report.name
         holder.joining.text=report.joining
-        holder.btnRemind.setOnClickListener {
-           sendMsgToWhatsapp(report.mobile)
-           // sendMessage("Hello, this is a test message.")
+        holder.btnMsg.setOnClickListener {
+            sendMsgToWhatsapp(report.mobile)
         }
-    }
 
+    }
     private fun sendMsgToWhatsapp(mobile: String?) {
 
         val phoneNumber = "+91$mobile"
@@ -70,6 +67,8 @@ RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     }
 
+
+
     override fun getItemCount(): Int {
         return reports.size
     }
@@ -77,15 +76,13 @@ RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     internal class ItemHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val name: TextView
         val joining: TextView
-        val btnRemind: Button
-        private val btnMark: Button
+        val btnMsg: Button
 
 
         init {
             name = itemView.findViewById(R.id.tvName)
             joining = itemView.findViewById(R.id.tvJoining)
-            btnMark=itemView.findViewById(R.id.btnMark)
-            btnRemind=itemView.findViewById(R.id.btnRemind)
+            btnMsg=itemView.findViewById(R.id.btnMsg)
 
         }
     }

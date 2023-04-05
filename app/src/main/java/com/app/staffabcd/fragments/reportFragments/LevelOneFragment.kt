@@ -1,58 +1,43 @@
-package com.app.staffabcd.fragments
+package com.app.staffabcd.fragments.reportFragments
 
-import android.app.Activity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.recyclerview.widget.LinearLayoutManager
-
-
-import com.app.staffabcd.R
 import com.app.staffabcd.adapter.ReportAdapter
-import com.app.staffabcd.adapter.WithdrawalAdapter
-import com.app.staffabcd.databinding.FragmentWithdrawalBinding
-import com.app.staffabcd.model.Withdrawal
+import com.app.staffabcd.databinding.FragmentLevelOneBinding
+import com.app.staffabcd.model.Report
 
+class LevelOneFragment : Fragment() {
+    lateinit var reportAdapter: ReportAdapter
+    lateinit var binding: FragmentLevelOneBinding
 
-class WithdrawalFragment : Fragment() {
-
-lateinit var binding: FragmentWithdrawalBinding
-lateinit var btnWithdaw: Button
-lateinit var activity:Activity
-lateinit var withdrawalAdapter: WithdrawalAdapter
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?):
-            View? {
-        binding = FragmentWithdrawalBinding.inflate(inflater, container, false)
-        btnWithdaw=binding.btnWithdraw
-        activity= requireActivity()
-        btnWithdaw.setOnClickListener{
-            val bankDetailFragment = BankDetailFragment()
-            val transaction = requireActivity().supportFragmentManager.beginTransaction()
-            transaction.replace(R.id.FrameLyt, bankDetailFragment)
-            transaction.addToBackStack(null)
-            transaction.commit()
-        }
-
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = FragmentLevelOneBinding.inflate(inflater, container, false)
         val linearLayoutManager = LinearLayoutManager(activity)
-        binding.rvWithdrawalHistory.layoutManager = linearLayoutManager
-        withdrawalList()
+        binding.levelOneRecyclerView.layoutManager = linearLayoutManager
+        reportOneList()
         return binding.root
     }
-    private fun withdrawalList() {
+
+
+    private fun reportOneList() {
         val reports = listOf(
-            Withdrawal("0", "52", "12/02/2022"),
-            Withdrawal("1", "456", "12/02/2022"),
-            Withdrawal("2", "52", "12/02/2022"),
-            Withdrawal("0", "154", "12/02/2022"),
+            Report("Arun", "7082913155", "12/02/2022"),
+            Report("ajay", "7082913155", "12/02/2022"),
+            Report("Tamil", "7082913155", "12/02/2022"),
+            Report("Abcd", "7082913155", "12/02/2022"),
         )
-        val withdrawalArraylist = ArrayList(reports)
+        val reportsArrayList = ArrayList(reports)
 
 
-        withdrawalAdapter = WithdrawalAdapter(requireActivity(), withdrawalArraylist)
-        binding.rvWithdrawalHistory.setAdapter(withdrawalAdapter)
+        reportAdapter = ReportAdapter(requireActivity(), reportsArrayList)
+        binding.levelOneRecyclerView.setAdapter(reportAdapter)
 
 //
 //        val params : HashMap<String,String> = hashMapOf()
@@ -91,5 +76,4 @@ lateinit var withdrawalAdapter: WithdrawalAdapter
 //            }
 //        }, requireActivity(), "https://abcd.graymatterworks.com/api/"+ Constant.TRNSACTION_LIST_URL, params, true)
     }
-
 }
