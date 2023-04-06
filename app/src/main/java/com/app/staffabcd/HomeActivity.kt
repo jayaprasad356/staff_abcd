@@ -1,5 +1,6 @@
 package com.app.staffabcd
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
@@ -10,6 +11,7 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.app.staffabcd.databinding.ActivityHomeBinding
 import com.app.staffabcd.fragments.*
+import com.app.staffabcd.helper.Constant
 import com.google.android.material.navigation.NavigationView
 
 class HomeActivity : AppCompatActivity() {
@@ -32,7 +34,8 @@ class HomeActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction().replace(container.id, HomeFragment()).commit()
         navView.setCheckedItem(R.id.nav_home)
         val toolbar: androidx.appcompat.widget.Toolbar = binding.toolbar
-        showFillDocumentPopup(toolbar)
+        if (!Constant.DEBUG)
+            showFillDocumentPopup(toolbar)
 
         toolbar.setTitle(R.string.home)
         setSupportActionBar(toolbar)
@@ -90,6 +93,20 @@ class HomeActivity : AppCompatActivity() {
                     drawerLayout.closeDrawer(GravityCompat.START)
                     true
                 }
+                R.id.nav_applyLeave -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(container.id, ApplyLeaveFragment()).commit()
+                    toolbar.setTitle(R.string.apply_leave)
+                    drawerLayout.closeDrawer(GravityCompat.START)
+                    true
+                }
+                R.id.nav_adv_salary -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(container.id, AdvanceSalaryFragment()).commit()
+                    toolbar.setTitle(R.string.adv_salary)
+                    drawerLayout.closeDrawer(GravityCompat.START)
+                    true
+                }
                 R.id.nav_logout -> {
                     logout()
                     drawerLayout.closeDrawer(GravityCompat.START)
@@ -133,6 +150,10 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun logout() {
+        // Clear all the shared preferences data
+        val sharedPreferences = getSharedPreferences("staffabcd", Context.MODE_PRIVATE)
+        sharedPreferences.edit().clear().apply()
+
         finishAffinity()
     }
 }

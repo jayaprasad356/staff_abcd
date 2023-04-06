@@ -29,6 +29,14 @@
         android:icon="@drawable/ic_withdrawal"
         android:title="@string/transaction" />
     <item
+        android:id="@+id/nav_adv_salary"
+        android:icon="@drawable/ic_withdrawal"
+        android:title="@string/adv_salary" />
+    <item
+        android:id="@+id/nav_applyLeave"
+        android:icon="@drawable/ic_withdrawal"
+        android:title="@string/apply_leave" />
+    <item
         android:id="@+id/nav_logout"
         android:icon="@drawable/ic_logout"
         android:title="Logout" />

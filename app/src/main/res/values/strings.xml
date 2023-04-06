@@ -11,10 +11,21 @@
     <string name="withdrawal">Withdrawal</string>
     <string name="documents">Documents</string>
     <string name="transaction">Transaction</string>
+    <string name="apply_leave">Apply Leave</string>
+    <string name="adv_salary">Advance Salary</string>
     <string name="report">Report</string>
     <string name="update">Update</string>
     <string name="email_error">Please enter a Valid Email </string>
     <string name="mobile_error">Please enter a Valid Mobile Number </string>
     <string name="pass_empty">Please enter a Valid Password </string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
 
 </resources>

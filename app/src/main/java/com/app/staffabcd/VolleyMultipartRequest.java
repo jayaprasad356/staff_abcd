@@ -11,6 +11,8 @@ import com.android.volley.toolbox.HttpHeaderParser;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.Map;
@@ -242,14 +244,24 @@ public class VolleyMultipartRequest extends Request<NetworkResponse> {
          * Constructor with mime data type.
          *
          * @param name     label of data
-         * @param data     byte data
+         * @param filePath     filepath
          * @param mimeType mime data like "image/jpeg"
          */
-        public DataPart(String name, byte[] data, String mimeType) {
+        public DataPart(String name, String filePath, String mimeType) {
             fileName = name;
-            content = data;
             type = mimeType;
+
+            // Read the file into a byte array
+            try {
+                FileInputStream fileInputStream = new FileInputStream(new File(filePath));
+                content = new byte[fileInputStream.available()];
+                fileInputStream.read(content);
+                fileInputStream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
+
 
         /**
          * Getter file name.

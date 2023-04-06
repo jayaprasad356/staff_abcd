@@ -187,6 +187,7 @@
         android:weightSum="2">
 
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cvIncentive"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_10sdp"
@@ -243,6 +244,7 @@
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cvSalary"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_10sdp"
@@ -310,6 +312,7 @@
         android:weightSum="2">
 
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cvJoining"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_10sdp"
@@ -367,6 +370,7 @@
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cvLead"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_10sdp"

@@ -17,6 +17,8 @@ public class Constant {
     public static final String STAFFS_SIGNUP = BaseUrl + "staffs_signup.php";
     public static final String STAFFS_LOGIN = BaseUrl + "staffs_login.php";
     public static final String PASSWORD = "password";
+    public static final String JOIN_DATE = "join_date";
+
 
 
     public static final String TRNSACTION_LIST_URL = "https://abcd.graymatterworks.com/api/transaction_lists.php";
@@ -25,6 +27,8 @@ public class Constant {
     public static final String ID = "id";
     public static final String SUCCESS = "success";
     public static final String MESSAGE = "message";
+    public static final String IS_LOGIN = "is_login";
+
 
     public static final String DATA = "data";
 

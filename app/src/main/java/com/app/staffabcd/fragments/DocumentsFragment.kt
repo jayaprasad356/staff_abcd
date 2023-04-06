@@ -26,9 +26,7 @@ import com.app.staffabcd.helper.Session
 import org.apache.commons.io.IOUtils
 import org.json.JSONException
 import org.json.JSONObject
-import java.io.File
-import java.io.IOException
-import java.io.InputStream
+import java.io.*
 
 
 class DocumentsFragment : Fragment() {
@@ -41,6 +39,7 @@ class DocumentsFragment : Fragment() {
     var certificateFileBytes: ByteArray? = null
     lateinit var session: Session
 
+     val REQUEST_CODE_SELECT_IMAGE_FILE = 1001
 
     lateinit var aadhar: Uri
     lateinit var resume: Uri
@@ -73,7 +72,7 @@ class DocumentsFragment : Fragment() {
         }
         binding.rlPhoto.setOnClickListener {
             tapped = "photo"
-            selectPdfFile()
+            selectImageFile()
         }
         binding.rlEduCirtifi.setOnClickListener {
             tapped = "cirtificate"
@@ -89,6 +88,12 @@ class DocumentsFragment : Fragment() {
         intent.type = "application/pdf"
         val chooseFileIntent = Intent.createChooser(intent, "Choose a PDF file")
         startActivityForResult(chooseFileIntent, REQUEST_CODE_SELECT_PDF_FILE)
+    }
+    private fun selectImageFile() {
+        val intent = Intent(Intent.ACTION_GET_CONTENT)
+        intent.type = "image/*"
+        val chooseFileIntent = Intent.createChooser(intent, "Choose an image file")
+        startActivityForResult(chooseFileIntent, REQUEST_CODE_SELECT_IMAGE_FILE)
     }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -106,12 +111,6 @@ class DocumentsFragment : Fragment() {
                     binding.ivResume.visibility = View.VISIBLE
                     binding.rlResume.visibility= View.GONE
                 }
-                if (tapped.equals("photo")) {
-                    //val filePath: String? = getRealPathFromUri(requireContext(), uri)
-                    photo = uri
-                    binding.ivPhoto.visibility = View.VISIBLE
-                    binding.rlPhoto.visibility= View.GONE
-                }
                 if (tapped.equals("cirtificate")) {
                     val filePath: String? = getRealPathFromUri(requireContext(), uri)
                     eduCirtificate = uri
@@ -119,6 +118,15 @@ class DocumentsFragment : Fragment() {
                     binding.rlEduCirtifi.visibility= View.GONE
                 }
                 // Do something with the selected PDF file
+            }
+        }else if (requestCode == REQUEST_CODE_SELECT_IMAGE_FILE && resultCode == Activity.RESULT_OK && data != null) {
+            val uri = data.data
+            if (uri != null) {
+                if (tapped.equals("photo")) {
+                    photo = uri
+                    binding.ivPhoto.visibility = View.VISIBLE
+                    binding.rlPhoto.visibility= View.GONE
+                }
             }
         }
     }
@@ -238,21 +246,23 @@ class DocumentsFragment : Fragment() {
         val cR: ContentResolver = requireActivity().contentResolver
 
 
+        // Get file paths
+        val aadharPath = aadharUri.path
+        val resumePath = resumeUri.path
+        val photoPath = photoUri.path
+        val certificatePath = cirtificatURi.path
+
+// Get content types
         val aadharType = cR.getType(aadharUri)
-        val aadgarFile = File(aadharUri.path)
-        val aadharName = aadgarFile.name
-
         val resumeType = cR.getType(resumeUri)
-        val resumeFile = File(resumeUri.path)
-        val resumeName = resumeFile.name
-
         val photoType = cR.getType(photoUri)
-        val photoFile = File(photoUri.path)
-        val photoName = photoFile.name
+        val certificateType = cR.getType(cirtificatURi)
 
-        val cirtificateType = cR.getType(cirtificatURi)
-        val cirtificateFile = File(cirtificatURi.path)
-        val cirtificateName = cirtificateFile.name
+// Create File objects
+        val aadharFile = File(aadharPath)
+        val resumeFile = File(resumePath)
+        val photoFile = File(photoPath)
+        val certificateFile = File(certificatePath)
 
 
         val url: String = "https://demoabcd.graymatterworks.com/api/staffs_document.php"
@@ -324,14 +334,25 @@ class DocumentsFragment : Fragment() {
 
             override fun getByteData(): Map<String, DataPart> {
                 val params: MutableMap<String, DataPart> = HashMap()
-                params[Constant.AADHAR_CARD] = DataPart(aadharName, aadharFileBytes, aadharType)
-                params[Constant.RESUME] = DataPart(resumeName, resumeFileBytes, resumeType)
-                params[Constant.PHOTO] = DataPart(photoName, photoFileBytes, photoType)
-                params[Constant.EDUCATION_CERTIFICATE] = DataPart(cirtificateName, certificateFileBytes, cirtificateType)
+                params[Constant.AADHAR_CARD] = DataPart(aadharFile.name, aadharFile.toString(), aadharType)
+
+
+                params[Constant.RESUME] = DataPart(resumeFile.name, resumeFile.toString(), resumeType)
+
+                // Create a File object from photoFile path
+                val photoFileObject = File(photoPath)
+                params[Constant.PHOTO] = DataPart(photoFileObject.name, photoFileObject.toString(), photoType)
+
+
+                params[Constant.EDUCATION_CERTIFICATE] = DataPart(certificateFile.name, certificateFile.toString(), certificateType)
                 return params
             }
+
+
 
         }
         VolleySingleton.getInstance(requireContext()).addToRequestQueue(multipartRequest)
     }
+
+
 }

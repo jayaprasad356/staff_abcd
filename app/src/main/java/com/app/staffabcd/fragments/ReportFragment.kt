@@ -12,8 +12,9 @@ import com.app.staffabcd.databinding.FragmentReportBinding
 
 class ReportFragment : Fragment() {
 
-lateinit var binding: FragmentReportBinding
+    lateinit var binding: FragmentReportBinding
     var viewPagerAdapter: ViewPagerAdapter? = null
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

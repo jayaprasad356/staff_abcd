@@ -1,17 +1,14 @@
 package com.app.staffabcd.fragments
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import com.app.staffabcd.HomeActivity
 import com.app.staffabcd.R
 import com.app.staffabcd.Utils
 import com.app.staffabcd.databinding.FragmentProfileBinding
-import com.app.staffabcd.databinding.FragmentWithdrawalBinding
 import com.app.staffabcd.helper.ApiConfig
 import com.app.staffabcd.helper.Constant
 import com.app.staffabcd.helper.Session

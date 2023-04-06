@@ -23,6 +23,9 @@
         android:theme="@style/Theme.StaffAbcd"
         tools:targetApi="31">
         <activity
+            android:name=".activitys.ForgotPasswordActivity"
+            android:exported="false" />
+        <activity
             android:name=".activitys.OtpActivity"
             android:exported="false" />
         <activity

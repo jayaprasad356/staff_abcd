@@ -6,6 +6,7 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.app.staffabcd.activitys.ForgotPasswordActivity
 import com.app.staffabcd.databinding.ActivityLoginBinding
 import com.app.staffabcd.helper.ApiConfig
 import com.app.staffabcd.helper.Constant
@@ -43,7 +44,10 @@ class LoginActivity : AppCompatActivity() {
             val intent = Intent(this, RegistrationActivity::class.java)
             startActivity(intent)
         }
-
+        binding.tvForgotPassword.setOnClickListener {
+            val intent = Intent(this, ForgotPasswordActivity::class.java)
+            startActivity(intent)
+        }
         return setContentView(binding.root)
 
     }
@@ -88,6 +92,7 @@ class LoginActivity : AppCompatActivity() {
                         session.setData(Constant.BANK_NAME,data.getJSONObject(0).getString(Constant.BANK_NAME))
                         session.setData(Constant.IFSC_CODE,data.getJSONObject(0).getString(Constant.IFSC_CODE))
                         session.setData(Constant.MOBILE,data.getJSONObject(0).getString(Constant.MOBILE))
+                        session.setBoolean(Constant.IS_LOGIN,true)
                         val intent = Intent(this, HomeActivity::class.java)
                         startActivity(intent)
                         finish()
