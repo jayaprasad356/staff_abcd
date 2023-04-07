@@ -74,7 +74,7 @@ class HomeActivity : AppCompatActivity() {
                 }
                 R.id.nav_documents -> {
                     supportFragmentManager.beginTransaction()
-                        .replace(container.id, DocumentsFragment()).commit()
+                        .replace(container.id, DocumentFragment()).commit()
                     toolbar.setTitle(R.string.documents)
                     drawerLayout.closeDrawer(GravityCompat.START)
                     true
@@ -125,7 +125,7 @@ class HomeActivity : AppCompatActivity() {
         builder.setMessage("Do you want to upload a document now?")
         builder.setPositiveButton("OK") { dialog, which ->
             supportFragmentManager.beginTransaction()
-                .replace(container.id, DocumentsFragment()).commit()
+                .replace(container.id, DocumentFragment()).commit()
             toolbar.setTitle(R.string.documents)
             drawerLayout.closeDrawer(GravityCompat.START)
             true

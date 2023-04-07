@@ -86,22 +86,28 @@ public class VolleyMultiPartRequest extends Request<String> {
             for (String key : mFileUploads.keySet()) {
                 writeFirstBoundary();
 
-                File file = new File(Objects.requireNonNull(mFileUploads.get(key)));
-                final String type = "Content-Type: application/octet-stream" + lineEnd;
-                dos.writeBytes(type);
-                String fileName = file.getName();
-                dos.writeBytes("Content-Disposition: form-data; name=\"" + key + "\"; filename=\"" + URLEncoder.encode(fileName, "UTF-8") + "\"" + lineEnd);
-                dos.writeBytes("Content-Transfer-Encoding: binary\r\n\r\n");
+                String filePath = mFileUploads.get(key);
+                if (filePath != null) {
+                    File file = new File(filePath);
+                    final String type = "Content-Type: application/octet-stream" + lineEnd;
+                    dos.writeBytes(type);
+                    String fileName = file.getName();
+                    dos.writeBytes("Content-Disposition: form-data; name=\"" + key + "\"; filename=\"" + URLEncoder.encode(fileName, "UTF-8") + "\"" + lineEnd);
+                    dos.writeBytes("Content-Transfer-Encoding: binary\r\n\r\n");
 
-                FileInputStream fin = new FileInputStream(file);
-                final byte[] tmp = new byte[4096];
-                int len;
-                while ((len = fin.read(tmp)) != -1) {
-                    mOutputStream.write(tmp, 0, len);
+                    FileInputStream fin = new FileInputStream(file);
+                    final byte[] tmp = new byte[4096];
+                    int len;
+                    while ((len = fin.read(tmp)) != -1) {
+                        mOutputStream.write(tmp, 0, len);
+                    }
+                    fin.close();
+                    dos.writeBytes(lineEnd);
+                } else {
+                    // handle the case where the file path is null
                 }
-                fin.close();
-                dos.writeBytes(lineEnd);
             }
+
 
             // populate data byte payload
             Map<String, ArrayList<DataPart>> data = getByteData();
