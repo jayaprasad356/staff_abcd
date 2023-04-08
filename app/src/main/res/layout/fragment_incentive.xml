@@ -20,17 +20,6 @@
             android:textColor="@color/black"
             android:text="Date"/>
 
-
-        <TextView
-            android:id="@+id/tvJoining"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:textSize="@dimen/_14sdp"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:layout_height="wrap_content"
-            android:text="Joining"/>
         <TextView
             android:id="@+id/tvLead"
             android:layout_width="0dp"
@@ -41,6 +30,17 @@
             android:textColor="@color/black"
             android:layout_height="wrap_content"
             android:text="Lead"/>
+        <TextView
+            android:id="@+id/tvJoining"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textSize="@dimen/_14sdp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_height="wrap_content"
+            android:text="Joining"/>
+
         <TextView
             android:id="@+id/tvEarning"
             android:layout_width="0dp"

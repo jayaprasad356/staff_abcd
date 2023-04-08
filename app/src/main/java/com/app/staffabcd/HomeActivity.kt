@@ -1,26 +1,42 @@
 package com.app.staffabcd
 
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.FrameLayout
+import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.app.staffabcd.databinding.ActivityHomeBinding
+import com.app.staffabcd.databinding.NavHeaderBinding
 import com.app.staffabcd.fragments.*
+import com.app.staffabcd.helper.ApiConfig
 import com.app.staffabcd.helper.Constant
+import com.app.staffabcd.helper.Session
 import com.google.android.material.navigation.NavigationView
+import org.json.JSONException
+import org.json.JSONObject
 
 class HomeActivity : AppCompatActivity() {
     lateinit var binding: ActivityHomeBinding
     lateinit var drawerLayout: DrawerLayout
     lateinit var container: FrameLayout
+    lateinit var session: Session
+    lateinit var navView: NavigationView
+    lateinit var navHeaderBinding: NavHeaderBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
+        navHeaderBinding = NavHeaderBinding.bind(binding.navView.getHeaderView(0))
+
+        session = Session(this)
+
+        staffDetails()
 
         // Initialize the drawer layout and toggle button
         drawerLayout = binding.drawerLayout
@@ -28,14 +44,17 @@ class HomeActivity : AppCompatActivity() {
         val toggle = ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close)
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
+        navHeaderBinding.navHeaderEmail.text=session.getData(Constant.EMAIL)
+        navHeaderBinding.navHeaderName.text=session.getData(Constant.FIRST_NAME)
 
         // Initialize the navigation view and set the item selected listener
-        val navView: NavigationView = binding.navView
-        supportFragmentManager.beginTransaction().replace(container.id, HomeFragment()).commit()
-        navView.setCheckedItem(R.id.nav_home)
+        navView = binding.navView
+
         val toolbar: androidx.appcompat.widget.Toolbar = binding.toolbar
-        if (!Constant.DEBUG)
-            showFillDocumentPopup(toolbar)
+        if (!Constant.DEBUG) {
+            if (!(session.getData(Constant.DOCUMENT_UPLOAD).toString().equals("1")))
+                showFillDocumentPopup(toolbar)
+        }
 
         toolbar.setTitle(R.string.home)
         setSupportActionBar(toolbar)
@@ -117,6 +136,95 @@ class HomeActivity : AppCompatActivity() {
 
         }
         return setContentView(binding.root)
+    }
+
+    private fun staffDetails() {
+        val params: HashMap<String, String> = hashMapOf()
+        params.apply {
+            this[Constant.STAFF_ID] = session.getData(Constant.STAFF_ID)
+        }
+        ApiConfig.RequestToVolley({ result, response ->
+            if (result) {
+                try {
+                    val jsonObject = JSONObject(response)
+                    if (jsonObject.getBoolean(Constant.SUCCESS)) {
+                        Toast.makeText(
+                            this, jsonObject.getString(Constant.MESSAGE).toString(),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        val message = jsonObject.getString("message")
+                        val documentUpload = jsonObject.getInt("document_upload")
+                        val salary = jsonObject.getString("salary")
+                        val incentiveEarn = jsonObject.getString("incentive_earn")
+                        val totalEarnings = jsonObject.getInt("total_earnings")
+                        val totalLeads = jsonObject.getString("total_leads")
+                        val totalJoinings = jsonObject.getString("total_joinings")
+
+                        session.setData(Constant.DOCUMENT_UPLOAD, documentUpload.toString())
+                        session.setData(Constant.SALARY, salary)
+                        session.setData(Constant.INCENTIVE_EARN, incentiveEarn)
+                        session.setData(Constant.TOTAL_EARNINGS, totalEarnings.toString())
+                        session.setData(Constant.TOTAL_LEADS, totalLeads)
+                        session.setData(Constant.TOTAL_JOININGS, totalJoinings)
+
+                        val userData: JSONObject =
+                            jsonObject.getJSONArray(Constant.DATA).getJSONObject(0)
+                        session.setData(Constant.ID, userData.getString(Constant.ID))
+                        session.setData(
+                            Constant.FIRST_NAME,
+                            userData.getString(Constant.FIRST_NAME)
+                        )
+                        session.setData(Constant.LAST_NAME, userData.getString(Constant.LAST_NAME))
+                        session.setData(Constant.EMAIL, userData.getString(Constant.EMAIL))
+                        session.setData(Constant.PASSWORD, userData.getString(Constant.PASSWORD))
+                        session.setData(Constant.MOBILE, userData.getString(Constant.MOBILE))
+                        session.setData(
+                            Constant.BANK_ACCOUNT_NUMBER,
+                            userData.getString(Constant.BANK_ACCOUNT_NUMBER)
+                        )
+                        session.setData(Constant.IFSC_CODE, userData.getString(Constant.IFSC_CODE))
+                        session.setData(Constant.BANK_NAME, userData.getString(Constant.BANK_NAME))
+                        session.setData(Constant.BRANCH, userData.getString(Constant.BRANCH))
+                        session.setData(
+                            Constant.AADHAR_CARD,
+                            userData.getString(Constant.AADHAR_CARD)
+                        )
+                        session.setData(Constant.RESUME, userData.getString(Constant.RESUME))
+                        session.setData(Constant.PHOTO, userData.getString(Constant.PHOTO))
+                        session.setData(
+                            Constant.EDUCATION_CERTIFICATE,
+                            userData.getString(Constant.EDUCATION_CERTIFICATE)
+                        )
+                        session.setData(Constant.JOIN_DATE, userData.getString(Constant.JOIN_DATE))
+                        session.setData(
+                            Constant.SALARY_DATE,
+                            userData.getString(Constant.SALARY_DATE)
+                        )
+                        session.setData(Constant.BRANCH_ID, userData.getString(Constant.BRANCH_ID))
+                        session.setData(Constant.ROLE, userData.getString(Constant.ROLE))
+                        session.setData(Constant.BALANCE, userData.getString(Constant.BALANCE))
+                        session.setData(Constant.STATUS, userData.getString(Constant.STATUS))
+                        session.setData(
+                            Constant.STAFF_DISPLAY_ID,
+                            userData.getString(Constant.STAFF_ID)
+                        )
+
+                        supportFragmentManager.beginTransaction().replace(container.id, HomeFragment()).commit()
+                        navView.setCheckedItem(R.id.nav_home)
+                        // extract other values as needed
+                    } else {
+                        Toast.makeText(
+                            this, jsonObject.getString(Constant.MESSAGE).toString(),
+                            Toast.LENGTH_SHORT
+                        ).show()
+
+                    }
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                }
+            }
+        }, this, Constant.STAFFS_DETAILS, params, true)
+
     }
 
     private fun showFillDocumentPopup(toolbar: androidx.appcompat.widget.Toolbar) {

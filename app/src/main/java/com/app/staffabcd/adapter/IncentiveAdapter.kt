@@ -29,9 +29,9 @@ class IncentiveAdapter(val activity: Activity, wallets: ArrayList<Incentive>) :
         val holder:ItemHolder = holderParent as ItemHolder
         val report: Incentive = reports[position]
         holder.date.text=report.date
-        holder.earning.text=report.earning
-        holder.lead.text=report.lead
-        holder.joining.text=report.joining
+        holder.earning.text="₹ "+report.incentives
+        holder.lead.text=report.total_leads
+        holder.joining.text=report.total_joinings
 
 
     }

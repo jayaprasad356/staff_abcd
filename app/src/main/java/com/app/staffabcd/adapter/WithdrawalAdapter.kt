@@ -39,7 +39,7 @@ class WithdrawalAdapter (
             holder.tvStatus.text = "Pending"
             holder.tvStatus.setTextColor(activity.resources.getColor(R.color.primary))
         }
-        else if (withdrawal.status=="1") {
+        else if (withdrawal.status=="paid") {
             holder.tvStatus.text = "Approved"
             holder.tvStatus.setTextColor(activity.resources.getColor(R.color.green))
         }

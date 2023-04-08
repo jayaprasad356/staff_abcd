@@ -1,5 +1,6 @@
 package com.app.staffabcd
 
+import android.R.attr
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -11,10 +12,9 @@ import com.app.staffabcd.databinding.ActivityLoginBinding
 import com.app.staffabcd.helper.ApiConfig
 import com.app.staffabcd.helper.Constant
 import com.app.staffabcd.helper.Session
-import com.google.gson.Gson
-import com.google.gson.JsonObject
 import org.json.JSONException
 import org.json.JSONObject
+
 
 class LoginActivity : AppCompatActivity() {
     lateinit var binding: ActivityLoginBinding
@@ -85,13 +85,30 @@ class LoginActivity : AppCompatActivity() {
                             Toast.LENGTH_SHORT).show()
 
                         val data = jsonObject.getJSONArray("data")
-                        session.setData(Constant.STAFF_ID,data.getJSONObject(0).getString(Constant.ID))
-                        session.setData(Constant.FIRST_NAME,data.getJSONObject(0).getString(Constant.FIRST_NAME))
-                        session.setData(Constant.EMAIL,data.getJSONObject(0).getString(Constant.EMAIL))
-                        session.setData(Constant.BANK_ACCOUNT_NUMBER,data.getJSONObject(0).getString(Constant.BANK_ACCOUNT_NUMBER))
-                        session.setData(Constant.BANK_NAME,data.getJSONObject(0).getString(Constant.BANK_NAME))
-                        session.setData(Constant.IFSC_CODE,data.getJSONObject(0).getString(Constant.IFSC_CODE))
-                        session.setData(Constant.MOBILE,data.getJSONObject(0).getString(Constant.MOBILE))
+
+                        val userData: JSONObject = data.getJSONObject(0)
+                        session.setData(Constant.STAFF_ID, userData.getString(Constant.ID))
+                        session.setData(Constant.FIRST_NAME, userData.getString(Constant.FIRST_NAME))
+                        session.setData(Constant.LAST_NAME, userData.getString(Constant.LAST_NAME))
+                        session.setData(Constant.EMAIL, userData.getString(Constant.EMAIL))
+                        session.setData(Constant.PASSWORD, userData.getString(Constant.PASSWORD))
+                        session.setData(Constant.MOBILE, userData.getString(Constant.MOBILE))
+                        session.setData(Constant.BANK_ACCOUNT_NUMBER, userData.getString(Constant.BANK_ACCOUNT_NUMBER))
+                        session.setData(Constant.IFSC_CODE, userData.getString(Constant.IFSC_CODE))
+                        session.setData(Constant.BANK_NAME, userData.getString(Constant.BANK_NAME))
+                        session.setData(Constant.BRANCH, userData.getString(Constant.BRANCH))
+                        session.setData(Constant.AADHAR_CARD, userData.getString(Constant.AADHAR_CARD))
+                        session.setData(Constant.RESUME, userData.getString(Constant.RESUME))
+                        session.setData(Constant.PHOTO, userData.getString(Constant.PHOTO))
+                        session.setData(Constant.EDUCATION_CERTIFICATE, userData.getString(Constant.EDUCATION_CERTIFICATE))
+                        session.setData(Constant.JOIN_DATE, userData.getString(Constant.JOIN_DATE))
+                        session.setData(Constant.SALARY_DATE, userData.getString(Constant.SALARY_DATE))
+                        session.setData(Constant.BRANCH_ID, userData.getString(Constant.BRANCH_ID))
+                        session.setData(Constant.ROLE, userData.getString(Constant.ROLE))
+                        session.setData(Constant.BALANCE, userData.getString(Constant.BALANCE))
+                        session.setData(Constant.STATUS, userData.getString(Constant.STATUS))
+                        session.setData(Constant.STAFF_DISPLAY_ID, userData.getString(Constant.STAFF_ID))
+
                         session.setBoolean(Constant.IS_LOGIN,true)
                         val intent = Intent(this, HomeActivity::class.java)
                         startActivity(intent)

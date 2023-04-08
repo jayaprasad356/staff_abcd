@@ -2,26 +2,23 @@ package com.app.staffabcd.model
 
 class Transanction {
     var id: String? = null
-    var user_id: String? = null
-    var codes: String? = null
+    var staff_id: String? = null
     var amount: String? = null
-    var datetime: String? = null
+    var date: String? = null
     var type: String? = null
 
     constructor() {}
     constructor(
         id: String?,
-        user_id: String?,
-        codes: String?,
+        staff_id: String?,
         amount: String?,
-        datetime: String?,
+        date: String?,
         type: String?
     ) {
         this.id = id
-        this.user_id = user_id
-        this.codes = codes
+        this.staff_id = staff_id
         this.amount = amount
-        this.datetime = datetime
+        this.date = date
         this.type = type
     }
 }

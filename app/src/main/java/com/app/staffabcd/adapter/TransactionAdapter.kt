@@ -26,23 +26,12 @@ class TransactionAdapter(val activity: Activity, wallets: ArrayList<Transanction
     }
 
     override fun onBindViewHolder(holderParent: RecyclerView.ViewHolder, position: Int) {
-        val holder:ItemHolder = holderParent as ItemHolder
-        val wallet: Transanction = wallets[position]
-        if (wallet.type.equals("refer_bonus")) {
-            holder.tvTitle.setText("Refer bonus added by admin")
-        } else if (wallet.type.equals("code_bonus")) {
-            holder.tvTitle.setText(wallet.codes + " Codes added by admin")
-        } else if (wallet.type.equals("register_bonus")) {
-            holder.tvTitle.setText(wallet.codes + " Codes added by admin")
-        } else if (wallet.type.equals("cancelled")) {
-            holder.tvTitle.setText("Cancelled withdrawal amount credited")
-        } else if (wallet.type.equals("admin_credit_balance")) {
-            holder.tvTitle.setText("Amount credited by admin")
-        } else {
-            holder.tvTitle.setText("Amount credited For Qr Code")
-        }
-        holder.tvDateTime.setText(wallet.datetime)
-        holder.tvAmount.setText("+ ₹" + wallet.amount)
+        val holder: ItemHolder = holderParent as ItemHolder
+        val transanction: Transanction = wallets[position]
+        holder.tvTitle.text = transanction.type
+
+        holder.tvDateTime.setText(transanction.date).toString()
+        holder.tvAmount.setText("+ ₹" + transanction.amount)
     }
 
     override fun getItemCount(): Int {
