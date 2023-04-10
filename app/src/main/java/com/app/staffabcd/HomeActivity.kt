@@ -28,6 +28,7 @@ class HomeActivity : AppCompatActivity() {
     lateinit var session: Session
     lateinit var navView: NavigationView
     lateinit var navHeaderBinding: NavHeaderBinding
+    val toolbar: androidx.appcompat.widget.Toolbar by lazy { binding.toolbar }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,11 +51,6 @@ class HomeActivity : AppCompatActivity() {
         // Initialize the navigation view and set the item selected listener
         navView = binding.navView
 
-        val toolbar: androidx.appcompat.widget.Toolbar = binding.toolbar
-        if (!Constant.DEBUG) {
-            if (!(session.getData(Constant.DOCUMENT_UPLOAD).toString().equals("1")))
-                showFillDocumentPopup(toolbar)
-        }
 
         toolbar.setTitle(R.string.home)
         setSupportActionBar(toolbar)
@@ -208,6 +204,10 @@ class HomeActivity : AppCompatActivity() {
                             Constant.STAFF_DISPLAY_ID,
                             userData.getString(Constant.STAFF_ID)
                         )
+                        if (!Constant.DEBUG) {
+                            if (!(session.getData(Constant.DOCUMENT_UPLOAD).toString().equals("1")))
+                                showFillDocumentPopup(toolbar)
+                        }
 
                         supportFragmentManager.beginTransaction().replace(container.id, HomeFragment()).commit()
                         navView.setCheckedItem(R.id.nav_home)

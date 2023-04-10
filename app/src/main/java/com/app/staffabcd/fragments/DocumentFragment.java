@@ -18,6 +18,8 @@ import androidx.fragment.app.Fragment;
 
 import android.provider.MediaStore;
 import android.provider.OpenableColumns;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,6 +35,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
 import com.app.staffabcd.VolleyMultipartRequest;
+import com.app.staffabcd.databinding.FragmentDocumentBinding;
 import com.app.staffabcd.databinding.FragmentDocumentsBinding;
 import com.app.staffabcd.helper.ApiConfig;
 import com.app.staffabcd.helper.Constant;
@@ -52,27 +55,19 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class DocumentFragment extends Fragment {
-    FragmentDocumentsBinding binding;
+    FragmentDocumentBinding binding;
     Session session;
     String tapped = "";
     private RequestQueue rQueue;
     private ArrayList<HashMap<String, String>> arraylist;
 
 
-
     static int PICK_FILE_REQUEST = 1;
-    byte[] aaadharBytes = null;
-    byte[] resumeBytes = null;
-
-    byte[] photoBytes = null;
-
-    byte[] certificateBytes = null;
-
 
     Uri aadhar, resume, photo, eduCirtificate;
 
     public DocumentFragment() {
-        // Required empty public constructor
+
     }
 
 
@@ -80,23 +75,52 @@ public class DocumentFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        binding = FragmentDocumentsBinding.inflate(inflater, container, false);
+        binding = FragmentDocumentBinding.inflate(inflater, container, false);
         session = new Session(getActivity());
         requestStoragePermission();
+        binding.etSalaryDate.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+            }
 
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                // Do something after text is changed
+                String salaryDate = s.toString().trim();
+                if (!salaryDate.isEmpty()) {
+                    int dateNumber = Integer.parseInt(salaryDate);
+                    if (dateNumber < 1 || dateNumber > 31) {
+                        binding.etSalaryDate.setError("Please enter a number between 1 to 31");
+                    } else {
+                        binding.etSalaryDate.setError(null);
+                    }
+                } else {
+                    binding.etSalaryDate.setError("Please enter Salary Date");
+                }
+            }
+        });
+
+        initCall();
         binding.btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                processWithUri(aadhar,resume,eduCirtificate);
-              //  updateDocument(getActivity());
+                if (validateFields()) {
+                    processWithUri(aadhar, resume, eduCirtificate, photo);
+                }
+
 
             }
         });
 
-
-        // }
-
+        if (session.getData(Constant.DOCUMENT_UPLOAD).toString().equals("1")) {
+            notAllowUploadDoc();
+        }
 
         binding.rlAadhar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,7 +140,7 @@ public class DocumentFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 tapped = "photo";
-                selectPdfFile();
+                selectPhoto();
             }
         });
         binding.rlEduCirtifi.setOnClickListener(new View.OnClickListener() {
@@ -128,33 +152,72 @@ public class DocumentFragment extends Fragment {
         });
 
 
-        binding.etBank.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Create an Intent to open the file picker
-                Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
-                intent.addCategory(Intent.CATEGORY_OPENABLE);
-                intent.setType("*/*");
-
-// Start the file picker activity
-                startActivityForResult(intent, PICK_FILE_REQUEST);
-
-            }
-        });
+//        binding.etBank.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                // Create an Intent to open the file picker
+//                Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+//                intent.addCategory(Intent.CATEGORY_OPENABLE);
+//                intent.setType("*/*");
+//
+//// Start the file picker activity
+//                startActivityForResult(intent, PICK_FILE_REQUEST);
+//
+//            }
+//        });
 
 
         return binding.getRoot();
+    }
+
+    private void notAllowUploadDoc() {
+        binding.btnUpdate.setEnabled(false);
+        binding.ivResume.setVisibility(View.VISIBLE);
+        binding.rlResume.setVisibility(View.GONE);
+        binding.ivAadhar.setVisibility(View.VISIBLE);
+        binding.rlAadhar.setVisibility(View.GONE);
+        binding.ivCirtificate.setVisibility(View.VISIBLE);
+        binding.rlEduCirtifi.setVisibility(View.GONE);
+        binding.ivPhoto.setVisibility(View.VISIBLE);
+        binding.rlPhoto.setVisibility(View.GONE);
+        binding.etBank.setEnabled(false);
+        binding.etBankName.setEnabled(false);
+        binding.etBranch.setEnabled(false);
+        binding.etIfsc.setEnabled(false);
+        binding.etSalaryDate.setEnabled(false);
+        binding.etMobileFamilyTwo.setEnabled(false);
+        binding.etMobileFamily.setEnabled(false);
+
+    }
+
+    private void initCall() {
+        binding.etBank.setText(session.getData(Constant.BANK_ACCOUNT_NUMBER));
+        binding.etBankName.setText(session.getData(Constant.BANK_NAME));
+        binding.etIfsc.setText(session.getData(Constant.IFSC_CODE));
+        binding.etSalaryDate.setText(session.getData(Constant.SALARY_DATE));
+        binding.etBranch.setText(session.getData(Constant.BRANCH));
+        binding.etSalaryDate.setText(session.getData(Constant.SALARY_DATE));
+
+    }
+
+    private void selectPhoto() {
+        // Create an Intent to open the file picker
+        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        intent.setType("image/*");
+        startActivityForResult(intent, PICK_FILE_REQUEST);
+
     }
 
     public void selectPdfFile() {
         // Create an Intent to open the file picker
         Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
         intent.addCategory(Intent.CATEGORY_OPENABLE);
-        intent.setType("*/*");
-
+        intent.setType("application/pdf"); // Only allow PDF files
         // Start the file picker activity
         startActivityForResult(intent, PICK_FILE_REQUEST);
     }
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -204,231 +267,6 @@ public class DocumentFragment extends Fragment {
         }
     }
 
-//    private void saveProfileAccount(Uri aadharuri, Uri resumeUri, Uri photoUri, Uri eduCirtificateUri) {
-//
-//        try {
-//            InputStream aadharInputStream = getActivity().getContentResolver().openInputStream(aadharuri);
-//            InputStream resumeInputStream = getActivity().getContentResolver().openInputStream(resumeUri);
-//            InputStream photoInputStream = getActivity().getContentResolver().openInputStream(photoUri);
-//            InputStream eduCirtificateInputStream = getActivity().getContentResolver().openInputStream(eduCirtificateUri);
-//
-//
-//            aaadharBytes = IOUtils.toByteArray(aadharInputStream);
-//            resumeBytes = IOUtils.toByteArray(resumeInputStream);
-//            photoBytes = IOUtils.toByteArray(photoInputStream);
-//            certificateBytes = IOUtils.toByteArray(eduCirtificateInputStream);
-//
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        ContentResolver cR = getActivity().getContentResolver();
-//        String aadharMimeType = cR.getType(aadharuri);
-//        String resumeMimeType = cR.getType(resumeUri);
-//        String photoMimeType = cR.getType(photoUri);
-//        String eduCirtificateMimeType = cR.getType(eduCirtificateUri);
-//
-//
-//        File aadharFile = new File(aadharuri.getPath());
-//        File resumeFile = new File(resumeUri.getPath());
-//        File photoFile = new File(photoUri.getPath());
-//        File eduCirtificateFile = new File(eduCirtificateUri.getPath());
-//
-//
-//        String aadharName = aadharFile.getName();
-//        String resumeName = resumeFile.getName();
-//        String photoName = photoFile.getName();
-//        String eduCirtificateName = eduCirtificateFile.getName();
-//
-//
-//        String url = "https://demoabcd.graymatterworks.com/api/staffs_document.php";
-//        //String url = Constant.UPLOADATTACHMENT + session.getData(Constant.STUDENT_ID);
-//
-//        VolleyMultipartRequest multipartRequest = new VolleyMultipartRequest(Request.Method.POST, url, new Response.Listener<NetworkResponse>() {
-//            @Override
-//            public void onResponse(NetworkResponse response) {
-//                String resultResponse = new String(response.data);
-//                Log.d("RESPONSE", resultResponse);
-//                Toast.makeText(getActivity(), "" + resultResponse, Toast.LENGTH_SHORT).show();
-//                try {
-//                    JSONObject result = new JSONObject(resultResponse);
-//                    String status = result.getString("status");
-//                    String message = result.getString("message");
-//
-////                    if (status.equals(Constant.REQUEST_SUCCESS)) {
-////                        // tell everybody you have succed upload image and post strings
-////                        Log.i("Messsage", message);
-////                    } else {
-////                        Log.i("Unexpected", message);
-////                    }
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//                NetworkResponse networkResponse = error.networkResponse;
-//                String errorMessage = "Unknown error";
-//                if (networkResponse == null) {
-//                    if (error.getClass().equals(TimeoutError.class)) {
-//                        errorMessage = "Request timeout";
-//                    } else if (error.getClass().equals(NoConnectionError.class)) {
-//                        errorMessage = "Failed to connect server";
-//                    }
-//                } else {
-//                    String result = new String(networkResponse.data);
-//                    try {
-//                        JSONObject response = new JSONObject(result);
-//                        String status = response.getString("status");
-//                        String message = response.getString("message");
-//
-//                        Log.e("Error Status", status);
-//                        Log.e("Error Message", message);
-//
-//                        if (networkResponse.statusCode == 404) {
-//                            errorMessage = "Resource not found";
-//                        } else if (networkResponse.statusCode == 401) {
-//                            errorMessage = message + " Please login again";
-//                        } else if (networkResponse.statusCode == 400) {
-//                            errorMessage = message + " Check your inputs";
-//                        } else if (networkResponse.statusCode == 500) {
-//                            errorMessage = message + " Something is getting wrong";
-//                        }
-//                    } catch (JSONException e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//                Log.i("Error", errorMessage);
-//                error.printStackTrace();
-//            }
-//        }) {
-//            @Override
-//            protected Map<String, String> getParams() {
-//                Map<String, String> params = new HashMap<>();
-//                params.put(Constant.STAFF_ID, session.getData(Constant.STAFF_ID));
-//                params.put("salary_date", "21");
-//
-//                return params;
-//            }
-//
-//            @Override
-//            protected Map<String, DataPart> getByteData() {
-//                Map<String, DataPart> params = new HashMap<>();
-//                params.put(Constant.AADHAR_CARD, new DataPart(aadharName, aaadharBytes, aadharMimeType));
-//                params.put(Constant.RESUME, new DataPart(resumeName, resumeBytes, resumeMimeType));
-//                params.put(Constant.PHOTO, new DataPart(photoName, photoBytes, photoMimeType));
-//                params.put(Constant.EDUCATION_CERTIFICATE, new DataPart(eduCirtificateName, certificateBytes, eduCirtificateMimeType));
-//
-//                return params;
-//            }
-//        };
-//
-//        VolleySingleton.getInstance(getActivity()).addToRequestQueue(multipartRequest);
-//    }
-
-    //    private void saveProfileAccount(Uri aadharUri, Uri resumeUri, Uri photoUri, Uri eduCertificateUri) throws IOException {
-//
-//            // Get input streams for each file
-//            InputStream aadharInputStream = getActivity().getContentResolver().openInputStream(aadharUri);
-//            InputStream resumeInputStream = getActivity().getContentResolver().openInputStream(resumeUri);
-//            InputStream photoInputStream = getActivity().getContentResolver().openInputStream(photoUri);
-//            InputStream eduCertificateInputStream = getActivity().getContentResolver().openInputStream(eduCertificateUri);
-//
-//            // Read bytes from each input stream
-//            byte[] aadharBytes = IOUtils.toByteArray(aadharInputStream);
-//            byte[] resumeBytes = IOUtils.toByteArray(resumeInputStream);
-//            byte[] photoBytes = IOUtils.toByteArray(photoInputStream);
-//            byte[] certificateBytes = IOUtils.toByteArray(eduCertificateInputStream);
-//
-//            ContentResolver cR = getActivity().getContentResolver();
-//            String aadharPath = DocumentFile.fromSingleUri(getActivity(), aadharUri).getUri().getPath();
-//            String aadharMimeType = cR.getType(aadharUri);
-//
-//            String resumePath = DocumentFile.fromSingleUri(getActivity(), resumeUri).getUri().getPath();
-//
-//            String resumeMimeType = cR.getType(resumeUri);
-//
-//            String photoPath = DocumentFile.fromSingleUri(getActivity(), photoUri).getUri().getPath();
-//            String photoMimeType = cR.getType(photoUri);
-//
-//            String eduCertificatePath = DocumentFile.fromSingleUri(getActivity(), eduCertificateUri).getUri().getPath();
-//            String eduCertificateMimeType = cR.getType(eduCertificateUri);
-//
-//            // Create File objects from the file paths
-//            File aadharFile = new File(aadharPath);
-//            File resumeFile = new File(resumePath);
-//            File photoFile = new File(photoPath);
-//            File eduCertificateFile = new File(eduCertificatePath);
-//
-//            // Get the file names from the File objects
-//            String aadharName = aadharFile.getName();
-//            String resumeName = resumeFile.getName();
-//            String photoName = photoFile.getName();
-//            String eduCertificateName = eduCertificateFile.getName();
-//
-//            // Set up the multipart request
-//            String url = "https://demoabcd.graymatterworks.com/api/staffs_document.php";
-//            VolleyMultipartRequest multipartRequest = new VolleyMultipartRequest(Request.Method.POST, url, new Response.Listener<NetworkResponse>() {
-//                @Override
-//                public void onResponse(NetworkResponse response) {
-//                    String resultResponse = new String(response.data);
-//                    Log.d("RESPONSE", resultResponse);
-//                    Toast.makeText(getActivity(), "" + resultResponse, Toast.LENGTH_SHORT).show();
-//                    try {
-//                        JSONObject result = new JSONObject(resultResponse);
-//                        String status = result.getString("status");
-//                        String message = result.getString("message");
-//
-////                  if (status.equals(Constant.REQUEST_SUCCESS)) {
-////                      // tell everybody you have succed upload image and post strings
-////                      Log.i("Messsage", message);
-////                  } else {
-////                      Log.i("Unexpected", message);
-////                  }
-//                    } catch (JSONException e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//            }, new Response.ErrorListener() {
-//                @Override
-//                public void onErrorResponse(VolleyError error) {
-//                    // Handle error response
-//                }
-//            }) {
-//                @Override
-//                protected Map<String, String> getParams() {
-//                    Map<String, String> params = new HashMap<>();
-//                    params.put(Constant.STAFF_ID, session.getData(Constant.STAFF_ID));
-//                    params.put("salary_date", "21");
-//
-//                    return params;
-//                }
-//
-//
-//                @Override
-//                protected Map<String, > getByteData() {
-//                    Map<String, VolleyMultipartRequest.DataPart> params = new HashMap<>();
-//                    params.put(Constant.AADHAR_CARD, aadharName, aadharFile, aadharMimeType);
-//                    params.put(Constant.RESUME, new VolleyMultipartRequest.FilePart(resumeName, resumeFile, resumeMimeType));
-//                    params.put(Constant.PHOTO, new VolleyMultipartRequest.FilePart(photoName, photoFile, photoMimeType));
-//                    params.put(Constant.EDUCATION_CERTIFICATE, new VolleyMultipartRequest.FilePart(eduCertificateName, eduCertificateFile, eduCertificateMimeType));
-//                    return params;
-//                }
-//
-//
-//
-//            };
-//
-//            VolleySingleton.getInstance(getActivity()).addToRequestQueue(multipartRequest);
-//
-//    }
-//    private String getRealPathFromURI(Uri contentUri) {
-//        String[] proj = { MediaStore.Images.Media.DATA };
-//        Cursor cursor = getActivity().getContentResolver().query(contentUri, proj, null, null, null);
-//        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-//        cursor.moveToFirst();
-//        return cursor.getString(column_index);
-//    }
     public String getRealPathFromURI(Uri uri) {
         String path = null;
 
@@ -451,46 +289,43 @@ public class DocumentFragment extends Fragment {
     }
 
 
-
-    private void uploadPDF(final String aadharName, Uri aadharUriFile, final String resumeName, Uri resumeUriFile,final String eduCertificateName, Uri eduCertificateUriFile) {
+    private void uploadPDF(final String aadharName, Uri aadharUriFile, final String resumeName,
+                           Uri resumeUriFile, final String eduCertificateName, Uri eduCertificateUriFile, final String photoName, Uri photoUriFile) {
 
         InputStream aadharIStream = null;
         InputStream resumeIStream = null;
         InputStream eduCertificateIStream = null;
+        InputStream photoIStream = null;
         try {
 
             aadharIStream = getActivity().getContentResolver().openInputStream(aadharUriFile);
             final byte[] aadharInputData = getBytes(aadharIStream);
-            
+
             eduCertificateIStream = getActivity().getContentResolver().openInputStream(eduCertificateUriFile);
             final byte[] eduCertificateInputData = getBytes(eduCertificateIStream);
-            
+
             resumeIStream = getActivity().getContentResolver().openInputStream(resumeUriFile);
             final byte[] resumeInputData = getBytes(resumeIStream);
+
+            photoIStream = getActivity().getContentResolver().openInputStream(photoUriFile);
+            final byte[] photoInputData = getBytes(photoIStream);
 
             VolleyMultipartRequest volleyMultipartRequest = new VolleyMultipartRequest(Request.Method.POST, "https://demoabcd.graymatterworks.com/api/staffs_document.php",
                     new Response.Listener<NetworkResponse>() {
                         @Override
                         public void onResponse(NetworkResponse response) {
-                            Log.d("ressssssoo",new String(response.data));
+                            Log.d("ressssssoo", new String(response.data));
                             rQueue.getCache().clear();
                             try {
                                 JSONObject jsonObject = new JSONObject(new String(response.data));
                                 Toast.makeText(getActivity(), jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
 
-                                jsonObject.toString().replace("\\\\","");
+                                jsonObject.toString().replace("\\\\", "");
 
-                                if (jsonObject.getString("status").equals("true")) {
-                                    Log.d("come::: >>>  ","yessssss");
-                                    arraylist = new ArrayList<HashMap<String, String>>();
-                                    JSONArray dataArray = jsonObject.getJSONArray("data");
+                                if (jsonObject.getBoolean("success")) {
+                                    session.setData(Constant.SALARY_DATE, binding.etSalaryDate.getText().toString());
 
-
-                                    for (int i = 0; i < dataArray.length(); i++) {
-                                        JSONObject dataobj = dataArray.getJSONObject(i);
-                                       // url = dataobj.optString("pathToFile");
-                                        Toast.makeText(getActivity(), dataobj.optString("pathToFile"), Toast.LENGTH_SHORT).show();
-                                    }
+                                    updateStaffBankDetails();
 
 
                                 }
@@ -518,7 +353,7 @@ public class DocumentFragment extends Fragment {
                     Map<String, String> params = new HashMap<>();
                     // params.put("tags", "ccccc");  add string parameters
                     params.put(Constant.STAFF_ID, session.getData(Constant.STAFF_ID));
-                    params.put("salary_date", "21");
+                    params.put(Constant.SALARY_DATE, binding.etSalaryDate.getText().toString());
                     return params;
                 }
 
@@ -530,9 +365,10 @@ public class DocumentFragment extends Fragment {
                     Map<String, DataPart> params = new HashMap<>();
 
 
-                    params.put(Constant.AADHAR_CARD, new DataPart(aadharName ,aadharInputData));
-                    params.put(Constant.RESUME, new DataPart(resumeName, aadharInputData));
-                    params.put(Constant.EDUCATION_CERTIFICATE, new DataPart(eduCertificateName,eduCertificateInputData));
+                    params.put(Constant.AADHAR_CARD, new DataPart(aadharName, aadharInputData));
+                    params.put(Constant.RESUME, new DataPart(resumeName, resumeInputData));
+                    params.put(Constant.EDUCATION_CERTIFICATE, new DataPart(eduCertificateName, eduCertificateInputData));
+                    params.put(Constant.PHOTO, new DataPart(photoName, photoInputData));
                     return params;
                 }
             };
@@ -546,7 +382,6 @@ public class DocumentFragment extends Fragment {
             rQueue.add(volleyMultipartRequest);
 
 
-
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -555,6 +390,7 @@ public class DocumentFragment extends Fragment {
 
 
     }
+
     public byte[] getBytes(InputStream inputStream) throws IOException {
         ByteArrayOutputStream byteBuffer = new ByteArrayOutputStream();
         int bufferSize = 1024;
@@ -566,32 +402,35 @@ public class DocumentFragment extends Fragment {
         }
         return byteBuffer.toByteArray();
     }
+
     @SuppressLint("Range")
-    public void processWithUri(Uri aadharUri,Uri resumeUri,Uri eduCertificateUri) {
+    public void processWithUri(Uri aadharUri, Uri resumeUri, Uri eduCertificateUri, Uri photoUri) {
         // Get the Uri of the selected file
         String aadharUriString = aadharUri.toString();
         String resumeUriString = resumeUri.toString();
         String eduCertificateUriString = eduCertificateUri.toString();
-        
-        
+        String photoUriString = photoUri.toString();
+
+
         File aadharFile = new File(aadharUriString);
         File resumeFile = new File(resumeUriString);
         File eduCertificateFile = new File(eduCertificateUriString);
-        
-        
-        
+        File photoFile = new File(photoUriString);
+
+
         String path = aadharFile.getAbsolutePath();
         String aadharDisplayName = null;
         String resumeDisplayName = null;
         String eduCertificateDisplayName = null;
+        String photoDisplayName = null;
 
         if (aadharUriString.startsWith("content://")) {
             Cursor cursor = null;
             try {
-                cursor =getActivity().getContentResolver().query(aadharUri, null, null, null, null);
+                cursor = getActivity().getContentResolver().query(aadharUri, null, null, null, null);
                 if (cursor != null && cursor.moveToFirst()) {
                     aadharDisplayName = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
-                    Log.d("nameeeee>>>>  ",aadharDisplayName);
+                    Log.d("nameeeee>>>>  ", aadharDisplayName);
 
 
                 }
@@ -600,15 +439,15 @@ public class DocumentFragment extends Fragment {
             }
         } else if (aadharUriString.startsWith("file://")) {
             aadharDisplayName = aadharFile.getName();
-            Log.d("nameeeee>>>>  ",aadharDisplayName);
+            Log.d("nameeeee>>>>  ", aadharDisplayName);
         }
         if (resumeUriString.startsWith("content://")) {
             Cursor cursor = null;
             try {
-                cursor =getActivity().getContentResolver().query(resumeUri, null, null, null, null);
+                cursor = getActivity().getContentResolver().query(resumeUri, null, null, null, null);
                 if (cursor != null && cursor.moveToFirst()) {
                     resumeDisplayName = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
-                    Log.d("nameeeee>>>>  ",resumeDisplayName);
+                    Log.d("nameeeee>>>>  ", resumeDisplayName);
 
                 }
             } finally {
@@ -616,15 +455,15 @@ public class DocumentFragment extends Fragment {
             }
         } else if (resumeUriString.startsWith("file://")) {
             resumeDisplayName = resumeFile.getName();
-            Log.d("nameeeee>>>>  ",resumeDisplayName);
+            Log.d("nameeeee>>>>  ", resumeDisplayName);
         }
         if (eduCertificateUriString.startsWith("content://")) {
             Cursor cursor = null;
             try {
-                cursor =getActivity().getContentResolver().query(eduCertificateUri, null, null, null, null);
+                cursor = getActivity().getContentResolver().query(eduCertificateUri, null, null, null, null);
                 if (cursor != null && cursor.moveToFirst()) {
                     eduCertificateDisplayName = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
-                    Log.d("nameeeee>>>>  ",eduCertificateDisplayName);
+                    Log.d("nameeeee>>>>  ", eduCertificateDisplayName);
 
                 }
             } finally {
@@ -632,13 +471,132 @@ public class DocumentFragment extends Fragment {
             }
         } else if (eduCertificateUriString.startsWith("file://")) {
             eduCertificateDisplayName = eduCertificateFile.getName();
-            Log.d("nameeeee>>>>  ",eduCertificateDisplayName);
+            Log.d("nameeeee>>>>  ", eduCertificateDisplayName);
+        }
+        if (photoUriString.startsWith("content://")) {
+            Cursor cursor = null;
+            try {
+                cursor = getActivity().getContentResolver().query(photoUri, null, null, null, null);
+                if (cursor != null && cursor.moveToFirst()) {
+                    photoDisplayName = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
+                    Log.d("nameeeee>>>>  ", photoDisplayName);
+
+                }
+            } finally {
+                cursor.close();
+            }
+        } else if (photoUriString.startsWith("file://")) {
+            photoDisplayName = photoFile.getName();
+            Log.d("nameeeee>>>>  ", photoDisplayName);
         }
 
-        uploadPDF(aadharDisplayName,aadharUri,resumeDisplayName,resumeUri,eduCertificateDisplayName,eduCertificateUri);
-        
-        
+        uploadPDF(aadharDisplayName, aadharUri, resumeDisplayName, resumeUri, eduCertificateDisplayName, eduCertificateUri, photoDisplayName, photoUri);
+
+
     }
 
+    private boolean validateFields() {
+        boolean isValid = true;
+        String salaryDate = binding.etSalaryDate.getText().toString().trim();
+
+        if (binding.etBank.getText().toString().isEmpty()) {
+            binding.etBank.setError("Please enter your bank account number");
+            isValid = false;
+        }
+
+        if (binding.etIfsc.getText().toString().isEmpty()) {
+            binding.etIfsc.setError("Please enter your IFSC code");
+            isValid = false;
+        }
+        if (binding.etBankName.getText().toString().isEmpty()) {
+            binding.etBankName.setError("Please enter your Bank Name");
+            isValid = false;
+        }
+        if (binding.etBranch.getText().toString().isEmpty()) {
+            binding.etBranch.setError("Please enter your Branch Name");
+            isValid = false;
+        }
+        if (binding.etMobileFamily.getText().toString().isEmpty()) {
+            binding.etMobileFamily.setError("Please enter Mobile number of family member");
+            isValid = false;
+        }
+        if (binding.etMobileFamilyTwo.getText().toString().isEmpty()) {
+            binding.etMobileFamilyTwo.setError("Please enter Mobile number of Friend");
+            isValid = false;
+        }
+        if (aadhar == null) {
+            Toast.makeText(requireContext(), "Please upload Aadhar", Toast.LENGTH_SHORT).show();
+            isValid = false;
+        } else if (resume == null) {
+            Toast.makeText(requireContext(), "Please upload Resume", Toast.LENGTH_SHORT).show();
+            isValid = false;
+        } else if (photo == null) {
+            Toast.makeText(requireContext(), "Please upload Photo", Toast.LENGTH_SHORT).show();
+            isValid = false;
+        } else if (eduCirtificate == null) {
+            Toast.makeText(requireContext(), "Please upload Educational Cirtificate", Toast.LENGTH_SHORT).show();
+            isValid = false;
+        } else if (binding.etSalaryDate.getText().toString().isEmpty()) {
+            binding.etSalaryDate.setError("Please enter Salary Date");
+            isValid = false;
+        }
+        if (salaryDate.isEmpty()) {
+            binding.etSalaryDate.setError("Please enter Salary Date");
+            isValid = false;
+        } else {
+            Integer dateNumber = Integer.parseInt(salaryDate);
+            if (dateNumber == null || dateNumber < 1 || dateNumber > 31) {
+                binding.etSalaryDate.setError("Please enter a number between 1 to 31");
+                isValid = false;
+            }
+        }
+
+        return isValid;
+    }
+
+    private void updateStaffBankDetails() {
+
+        HashMap<String, String> params = new HashMap<>();
+        params.put(Constant.STAFF_ID, session.getData(Constant.STAFF_ID));
+        params.put(Constant.IFSC_CODE, binding.etIfsc.getText().toString());
+        params.put(Constant.BANK_NAME, binding.etBankName.getText().toString());
+        params.put(Constant.BRANCH, binding.etBranch.getText().toString());
+        params.put(Constant.BANK_ACCOUNT_NUMBER, binding.etBank.getText().toString());
+        ApiConfig.RequestToVolley((result, response) -> {
+            if (result) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    if (jsonObject.getBoolean(Constant.SUCCESS)) {
+                        Toast.makeText(requireContext(), jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show();
+                        JSONArray data = jsonObject.getJSONArray("data");
+                        JSONObject object = data.getJSONObject(0);
+                        session.setData(Constant.STAFF_ID, object.getString(Constant.ID));
+                        session.setData(Constant.EMAIL, object.getString(Constant.EMAIL));
+                        session.setData(Constant.PASSWORD, object.getString(Constant.PASSWORD));
+                        session.setData(Constant.MOBILE, object.getString(Constant.MOBILE));
+                        // session.setData(Constant.ADDRESS, object.getString(Constant.ADDRESS));
+                        session.setData(Constant.BANK_ACCOUNT_NUMBER, object.getString(Constant.BANK_ACCOUNT_NUMBER));
+                        session.setData(Constant.IFSC_CODE, object.getString(Constant.IFSC_CODE));
+                        session.setData(Constant.BANK_NAME, object.getString(Constant.BANK_NAME));
+                        session.setData(Constant.BRANCH, object.getString(Constant.BRANCH));
+                        session.setData(Constant.AADHAR_CARD, object.getString(Constant.AADHAR_CARD));
+                        session.setData(Constant.RESUME, object.getString(Constant.RESUME));
+                        session.setData(Constant.PHOTO, object.getString(Constant.PHOTO));
+                        session.setData(Constant.EDUCATION_CERTIFICATE, object.getString(Constant.EDUCATION_CERTIFICATE));
+                        session.setData(Constant.SALARY_DATE, object.getString(Constant.SALARY_DATE));
+                        binding.btnUpdate.setEnabled(false);
+                        initCall();
+
+                    } else {
+                        Toast.makeText(requireContext(), jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, requireActivity(), Constant.UPDATE_STAFFBANK, params, true);
+
+
+    }
 }
 

@@ -2,6 +2,7 @@ package com.app.staffabcd.adapter
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.text.SpannableString
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,8 +34,8 @@ class IncentivesAdapter (
     override fun onBindViewHolder(holderParent: RecyclerView.ViewHolder, position: Int) {
         val holder:ItemHolder = holderParent as ItemHolder
         val incentives: Incentives = incentives[position]
+        holder.tvRank.text=incentives.position
         holder.tvName.text=incentives.name
-
         holder.tvAmount.text="₹ "+incentives.amount
     }
 
@@ -47,11 +48,12 @@ class IncentivesAdapter (
     internal class ItemHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tvName: TextView
         val tvAmount: TextView
-
+        var tvRank: TextView
 
         init {
             tvName = itemView.findViewById(R.id.tvName)
             tvAmount=itemView.findViewById(R.id.tvAmount)
+            tvRank=itemView.findViewById(R.id.tvRank)
 
         }
     }

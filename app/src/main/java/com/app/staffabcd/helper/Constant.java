@@ -20,6 +20,8 @@ public class Constant {
     public static final String INCENTIVE = BaseUrl + "incentive.php";
     public static final String STAFFS_TRANSACTION_LIST = BaseUrl + "staffs_transaction-list.php";
     public static final String  STAFFS_WITHDRAWALS_LIST= BaseUrl + "staffs_withdrawals_list.php";
+    public static final String STAFF_LEAVES = BaseUrl + "staff_leaves.php";
+
 
 
 
@@ -72,6 +74,11 @@ public class Constant {
     public static final String TOTAL_EARNINGS = "total_earnings";
     public static final String TOTAL_LEADS = "total_leads";
     public static final String TOTAL_JOININGS = "total_joinings";
+
+    public static final String FROM_DATE = "from_date";
+    public static final String TO_DATE = "to_date";
+    public static final String REASON = "reason";
+
 
 
 

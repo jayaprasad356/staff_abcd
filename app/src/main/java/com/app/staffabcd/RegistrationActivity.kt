@@ -96,6 +96,7 @@ class RegistrationActivity : AppCompatActivity() {
                             Toast.LENGTH_SHORT).show()
 
                         val data = jsonObject.getJSONArray("data")
+                        session.setData(Constant.STAFF_ID,data.getJSONObject(0).getString(Constant.ID))
                         session.setData(Constant.FIRST_NAME,data.getJSONObject(0).getString(Constant.FIRST_NAME))
                         session.setData(Constant.LAST_NAME,data.getJSONObject(0).getString(Constant.LAST_NAME))
                         session.setData(Constant.EMAIL,data.getJSONObject(0).getString(Constant.EMAIL))

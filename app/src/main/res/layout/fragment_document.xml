@@ -48,8 +48,7 @@
                     android:id="@+id/etIfsc"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="number"
-                    android:maxLength="6" />
+                    android:inputType="text" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -67,8 +66,7 @@
                     android:id="@+id/etBankName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="number"
-                    android:maxLength="6" />
+                    android:inputType="text"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -87,7 +85,7 @@
                     android:id="@+id/etBranch"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="number"
+                    android:inputType="text"
                     android:maxLength="6" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -98,7 +96,7 @@
                 android:layout_marginStart="@dimen/_15sdp"
                 android:layout_marginTop="@dimen/_20sdp"
                 android:layout_marginEnd="@dimen/_15sdp"
-                android:hint="Family Alter Mobile Number"
+                android:hint="Family Mobile Number"
                 app:hintTextColor="@color/primary">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -117,11 +115,11 @@
                 android:layout_marginStart="@dimen/_15sdp"
                 android:layout_marginTop="@dimen/_20sdp"
                 android:layout_marginEnd="@dimen/_15sdp"
-                android:hint="Friend Mobile Number"
+                android:hint="Family Mobile Number"
                 app:hintTextColor="@color/primary">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etMobileFriend"
+                    android:id="@+id/etMobileFamilyTwo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="number"
@@ -143,7 +141,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="number"
-                    android:maxLength="10" />
+                    android:maxLength="2" />
 
             </com.google.android.material.textfield.TextInputLayout>
 

@@ -48,8 +48,9 @@ class HomeFragment : Fragment() {
         binding.cvSalary.setOnClickListener {
             showMoveSalaryDialog()
         }
-        val linearLayoutManager = LinearLayoutManager(activity)
+        val linearLayoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
         binding.rvIncentives.layoutManager = linearLayoutManager
+
         IncentivesList()
 
         return binding.root
@@ -99,11 +100,11 @@ class HomeFragment : Fragment() {
     private fun IncentivesList() {
 // Create a list of Report objects with dummy data
         val reports = listOf(
-            Incentives("ajay", "1000"),
-            Incentives("ajay", "1000"),
-            Incentives("ajay", "1500"),
-            Incentives("ajay", "3000"),
-            Incentives("ajay", "500")
+            Incentives("1","Ajay", "1000"),
+            Incentives("2","Ajay", "1000"),
+            Incentives("3","Ajay", "1500"),
+            Incentives("4","Ajay", "3000"),
+            Incentives("5","Ajay", "500")
         )
         val reportsArrayList = ArrayList(reports)
 

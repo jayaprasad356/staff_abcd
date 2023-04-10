@@ -88,7 +88,7 @@ lateinit var session:Session
                         session.setData(Constant.EMAIL, data.getString(Constant.EMAIL))
                         session.setData(Constant.PASSWORD, data.getString(Constant.PASSWORD))
                         session.setData(Constant.MOBILE, data.getString(Constant.MOBILE))
-                        session.setData(Constant.ADDRESS, data.getString(Constant.ADDRESS))
+                      //  session.setData(Constant.ADDRESS, data.getString(Constant.ADDRESS))
                         session.setData(Constant.BANK_ACCOUNT_NUMBER, data.getString(Constant.BANK_ACCOUNT_NUMBER))
                         session.setData(Constant.IFSC_CODE, data.getString(Constant.IFSC_CODE))
                         session.setData(Constant.BANK_NAME, data.getString(Constant.BANK_NAME))

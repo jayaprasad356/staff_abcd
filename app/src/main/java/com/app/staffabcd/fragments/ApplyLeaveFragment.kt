@@ -8,9 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.DatePicker
 import android.widget.Toast
-import com.app.staffabcd.R
-import com.app.staffabcd.databinding.FragmentAdvanceSalaryBinding
 import com.app.staffabcd.databinding.FragmentApplyLeaveBinding
+import com.app.staffabcd.helper.ApiConfig
+import com.app.staffabcd.helper.Constant
+import com.app.staffabcd.helper.Session
+import org.json.JSONException
+import org.json.JSONObject
 import java.util.*
 
 // TODO: Rename parameter arguments, choose names that match
@@ -26,6 +29,7 @@ private const val ARG_PARAM2 = "param2"
 class ApplyLeaveFragment : Fragment() {
 
     lateinit var binding: FragmentApplyLeaveBinding
+    lateinit var session: Session
 
     private val fromDateSetListener =
         DatePickerDialog.OnDateSetListener { _: DatePicker, year: Int, month: Int, dayOfMonth: Int ->
@@ -51,6 +55,14 @@ class ApplyLeaveFragment : Fragment() {
             }
 
             binding.etFromDate.setText(String.format("%tF", selectedDate))
+
+            binding.btnApply.setOnClickListener {
+                val fromDate = binding.etFromDate.text.toString()
+                val toDate = binding.etToDate.text.toString()
+                val reason = binding.edReason.text.toString()
+                applyLeave(fromDate,toDate,reason)
+
+            }
         }
 
     private val toDateSetListener =
@@ -88,6 +100,7 @@ class ApplyLeaveFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentApplyLeaveBinding.inflate(inflater, container, false)
+        session = Session(requireContext())
 
         binding.etFromDate.setOnClickListener {
             val calendar = Calendar.getInstance()
@@ -128,5 +141,34 @@ class ApplyLeaveFragment : Fragment() {
         }
 
         return binding.root
+    }
+    private fun applyLeave(fromDate: String, toDate: String, reason: String) {
+        val params : HashMap<String,String> = hashMapOf()
+        params.apply {
+            this[Constant.STAFF_ID] =  session.getData(Constant.STAFF_ID)
+            this[Constant.FROM_DATE] =  fromDate
+            this[Constant.TO_DATE] =  toDate
+            this[Constant.REASON] =  reason
+
+        }
+        ApiConfig.RequestToVolley({ result, response ->
+            if (result) {
+                try {
+                    val jsonObject = JSONObject(response)
+                    if (jsonObject.getBoolean(Constant.SUCCESS)) {
+                        Toast.makeText(requireContext(),jsonObject.getString(Constant.MESSAGE).toString(),Toast.LENGTH_SHORT).show()
+                        binding.etFromDate.setText("")
+                        binding.etToDate.setText("")
+                        binding.edReason.setText("")
+
+                    } else {
+                        Toast.makeText(requireContext(),jsonObject.getString(Constant.MESSAGE).toString(),Toast.LENGTH_SHORT).show()
+                    }
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                }
+            }
+        }, requireActivity(), Constant.STAFF_LEAVES, params, true)
+
     }
 }
