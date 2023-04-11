@@ -65,13 +65,11 @@ class HomeFragment : Fragment() {
         binding.tvName.text = session.getData(Constant.FIRST_NAME)
         binding.tvMobil.text = session.getData(Constant.MOBILE)
         binding.tvStaffId.text = session.getData(Constant.STAFF_DISPLAY_ID)
-        binding.tvwalletBalance.text = "₹" + session.getData(Constant.BALANCE)
-        binding.tvTotalEarning.text="₹" + session.getData(Constant.TOTAL_EARNINGS)
-        binding.tvIncentiveEarn.text="₹" + session.getData(Constant.INCENTIVE_EARN)
+        binding.tvwalletBalance.text = "₹ " + session.getData(Constant.BALANCE)
+        binding.tvTotalEarning.text="₹ " + session.getData(Constant.TOTAL_EARNINGS)
+        binding.tvIncentiveEarn.text="₹ " + session.getData(Constant.INCENTIVE_EARN)
         binding.tvTotalLead.text=session.getData(Constant.TOTAL_LEADS)
         binding.tvTotalJoining.text= session.getData(Constant.TOTAL_JOININGS)
-
-
 
     }
 

@@ -3,41 +3,51 @@
     <item
         android:id="@+id/nav_home"
         android:icon="@drawable/ic_home"
+        android:iconTint="@color/white"
         android:title="Home" />
     <item
         android:id="@+id/nav_profile"
         android:icon="@drawable/ic_profilr"
+        android:iconTint="@color/white"
         android:title="Profile" />
     <item
         android:id="@+id/nav_incentive"
         android:icon="@drawable/ic_incentive"
+        android:iconTint="@color/white"
         android:title="Incentive" />
     <item
         android:id="@+id/nav_withdrawal"
         android:icon="@drawable/ic_withdrawal"
+        android:iconTint="@color/white"
         android:title="Withdrawal" />
     <item
         android:id="@+id/nav_documents"
         android:icon="@drawable/doc"
+        android:iconTint="@color/white"
         android:title="Documents" />
     <item
         android:id="@+id/nav_report"
         android:icon="@drawable/report"
+        android:iconTint="@color/white"
         android:title="@string/report" />
     <item
         android:id="@+id/nav_transaction"
         android:icon="@drawable/transaction"
+        android:iconTint="@color/white"
         android:title="@string/transaction" />
     <item
         android:id="@+id/nav_adv_salary"
         android:icon="@drawable/advance_sal"
+        android:iconTint="@color/white"
         android:title="@string/adv_salary" />
     <item
         android:id="@+id/nav_applyLeave"
         android:icon="@drawable/apply_leave"
+        android:iconTint="@color/white"
         android:title="@string/apply_leave" />
     <item
         android:id="@+id/nav_logout"
         android:icon="@drawable/ic_logout"
+        android:iconTint="@color/white"
         android:title="Logout" />
 </menu>
