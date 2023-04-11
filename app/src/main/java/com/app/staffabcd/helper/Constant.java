@@ -62,6 +62,12 @@ public class Constant {
     public static final String RESUME = "resume";
     public static final String PHOTO = "photo";
     public static final String SALARY_DATE = "salary_date";
+    public static final String DOB = "dob";
+
+    public static final String FAMILY1 = "family1";
+    public static final String FAMILY2 = "family2";
+
+
 
     public static final String BRANCH_ID = "branch_id";
     public static final String ROLE = "role";

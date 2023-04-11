@@ -5,6 +5,7 @@ import static android.app.Activity.RESULT_OK;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -24,6 +25,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -51,7 +53,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class DocumentFragment extends Fragment {
@@ -151,6 +155,32 @@ public class DocumentFragment extends Fragment {
             }
         });
 
+        binding.etDateOfBirth.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Set the initial date to 01/01/2000
+                Calendar c = Calendar.getInstance();
+                c.set(2000, 0, 1);
+                int year = c.get(Calendar.YEAR);
+                int month = c.get(Calendar.MONTH);
+                int day = c.get(Calendar.DAY_OF_MONTH);
+
+                // Create a new instance of DatePickerDialog and show it
+                DatePickerDialog datePickerDialog = new DatePickerDialog(requireContext(),
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                                // Handle the date selection
+                                String dateString = year + "/" + (month + 1) + "/" +dayOfMonth ;
+                                binding.etDateOfBirth.setText(dateString);
+                                // Update your UI with the selected date here
+                            }
+                        }, year, month, day);
+                datePickerDialog.show();
+            }
+        });
+
+
 
 //        binding.etBank.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -187,6 +217,7 @@ public class DocumentFragment extends Fragment {
         binding.etSalaryDate.setEnabled(false);
         binding.etMobileFamilyTwo.setEnabled(false);
         binding.etMobileFamily.setEnabled(false);
+        binding.etDateOfBirth.setEnabled(false);
 
     }
 
@@ -228,20 +259,20 @@ public class DocumentFragment extends Fragment {
             if (tapped.equals("aadhar")) {
                 aadhar = uri;
                 binding.ivAadhar.setVisibility(View.VISIBLE);
-                binding.rlAadhar.setVisibility(View.GONE);
+                binding.rlAadhar.setVisibility(View.VISIBLE);
             } else if (tapped.equals("resume")) {
                 resume = uri;
                 binding.ivResume.setVisibility(View.VISIBLE);
-                binding.rlResume.setVisibility(View.GONE);
+                binding.rlResume.setVisibility(View.VISIBLE);
             } else if (tapped.equals("photo")) {
                 photo = uri;
                 binding.ivPhoto.setVisibility(View.VISIBLE);
-                binding.rlPhoto.setVisibility(View.GONE);
+                binding.rlPhoto.setVisibility(View.VISIBLE);
 
             } else if (tapped.equals("cirtificate")) {
                 eduCirtificate = uri;
                 binding.ivCirtificate.setVisibility(View.VISIBLE);
-                binding.rlEduCirtifi.setVisibility(View.GONE);
+                binding.rlEduCirtifi.setVisibility(View.VISIBLE);
 
 
             }
@@ -354,6 +385,8 @@ public class DocumentFragment extends Fragment {
                     // params.put("tags", "ccccc");  add string parameters
                     params.put(Constant.STAFF_ID, session.getData(Constant.STAFF_ID));
                     params.put(Constant.SALARY_DATE, binding.etSalaryDate.getText().toString());
+                    params.put(Constant.DOB, binding.etDateOfBirth.getText().toString());
+
                     return params;
                 }
 
@@ -524,6 +557,10 @@ public class DocumentFragment extends Fragment {
             binding.etMobileFamilyTwo.setError("Please enter Mobile number of Friend");
             isValid = false;
         }
+        if (binding.etDateOfBirth.getText().toString().isEmpty()) {
+            binding.etDateOfBirth.setError("Please Select Date of Birth");
+            isValid = false;
+        }
         if (aadhar == null) {
             Toast.makeText(requireContext(), "Please upload Aadhar", Toast.LENGTH_SHORT).show();
             isValid = false;
@@ -562,6 +599,8 @@ public class DocumentFragment extends Fragment {
         params.put(Constant.BANK_NAME, binding.etBankName.getText().toString());
         params.put(Constant.BRANCH, binding.etBranch.getText().toString());
         params.put(Constant.BANK_ACCOUNT_NUMBER, binding.etBank.getText().toString());
+        params.put(Constant.FAMILY1, binding.etMobileFamily.getText().toString());
+        params.put(Constant.FAMILY2, binding.etMobileFamilyTwo.getText().toString());
         ApiConfig.RequestToVolley((result, response) -> {
             if (result) {
                 try {

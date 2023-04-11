@@ -30,7 +30,7 @@
         android:title="@string/transaction" />
     <item
         android:id="@+id/nav_adv_salary"
-        android:icon="@drawable/adv_salary"
+        android:icon="@drawable/advance_sal"
         android:title="@string/adv_salary" />
     <item
         android:id="@+id/nav_applyLeave"

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/primary"
+    android:background="@color/varient_primary"
     tools:context=".LoginActivity">
 
 
@@ -79,15 +79,20 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/_15sdp"
-            android:layout_marginTop="@dimen/_40sdp"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="@dimen/_30sdp"
+            android:layout_marginTop="@dimen/_35sdp"
             android:backgroundTint="@color/primary"
+            android:padding="@dimen/_8sdp"
             android:text="Login"
-            android:textColor="@color/primary_light" />
+            android:textAllCaps="false"
+            android:textSize="@dimen/_12sdp"
+            app:cornerRadius="@dimen/_8sdp" />
+
         <TextView
             android:id="@+id/tvForgotPassword"
             android:layout_width="wrap_content"

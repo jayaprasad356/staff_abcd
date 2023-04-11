@@ -133,6 +133,24 @@
                 android:layout_marginStart="@dimen/_15sdp"
                 android:layout_marginTop="@dimen/_20sdp"
                 android:layout_marginEnd="@dimen/_15sdp"
+                android:hint="Date of Birth"
+                app:hintTextColor="@color/primary">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etDateOfBirth"
+                    android:layout_width="match_parent"
+                    android:focusable="false"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/LoginTextInputLayoutStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_marginEnd="@dimen/_15sdp"
                 android:hint="Enter Salary Date"
                 app:hintTextColor="@color/primary">
 
@@ -332,11 +350,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginStart="@dimen/_20sdp"
+                android:layout_marginHorizontal="@dimen/_40sdp"
                 android:layout_marginTop="35dp"
-                android:layout_marginEnd="@dimen/_20sdp"
                 android:backgroundTint="@color/primary"
-                android:padding="@dimen/_14sdp"
+                android:padding="@dimen/_8sdp"
                 android:text="Update"
                 android:textAllCaps="false"
                 android:textSize="@dimen/_12sdp"
