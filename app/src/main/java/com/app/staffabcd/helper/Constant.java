@@ -21,6 +21,9 @@ public class Constant {
     public static final String STAFFS_TRANSACTION_LIST = BaseUrl + "staffs_transaction-list.php";
     public static final String  STAFFS_WITHDRAWALS_LIST= BaseUrl + "staffs_withdrawals_list.php";
     public static final String STAFF_LEAVES = BaseUrl + "staff_leaves.php";
+    public static final String STAFF_REPORTS = BaseUrl + "staff_reports.php";
+    public static final String STAFF_TOPEARNERS = BaseUrl + "staff_topearners.php";
+
 
 
 
@@ -44,7 +47,9 @@ public class Constant {
     public static final String NAME = "name";
     public static final String STAFF_ID = "staff_id";
     public static final String STAFF_DISPLAY_ID = "staff_isplay_id";
-
+    public static final String LEVEL = "level";
+    public static final String JOINED_DATE = "joined_date";
+    public static final String HISTORY_DAYS = "history_days";
 
     public static final String FIRST_NAME = "first_name";
     public static final String LAST_NAME = "last_name";

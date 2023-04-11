@@ -53,10 +53,7 @@
             android:layout_height="wrap_content">
 <androidx.cardview.widget.CardView
     android:layout_width="match_parent"
-    app:cardCornerRadiusTopLeft="@dimen/50sdp"
     android:elevation="@dimen/_10sdp"
-    app:cardCornerRadiusBottomLeft="0dp"
-    app:cardCornerRadiusBottomRight="0dp"
     android:layout_height="wrap_content">
 
             <LinearLayout

@@ -22,7 +22,7 @@ class ReportFragment : Fragment() {
         binding = FragmentReportBinding.inflate(inflater, container, false)
 
         viewPagerAdapter = ViewPagerAdapter(
-            requireActivity().supportFragmentManager
+            childFragmentManager
         )
         binding.viewPager.adapter = viewPagerAdapter
 
