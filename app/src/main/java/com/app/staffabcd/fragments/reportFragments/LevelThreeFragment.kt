@@ -5,13 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.app.staffabcd.R
-import com.app.staffabcd.adapter.HistoryAdapter
 import com.app.staffabcd.adapter.ReportAdapter
 import com.app.staffabcd.databinding.FragmentLevelThreeBinding
-import com.app.staffabcd.databinding.FragmentLevelTwoBinding
 import com.app.staffabcd.helper.ApiConfig
 import com.app.staffabcd.helper.Constant
 import com.app.staffabcd.helper.Session
@@ -72,7 +68,7 @@ class LevelThreeFragment : Fragment() {
                                 break
                             }
                         }
-                        reportAdapter = ReportAdapter(requireActivity(), reports)
+                        reportAdapter = ReportAdapter(requireActivity(), reports, "3")
                         binding.levelThreeRecyclerView.setAdapter(reportAdapter)
 
 

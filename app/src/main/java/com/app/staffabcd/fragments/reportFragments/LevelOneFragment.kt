@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.staffabcd.adapter.ReportAdapter
 import com.app.staffabcd.databinding.FragmentLevelOneBinding
@@ -70,7 +69,7 @@ class LevelOneFragment : Fragment() {
                                 break
                             }
                         }
-                        reportAdapter = ReportAdapter(requireActivity(), reports)
+                        reportAdapter = ReportAdapter(requireActivity(), reports,"1")
                         binding.levelOneRecyclerView.setAdapter(reportAdapter)
 
 

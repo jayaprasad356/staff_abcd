@@ -67,7 +67,12 @@ class HomeFragment : Fragment() {
         binding.tvStaffId.text = session.getData(Constant.STAFF_DISPLAY_ID)
         binding.tvwalletBalance.text = "₹ " + session.getData(Constant.BALANCE)
         binding.tvTotalEarning.text="₹ " + session.getData(Constant.TOTAL_EARNINGS)
-        binding.tvIncentiveEarn.text="₹ " + session.getData(Constant.INCENTIVE_EARN)
+        var incentiveEarn = session.getData(Constant.INCENTIVE_EARN)
+        if (session.getData(Constant.INCENTIVE_EARN).equals("null")){
+             incentiveEarn = "0"
+        }
+
+        binding.tvIncentiveEarn.text= "₹ $incentiveEarn"
         binding.tvTotalLead.text=session.getData(Constant.TOTAL_LEADS)
         binding.tvTotalJoining.text= session.getData(Constant.TOTAL_JOININGS)
 
@@ -136,58 +141,5 @@ class HomeFragment : Fragment() {
             }
         }, requireActivity(), Constant.STAFF_TOPEARNERS, params, true)
     }
-//    {
-//// Create a list of Report objects with dummy data
-//        val reports = listOf(
-//            Incentives("1","Ajay", "1000"),
-//            Incentives("2","Ajay", "1000"),
-//            Incentives("3","Ajay", "1500"),
-//            Incentives("4","Ajay", "3000"),
-//            Incentives("5","Ajay", "500")
-//        )
-//        val reportsArrayList = ArrayList(reports)
-//
-//
-//        IncentivesAdapter = IncentivesAdapter(requireActivity(), reportsArrayList)
-//        binding.rvIncentives.setAdapter(IncentivesAdapter)
-//
-////
-////        val params : HashMap<String,String> = hashMapOf()
-////        params.apply {
-////            this["user_id"] =  "23319"
-////        }
-////        ApiConfig.RequestToVolley({ result, response ->
-////            if (result) {
-////                try {
-////                    val jsonObject = JSONObject(response)
-////                    if (jsonObject.getBoolean(Constant.SUCCESS)) {
-////                        val jsonArray: JSONArray = jsonObject.getJSONArray(Constant.DATA)
-////                        val reports: ArrayList<Report> = ArrayList<Report>()
-////                        Report("2022-01-01", "$1000", "John Doe", "5")
-////                        Report("2022-01-02", "$2000", "Jane Smith", "8")
-////                        Report("2022-01-03", "$1500", "Bob Johnson", "3")
-////                        Report("2022-01-04", "$3000", "Sarah Lee", "10")
-////                        Report("2022-01-05", "$500", "David Kim", "2")
-////                                              val g = Gson()
-////                        for (i in 0 until jsonArray.length()) {
-////                            val jsonObject1 = jsonArray.getJSONObject(i)
-////                            if (jsonObject1 != null) {
-////                                val group: Report =
-////                                    g.fromJson(jsonObject1.toString(), Report::class.java)
-////                                reports.add(group)
-////                            } else {
-////                                break
-////                            }
-////                        }
-////                        reportAdapter = ReportAdapter(requireActivity(), reports)
-////                        binding.rvReport.setAdapter(reportAdapter)
-////                    }
-////                } catch (e: JSONException) {
-////                    e.printStackTrace()
-////                }
-////            }
-////        }, requireActivity(), "https://abcd.graymatterworks.com/api/"+ Constant.TRNSACTION_LIST_URL, params, true)
-//    }
-
 
 }

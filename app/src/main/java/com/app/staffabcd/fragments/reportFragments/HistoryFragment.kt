@@ -33,6 +33,7 @@ class HistoryFragment : Fragment() {
         val linearLayoutManager = LinearLayoutManager(activity)
         binding.historyRecyclerView.layoutManager = linearLayoutManager
         historyList()
+        Toast.makeText(requireContext(),"histy",Toast.LENGTH_SHORT).show()
         return binding.root
     }
 
@@ -61,7 +62,7 @@ class HistoryFragment : Fragment() {
                                 val level = jsonObject1.getString(Constant.LEVEL)
                                 val historyDay = jsonObject1.getString(Constant.HISTORY_DAYS)
 
-                                if (historyDay >= "3" && level.equals("2")){
+                                if (historyDay >= "6" && level.equals("4")){
                                     // Create a new Report object and add it to the list
                                     val report = Report(id,name, mobile,date,level,historyDay)
                                     reports.add(report)

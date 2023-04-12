@@ -50,6 +50,7 @@ class WithdrawalFragment : Fragment() {
             transaction.addToBackStack(null)
             transaction.commit()
         }
+        binding.tvwalletBalance.text=session.getData(Constant.BALANCE).toString()
 
         val linearLayoutManager = LinearLayoutManager(activity)
         binding.rvWithdrawalHistory.layoutManager = linearLayoutManager

@@ -341,7 +341,7 @@ public class DocumentFragment extends Fragment {
             photoIStream = getActivity().getContentResolver().openInputStream(photoUriFile);
             final byte[] photoInputData = getBytes(photoIStream);
 
-            VolleyMultipartRequest volleyMultipartRequest = new VolleyMultipartRequest(Request.Method.POST, "https://demoabcd.graymatterworks.com/api/staffs_document.php",
+            VolleyMultipartRequest volleyMultipartRequest = new VolleyMultipartRequest(Request.Method.POST, Constant.STAFF_DOCUMENT,
                     new Response.Listener<NetworkResponse>() {
                         @Override
                         public void onResponse(NetworkResponse response) {

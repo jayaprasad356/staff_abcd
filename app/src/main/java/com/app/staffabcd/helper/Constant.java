@@ -9,7 +9,7 @@ public class Constant {
     public static final String MainBaseUrl = "https://demoabcd.graymatterworks.com/";
 
     //public static final String MainBaseUrl = "http://192.168.43.38/autobot/";
-    public static final String BaseUrl = MainBaseUrl + "api/";
+    public static final String BaseUrl = MainBaseUrl + "staff_api/";
     public static final String LOGIN_URL = BaseUrl + "login.php";
     public static final String SIGN_UP = BaseUrl + "signup.php";
     public static final String UPDATE_STAFFBANK = BaseUrl + "update_staffbank.php";
@@ -17,12 +17,15 @@ public class Constant {
     public static final String STAFFS_SIGNUP = BaseUrl + "staffs_signup.php";
     public static final String STAFFS_LOGIN = BaseUrl + "staffs_login.php";
     public static final String STAFFS_DETAILS = BaseUrl + "staff_details.php";
+    public static final String MY_DETAILS = BaseUrl + "my_details.php";
     public static final String INCENTIVE = BaseUrl + "incentive.php";
     public static final String STAFFS_TRANSACTION_LIST = BaseUrl + "staffs_transaction-list.php";
     public static final String  STAFFS_WITHDRAWALS_LIST= BaseUrl + "staffs_withdrawals_list.php";
     public static final String STAFF_LEAVES = BaseUrl + "staff_leaves.php";
     public static final String STAFF_REPORTS = BaseUrl + "staff_reports.php";
     public static final String STAFF_TOPEARNERS = BaseUrl + "staff_topearners.php";
+    public static final String STAFF_DOCUMENT = BaseUrl + "staffs_document.php";
+
 
 
 

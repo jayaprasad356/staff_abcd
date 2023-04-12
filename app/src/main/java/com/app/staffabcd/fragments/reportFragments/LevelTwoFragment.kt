@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.staffabcd.adapter.ReportAdapter
 import com.app.staffabcd.databinding.FragmentLevelTwoBinding
@@ -13,7 +12,6 @@ import com.app.staffabcd.helper.ApiConfig
 import com.app.staffabcd.helper.Constant
 import com.app.staffabcd.helper.Session
 import com.app.staffabcd.model.Report
-import com.google.gson.Gson
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
@@ -69,7 +67,7 @@ class LevelTwoFragment : Fragment() {
                                 break
                             }
                         }
-                        reportAdapter = ReportAdapter(requireActivity(), reports)
+                        reportAdapter = ReportAdapter(requireActivity(), reports, "2")
                         binding.levelTwoRecyclerView.setAdapter(reportAdapter)
 
 
