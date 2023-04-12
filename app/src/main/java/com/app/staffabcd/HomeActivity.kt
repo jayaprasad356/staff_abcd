@@ -1,14 +1,13 @@
 package com.app.staffabcd
 
 import android.content.Context
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.app.staffabcd.databinding.ActivityHomeBinding
@@ -45,8 +44,8 @@ class HomeActivity : AppCompatActivity() {
         val toggle = ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close)
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
-        navHeaderBinding.navHeaderEmail.text=session.getData(Constant.EMAIL)
-        navHeaderBinding.navHeaderName.text=session.getData(Constant.FIRST_NAME)
+        navHeaderBinding.navHeaderEmail.text = session.getData(Constant.EMAIL)
+        navHeaderBinding.navHeaderName.text = session.getData(Constant.FIRST_NAME)
 
         // Initialize the navigation view and set the item selected listener
         navView = binding.navView
@@ -204,12 +203,14 @@ class HomeActivity : AppCompatActivity() {
                             Constant.STAFF_DISPLAY_ID,
                             userData.getString(Constant.STAFF_ID)
                         )
+                        session.setData(Constant.DOB,userData.getString(Constant.DOB))
                         if (!Constant.DEBUG) {
                             if (!(session.getData(Constant.DOCUMENT_UPLOAD).toString().equals("1")))
                                 showFillDocumentPopup(toolbar)
                         }
 
-                        supportFragmentManager.beginTransaction().replace(container.id, HomeFragment()).commit()
+                        supportFragmentManager.beginTransaction()
+                            .replace(container.id, HomeFragment()).commit()
                         navView.setCheckedItem(R.id.nav_home)
                         // extract other values as needed
                     } else {

@@ -1,11 +1,11 @@
 package com.app.staffabcd.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import com.app.staffabcd.R
 import com.app.staffabcd.Utils
 import com.app.staffabcd.databinding.FragmentProfileBinding
@@ -23,7 +23,7 @@ class ProfileFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentProfileBinding.inflate(inflater, container, false)
         session = Session(requireActivity())
 
@@ -40,29 +40,29 @@ class ProfileFragment : Fragment() {
 
     private fun validateFields(): Boolean {
         var isValid = true
-        var email: String = binding!!.etEmail.text!!.trim().toString()
-        var mobile: String = binding!!.etMobile.text!!.trim().toString()
+        val email: String = binding.etEmail.text!!.trim().toString()
+        val mobile: String = binding.etMobile.text!!.trim().toString()
 
-        if (binding!!.etFirstName.text.isNullOrEmpty()) {
-            binding!!.etFirstName.error = "Please enter your First Name"
+        if (binding.etFirstName.text.isNullOrEmpty()) {
+            binding.etFirstName.error = "Please enter your First Name"
             isValid = false
         }
-        if (binding!!.etLastName.text.isNullOrEmpty()) {
-            binding!!.etLastName.error = "Please enter your Last Name"
+        if (binding.etLastName.text.isNullOrEmpty()) {
+            binding.etLastName.error = "Please enter your Last Name"
             isValid = false
         }
         if (!Utils().isValidEmail(email)) {
-            binding!!.etEmail.error = getString(R.string.email_error)
+            binding.etEmail.error = getString(R.string.email_error)
             isValid = false
         }
 
-        if (binding!!.etPassword.text.isNullOrEmpty()) {
-            binding!!.etPassword.error = "Please enter your password"
+        if (binding.etPassword.text.isNullOrEmpty()) {
+            binding.etPassword.error = "Please enter your password"
             isValid = false
         }
 
         if (!Utils().isValidPhone(mobile)) {
-            binding!!.etMobile.error = "Please enter valid mobile number"
+            binding.etMobile.error = "Please enter valid mobile number"
             isValid = false
         }
 
@@ -73,11 +73,11 @@ class ProfileFragment : Fragment() {
         val params: HashMap<String, String> = hashMapOf()
         params.apply {
             this[Constant.STAFF_ID] = session.getData(Constant.STAFF_ID)
-            this[Constant.FIRST_NAME] = binding!!.etFirstName.text.toString()
-            this[Constant.LAST_NAME] = binding!!.etLastName.text.toString()
-            this[Constant.EMAIL] = binding!!.etEmail.text.toString()
-            this[Constant.MOBILE] = binding!!.etMobile.text.toString()
-            this[Constant.PASSWORD] = binding!!.etPassword.text.toString()
+            this[Constant.FIRST_NAME] = binding.etFirstName.text.toString()
+            this[Constant.LAST_NAME] = binding.etLastName.text.toString()
+            this[Constant.EMAIL] = binding.etEmail.text.toString()
+            this[Constant.MOBILE] = binding.etMobile.text.toString()
+            this[Constant.PASSWORD] = binding.etPassword.text.toString()
 
         }
         ApiConfig.RequestToVolley({ result, response ->
@@ -183,6 +183,8 @@ class ProfileFragment : Fragment() {
                         )
                         session.setData(Constant.FAMILY1, userData.getString(Constant.FAMILY1))
                         session.setData(Constant.FAMILY2, userData.getString(Constant.FAMILY2))
+                        session.setData(Constant.DOB, userData.getString(Constant.DOB))
+
                         initUi()
 
 

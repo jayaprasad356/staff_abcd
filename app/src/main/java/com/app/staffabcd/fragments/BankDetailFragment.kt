@@ -1,13 +1,11 @@
 package com.app.staffabcd.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import com.app.staffabcd.R
-import com.app.staffabcd.Utils
+import androidx.fragment.app.Fragment
 import com.app.staffabcd.databinding.FragmentBankDetailBinding
 import com.app.staffabcd.helper.ApiConfig
 import com.app.staffabcd.helper.Constant
@@ -40,17 +38,17 @@ lateinit var session:Session
     private fun validateFields(): Boolean {
         var isValid = true
 
-        if (binding!!.etBankAccountNumber.text.isNullOrEmpty()) {
-            binding!!.etBankAccountNumber.error = "Please enter your bank account number"
+        if (binding.etBankAccountNumber.text.isNullOrEmpty()) {
+            binding.etBankAccountNumber.error = "Please enter your bank account number"
             isValid = false
         }
 
-        if (binding!!.etIfsc.text.isNullOrEmpty()) {
-            binding!!.etIfsc.error = "Please enter your IFSC code"
+        if (binding.etIfsc.text.isNullOrEmpty()) {
+            binding.etIfsc.error = "Please enter your IFSC code"
             isValid = false
         }
-        if (binding!!.etBankName.text.isNullOrEmpty()) {
-            binding!!.etBankName.error = "Please enter your Bank Name"
+        if (binding.etBankName.text.isNullOrEmpty()) {
+            binding.etBankName.error = "Please enter your Bank Name"
             isValid = false
         }
         if (binding.etBranch.text.isNullOrEmpty()) {

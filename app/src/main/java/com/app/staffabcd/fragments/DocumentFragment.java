@@ -4,19 +4,12 @@ import static android.app.Activity.RESULT_OK;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
 import android.provider.MediaStore;
 import android.provider.OpenableColumns;
 import android.text.Editable;
@@ -26,7 +19,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.Toast;
+
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -38,7 +38,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
 import com.app.staffabcd.VolleyMultipartRequest;
 import com.app.staffabcd.databinding.FragmentDocumentBinding;
-import com.app.staffabcd.databinding.FragmentDocumentsBinding;
 import com.app.staffabcd.helper.ApiConfig;
 import com.app.staffabcd.helper.Constant;
 import com.app.staffabcd.helper.Session;
@@ -52,10 +51,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 
 public class DocumentFragment extends Fragment {
@@ -63,7 +60,9 @@ public class DocumentFragment extends Fragment {
     Session session;
     String tapped = "";
     private RequestQueue rQueue;
-    private ArrayList<HashMap<String, String>> arraylist;
+    ScrollView scrollView;
+    RelativeLayout pendingLayout;
+    RelativeLayout SuccessLayout;
 
 
     static int PICK_FILE_REQUEST = 1;
@@ -109,75 +108,67 @@ public class DocumentFragment extends Fragment {
                 }
             }
         });
+        if (!(session.getData(Constant.STAFF_DISPLAY_ID).isEmpty())){
+            binding.successLayout.setVisibility(View.VISIBLE);
+            binding.pendingLayout.setVisibility(View.GONE);
+            binding.scrollView.setVisibility(View.GONE);
+        }else if (session.getData(Constant.AADHAR_CARD).isEmpty()){
+            binding.successLayout.setVisibility(View.GONE);
+            binding.pendingLayout.setVisibility(View.GONE);
+            binding.scrollView.setVisibility(View.VISIBLE);
+        }else if (!session.getData(Constant.AADHAR_CARD).isEmpty() && session.getData(Constant.STAFF_DISPLAY_ID).isEmpty()){
+            binding.successLayout.setVisibility(View.GONE);
+            binding.pendingLayout.setVisibility(View.VISIBLE);
+            binding.scrollView.setVisibility(View.GONE);
+        }
 
         initCall();
-        binding.btnUpdate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (validateFields()) {
-                    processWithUri(aadhar, resume, eduCirtificate, photo);
-                }
-
-
+        binding.btnUpdate.setOnClickListener(v -> {
+            if (validateFields()) {
+                processWithUri(aadhar, resume, eduCirtificate, photo);
             }
+
+
         });
 
-        if (session.getData(Constant.DOCUMENT_UPLOAD).toString().equals("1")) {
+        if (session.getData(Constant.DOCUMENT_UPLOAD).equals("1")) {
             notAllowUploadDoc();
         }
 
-        binding.rlAadhar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                tapped = "aadhar";
-                selectPdfFile();
-            }
+        binding.rlAadhar.setOnClickListener(v -> {
+            tapped = "aadhar";
+            selectPdfFile();
         });
-        binding.rlResume.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                tapped = "resume";
-                selectPdfFile();
-            }
+        binding.rlResume.setOnClickListener(v -> {
+            tapped = "resume";
+            selectPdfFile();
         });
-        binding.rlPhoto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                tapped = "photo";
-                selectPhoto();
-            }
+        binding.rlPhoto.setOnClickListener(v -> {
+            tapped = "photo";
+            selectPhoto();
         });
-        binding.rlEduCirtifi.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                tapped = "cirtificate";
-                selectPdfFile();
-            }
+        binding.rlEduCirtifi.setOnClickListener(v -> {
+            tapped = "cirtificate";
+            selectPdfFile();
         });
 
-        binding.etDateOfBirth.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Set the initial date to 01/01/2000
-                Calendar c = Calendar.getInstance();
-                c.set(2000, 0, 1);
-                int year = c.get(Calendar.YEAR);
-                int month = c.get(Calendar.MONTH);
-                int day = c.get(Calendar.DAY_OF_MONTH);
+        binding.etDateOfBirth.setOnClickListener(v -> {
+            // Set the initial date to 01/01/2000
+            Calendar c = Calendar.getInstance();
+            c.set(2000, 0, 1);
+            int year = c.get(Calendar.YEAR);
+            int month = c.get(Calendar.MONTH);
+            int day = c.get(Calendar.DAY_OF_MONTH);
 
-                // Create a new instance of DatePickerDialog and show it
-                DatePickerDialog datePickerDialog = new DatePickerDialog(requireContext(),
-                        new DatePickerDialog.OnDateSetListener() {
-                            @Override
-                            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                                // Handle the date selection
-                                String dateString = year + "/" + (month + 1) + "/" +dayOfMonth ;
-                                binding.etDateOfBirth.setText(dateString);
-                                // Update your UI with the selected date here
-                            }
-                        }, year, month, day);
-                datePickerDialog.show();
-            }
+            // Create a new instance of DatePickerDialog and show it
+            DatePickerDialog datePickerDialog = new DatePickerDialog(requireContext(),
+                    (view, year1, monthOfYear, dayOfMonth) -> {
+                        // Handle the date selection
+                        String dateString = year1 + "/" + (month + 1) + "/" +dayOfMonth ;
+                        binding.etDateOfBirth.setText(dateString);
+                        // Update your UI with the selected date here
+                    }, year, month, day);
+            datePickerDialog.show();
         });
 
 
@@ -228,6 +219,10 @@ public class DocumentFragment extends Fragment {
         binding.etSalaryDate.setText(session.getData(Constant.SALARY_DATE));
         binding.etBranch.setText(session.getData(Constant.BRANCH));
         binding.etSalaryDate.setText(session.getData(Constant.SALARY_DATE));
+        binding.etMobileFamily.setText(session.getData(Constant.FAMILY1));
+        binding.etMobileFamilyTwo.setText(session.getData(Constant.FAMILY2));
+        binding.etDateOfBirth.setText(session.getData(Constant.DOB));
+
 
     }
 
@@ -256,25 +251,30 @@ public class DocumentFragment extends Fragment {
 
         if (requestCode == PICK_FILE_REQUEST && resultCode == RESULT_OK) {
             Uri uri = data.getData();
-            if (tapped.equals("aadhar")) {
-                aadhar = uri;
-                binding.ivAadhar.setVisibility(View.VISIBLE);
-                binding.rlAadhar.setVisibility(View.VISIBLE);
-            } else if (tapped.equals("resume")) {
-                resume = uri;
-                binding.ivResume.setVisibility(View.VISIBLE);
-                binding.rlResume.setVisibility(View.VISIBLE);
-            } else if (tapped.equals("photo")) {
-                photo = uri;
-                binding.ivPhoto.setVisibility(View.VISIBLE);
-                binding.rlPhoto.setVisibility(View.VISIBLE);
+            switch (tapped) {
+                case "aadhar":
+                    aadhar = uri;
+                    binding.ivAadhar.setVisibility(View.VISIBLE);
+                    binding.rlAadhar.setVisibility(View.VISIBLE);
+                    break;
+                case "resume":
+                    resume = uri;
+                    binding.ivResume.setVisibility(View.VISIBLE);
+                    binding.rlResume.setVisibility(View.VISIBLE);
+                    break;
+                case "photo":
+                    photo = uri;
+                    binding.ivPhoto.setVisibility(View.VISIBLE);
+                    binding.rlPhoto.setVisibility(View.VISIBLE);
 
-            } else if (tapped.equals("cirtificate")) {
-                eduCirtificate = uri;
-                binding.ivCirtificate.setVisibility(View.VISIBLE);
-                binding.rlEduCirtifi.setVisibility(View.VISIBLE);
+                    break;
+                case "cirtificate":
+                    eduCirtificate = uri;
+                    binding.ivCirtificate.setVisibility(View.VISIBLE);
+                    binding.rlEduCirtifi.setVisibility(View.VISIBLE);
 
 
+                    break;
             }
 
             //  saveProfileAccount(uri);
@@ -296,27 +296,6 @@ public class DocumentFragment extends Fragment {
         } else {
             // Permission is granted by default in Android 10 and lower
         }
-    }
-
-    public String getRealPathFromURI(Uri uri) {
-        String path = null;
-
-        // If the scheme is "file", just return the path directly
-        if ("file".equals(uri.getScheme())) {
-            path = uri.getPath();
-        }
-        // If the scheme is "content", perform a query to get the path
-        else if ("content".equals(uri.getScheme())) {
-            String[] projection = {MediaStore.Files.FileColumns.DATA};
-            Cursor cursor = getActivity().getContentResolver().query(uri, projection, null, null, null);
-            if (cursor != null && cursor.moveToFirst()) {
-                int columnIndex = cursor.getColumnIndexOrThrow(MediaStore.Files.FileColumns.DATA);
-                path = cursor.getString(columnIndex);
-                cursor.close();
-            }
-        }
-
-        return path;
     }
 
 

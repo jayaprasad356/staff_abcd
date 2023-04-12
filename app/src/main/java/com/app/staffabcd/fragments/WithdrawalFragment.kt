@@ -47,7 +47,6 @@ class WithdrawalFragment : Fragment() {
             val bankDetailFragment = BankDetailFragment()
             val transaction = requireActivity().supportFragmentManager.beginTransaction()
             transaction.replace(R.id.FrameLyt, bankDetailFragment)
-            transaction.addToBackStack(null)
             transaction.commit()
         }
         binding.tvwalletBalance.text=session.getData(Constant.BALANCE).toString()
