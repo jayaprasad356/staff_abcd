@@ -265,4 +265,23 @@ class HomeActivity : AppCompatActivity() {
 
         finishAffinity()
     }
+    override fun onBackPressed() {
+
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START)
+        } else {
+            val currentFragment = supportFragmentManager.findFragmentById(container.id)
+            if (currentFragment is HomeFragment) {
+                super.onBackPressed()
+            } else {
+                supportFragmentManager.beginTransaction()
+                    .replace(container.id, HomeFragment()).commit()
+                toolbar.setTitle(R.string.home)
+                drawerLayout.closeDrawer(GravityCompat.START)
+                true
+            }
+
+        }
+
+    }
 }
