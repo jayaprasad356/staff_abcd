@@ -104,7 +104,6 @@ public class DocumentFragment extends Fragment {
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 selectedOption = dates[position];
                 if (selectedOption.equals("Select Salary Date")) {
-                    Toast.makeText(requireContext(), "Please Select Valid Salary date", Toast.LENGTH_SHORT).show();
                     selectedOption = "";
                 }
 

@@ -143,10 +143,7 @@ class HomeActivity : AppCompatActivity() {
                 try {
                     val jsonObject = JSONObject(response)
                     if (jsonObject.getBoolean(Constant.SUCCESS)) {
-                        Toast.makeText(
-                            this, jsonObject.getString(Constant.MESSAGE).toString(),
-                            Toast.LENGTH_SHORT
-                        ).show()
+
                         val message = jsonObject.getString("message")
                         val documentUpload = jsonObject.getInt("document_upload")
                         val salary = jsonObject.getString("salary")
