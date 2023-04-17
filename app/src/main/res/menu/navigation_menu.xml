@@ -35,11 +35,11 @@
         android:icon="@drawable/transaction"
         android:iconTint="@color/white"
         android:title="@string/transaction" />
-    <item
-        android:id="@+id/nav_adv_salary"
-        android:icon="@drawable/advance_sal"
-        android:iconTint="@color/white"
-        android:title="@string/adv_salary" />
+<!--    <item-->
+<!--        android:id="@+id/nav_adv_salary"-->
+<!--        android:icon="@drawable/advance_sal"-->
+<!--        android:iconTint="@color/white"-->
+<!--        android:title="@string/adv_salary" />-->
     <item
         android:id="@+id/nav_applyLeave"
         android:icon="@drawable/apply_leave"

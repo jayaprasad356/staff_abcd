@@ -114,13 +114,13 @@ class HomeActivity : AppCompatActivity() {
                     drawerLayout.closeDrawer(GravityCompat.START)
                     true
                 }
-                R.id.nav_adv_salary -> {
-                    supportFragmentManager.beginTransaction()
-                        .replace(container.id, AdvanceSalaryFragment()).commit()
-                    toolbar.setTitle(R.string.adv_salary)
-                    drawerLayout.closeDrawer(GravityCompat.START)
-                    true
-                }
+//                R.id.nav_adv_salary -> {
+//                    supportFragmentManager.beginTransaction()
+//                        .replace(container.id, AdvanceSalaryFragment()).commit()
+//                    toolbar.setTitle(R.string.adv_salary)
+//                    drawerLayout.closeDrawer(GravityCompat.START)
+//                    true
+//                }
                 R.id.nav_logout -> {
                     logout()
                     drawerLayout.closeDrawer(GravityCompat.START)
