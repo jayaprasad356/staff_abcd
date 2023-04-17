@@ -18,15 +18,19 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -36,10 +40,12 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
+import com.app.staffabcd.R;
 import com.app.staffabcd.VolleyMultipartRequest;
 import com.app.staffabcd.databinding.FragmentDocumentBinding;
 import com.app.staffabcd.helper.ApiConfig;
 import com.app.staffabcd.helper.Constant;
+import com.app.staffabcd.helper.ProgressDisplay;
 import com.app.staffabcd.helper.Session;
 
 import org.json.JSONArray;
@@ -53,6 +59,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class DocumentFragment extends Fragment {
@@ -64,11 +71,17 @@ public class DocumentFragment extends Fragment {
     RelativeLayout pendingLayout;
     RelativeLayout SuccessLayout;
 
-
+    String[] dates = {"Select Salary Date", "1", "2",
+            "3", "4",
+            "5", "6", "7", "8", "9", "10", "11",
+            "12", "13", "14", "15", "16", "17",
+            "18", "19", "20", "21", "22", "23",
+            "24", "25", "26", "27", "28", "29", "30", "31"};
+    String selectedOption;
     static int PICK_FILE_REQUEST = 1;
 
     Uri aadhar, resume, photo, eduCirtificate;
-
+    ProgressDisplay progressDisplay;
     public DocumentFragment() {
 
     }
@@ -81,42 +94,65 @@ public class DocumentFragment extends Fragment {
         binding = FragmentDocumentBinding.inflate(inflater, container, false);
         session = new Session(getActivity());
         requestStoragePermission();
-        binding.etSalaryDate.addTextChangedListener(new TextWatcher() {
+        Spinner mySpinner = binding.datesSpinner;
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(requireContext(), android.R.layout.simple_spinner_item, dates);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mySpinner.setAdapter(adapter);
+
+        mySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                // Do something after text is changed
-                String salaryDate = s.toString().trim();
-                if (!salaryDate.isEmpty()) {
-                    int dateNumber = Integer.parseInt(salaryDate);
-                    if (dateNumber < 1 || dateNumber > 31) {
-                        binding.etSalaryDate.setError("Please enter a number between 1 to 31");
-                    } else {
-                        binding.etSalaryDate.setError(null);
-                    }
-                } else {
-                    binding.etSalaryDate.setError("Please enter Salary Date");
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                selectedOption = dates[position];
+                if (selectedOption.equals("Select Salary Date")) {
+                    Toast.makeText(requireContext(), "Please Select Valid Salary date", Toast.LENGTH_SHORT).show();
+                    selectedOption = "";
                 }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // do nothing
             }
         });
-        if (!(session.getData(Constant.STAFF_DISPLAY_ID).isEmpty())){
+
+
+//        binding.etSalaryDate.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable s) {
+//                // Do something after text is changed
+//                String salaryDate = s.toString().trim();
+//                if (!salaryDate.isEmpty()) {
+//                    int dateNumber = Integer.parseInt(salaryDate);
+//                    if (dateNumber < 1 || dateNumber > 31) {
+//                        binding.etSalaryDate.setError("Please enter a number between 1 to 31");
+//                    } else {
+//                        binding.etSalaryDate.setError(null);
+//                    }
+//                } else {
+//                    binding.etSalaryDate.setError("Please enter Salary Date");
+//                }
+//            }
+//        });
+        if (!(session.getData(Constant.STAFF_DISPLAY_ID).isEmpty())) {
             binding.successLayout.setVisibility(View.VISIBLE);
             binding.pendingLayout.setVisibility(View.GONE);
             binding.scrollView.setVisibility(View.GONE);
-        }else if (session.getData(Constant.AADHAR_CARD).isEmpty()){
+        } else if (session.getData(Constant.AADHAR_CARD).isEmpty()) {
             binding.successLayout.setVisibility(View.GONE);
             binding.pendingLayout.setVisibility(View.GONE);
             binding.scrollView.setVisibility(View.VISIBLE);
-        }else if (!session.getData(Constant.AADHAR_CARD).isEmpty() && session.getData(Constant.STAFF_DISPLAY_ID).isEmpty()){
+        } else if (!session.getData(Constant.AADHAR_CARD).isEmpty() && session.getData(Constant.STAFF_DISPLAY_ID).isEmpty()) {
             binding.successLayout.setVisibility(View.GONE);
             binding.pendingLayout.setVisibility(View.VISIBLE);
             binding.scrollView.setVisibility(View.GONE);
@@ -164,13 +200,13 @@ public class DocumentFragment extends Fragment {
             DatePickerDialog datePickerDialog = new DatePickerDialog(requireContext(),
                     (view, year1, monthOfYear, dayOfMonth) -> {
                         // Handle the date selection
-                        String dateString = year1 + "/" + (month + 1) + "/" +dayOfMonth ;
+                        String dateString = String.format(Locale.US, "%04d-%02d-%02d", year1, monthOfYear + 1, dayOfMonth);
+
                         binding.etDateOfBirth.setText(dateString);
                         // Update your UI with the selected date here
                     }, year, month, day);
             datePickerDialog.show();
         });
-
 
 
 //        binding.etBank.setOnClickListener(new View.OnClickListener() {
@@ -205,7 +241,7 @@ public class DocumentFragment extends Fragment {
         binding.etBankName.setEnabled(false);
         binding.etBranch.setEnabled(false);
         binding.etIfsc.setEnabled(false);
-        binding.etSalaryDate.setEnabled(false);
+        binding.datesSpinner.setEnabled(false);
         binding.etMobileFamilyTwo.setEnabled(false);
         binding.etMobileFamily.setEnabled(false);
         binding.etDateOfBirth.setEnabled(false);
@@ -216,9 +252,8 @@ public class DocumentFragment extends Fragment {
         binding.etBank.setText(session.getData(Constant.BANK_ACCOUNT_NUMBER));
         binding.etBankName.setText(session.getData(Constant.BANK_NAME));
         binding.etIfsc.setText(session.getData(Constant.IFSC_CODE));
-        binding.etSalaryDate.setText(session.getData(Constant.SALARY_DATE));
+        selectedOption = session.getData(Constant.SALARY_DATE);
         binding.etBranch.setText(session.getData(Constant.BRANCH));
-        binding.etSalaryDate.setText(session.getData(Constant.SALARY_DATE));
         binding.etMobileFamily.setText(session.getData(Constant.FAMILY1));
         binding.etMobileFamilyTwo.setText(session.getData(Constant.FAMILY2));
         binding.etDateOfBirth.setText(session.getData(Constant.DOB));
@@ -301,7 +336,6 @@ public class DocumentFragment extends Fragment {
 
     private void uploadPDF(final String aadharName, Uri aadharUriFile, final String resumeName,
                            Uri resumeUriFile, final String eduCertificateName, Uri eduCertificateUriFile, final String photoName, Uri photoUriFile) {
-
         InputStream aadharIStream = null;
         InputStream resumeIStream = null;
         InputStream eduCertificateIStream = null;
@@ -333,8 +367,8 @@ public class DocumentFragment extends Fragment {
                                 jsonObject.toString().replace("\\\\", "");
 
                                 if (jsonObject.getBoolean("success")) {
-                                    session.setData(Constant.SALARY_DATE, binding.etSalaryDate.getText().toString());
-
+                                    session.setData(Constant.SALARY_DATE, selectedOption);
+                                    progressDisplay.hideProgress();
                                     updateStaffBankDetails();
 
 
@@ -363,7 +397,7 @@ public class DocumentFragment extends Fragment {
                     Map<String, String> params = new HashMap<>();
                     // params.put("tags", "ccccc");  add string parameters
                     params.put(Constant.STAFF_ID, session.getData(Constant.STAFF_ID));
-                    params.put(Constant.SALARY_DATE, binding.etSalaryDate.getText().toString());
+                    params.put(Constant.SALARY_DATE, selectedOption);
                     params.put(Constant.DOB, binding.etDateOfBirth.getText().toString());
 
                     return params;
@@ -418,6 +452,8 @@ public class DocumentFragment extends Fragment {
     @SuppressLint("Range")
     public void processWithUri(Uri aadharUri, Uri resumeUri, Uri eduCertificateUri, Uri photoUri) {
         // Get the Uri of the selected file
+        progressDisplay  = new ProgressDisplay(getActivity());
+        progressDisplay.showProgress();
         String aadharUriString = aadharUri.toString();
         String resumeUriString = resumeUri.toString();
         String eduCertificateUriString = eduCertificateUri.toString();
@@ -509,7 +545,7 @@ public class DocumentFragment extends Fragment {
 
     private boolean validateFields() {
         boolean isValid = true;
-        String salaryDate = binding.etSalaryDate.getText().toString().trim();
+        String salaryDate = selectedOption;
 
         if (binding.etBank.getText().toString().isEmpty()) {
             binding.etBank.setError("Please enter your bank account number");
@@ -552,20 +588,11 @@ public class DocumentFragment extends Fragment {
         } else if (eduCirtificate == null) {
             Toast.makeText(requireContext(), "Please upload Educational Cirtificate", Toast.LENGTH_SHORT).show();
             isValid = false;
-        } else if (binding.etSalaryDate.getText().toString().isEmpty()) {
-            binding.etSalaryDate.setError("Please enter Salary Date");
+        } else if (selectedOption.isEmpty()) {
+            Toast.makeText(requireContext(), "Please enter Salary Date", Toast.LENGTH_SHORT).show();
             isValid = false;
         }
-        if (salaryDate.isEmpty()) {
-            binding.etSalaryDate.setError("Please enter Salary Date");
-            isValid = false;
-        } else {
-            Integer dateNumber = Integer.parseInt(salaryDate);
-            if (dateNumber == null || dateNumber < 1 || dateNumber > 31) {
-                binding.etSalaryDate.setError("Please enter a number between 1 to 31");
-                isValid = false;
-            }
-        }
+
 
         return isValid;
     }
@@ -585,7 +612,7 @@ public class DocumentFragment extends Fragment {
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     if (jsonObject.getBoolean(Constant.SUCCESS)) {
-                        Toast.makeText(requireContext(), jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show();
+                      //  Toast.makeText(requireContext(), jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show();
                         JSONArray data = jsonObject.getJSONArray("data");
                         JSONObject object = data.getJSONObject(0);
                         session.setData(Constant.STAFF_ID, object.getString(Constant.ID));
@@ -604,6 +631,7 @@ public class DocumentFragment extends Fragment {
                         session.setData(Constant.SALARY_DATE, object.getString(Constant.SALARY_DATE));
                         binding.btnUpdate.setEnabled(false);
                         initCall();
+                        navigateToHomeFragment();
 
                     } else {
                         Toast.makeText(requireContext(), jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show();
@@ -616,5 +644,13 @@ public class DocumentFragment extends Fragment {
 
 
     }
+
+    private void navigateToHomeFragment() {
+        HomeFragment withdrawalFragment = new HomeFragment();
+        FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.FrameLyt, withdrawalFragment);
+        transaction.commit();
+    }
+
 }
 

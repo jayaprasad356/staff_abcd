@@ -154,30 +154,24 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/LoginTextInputLayoutStyle"
+                <Spinner
+                    android:id="@+id/datesSpinner"
+                    android:layout_height="50dp"
+                    android:background="@drawable/spinner_bg"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_15sdp"
-                    android:layout_marginTop="@dimen/_20sdp"
                     android:layout_marginEnd="@dimen/_15sdp"
-                    android:hint="Enter Salary Date"
-                    app:hintTextColor="@color/primary">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/etSalaryDate"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="number"
-                        android:maxLength="2" />
-
-                </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_marginStart="@dimen/_15sdp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:spinnerMode="dropdown"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
 
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginStart="@dimen/_15sdp"
                     android:layout_marginTop="30dp"
                     android:text="Upload Aadhar Card"
                     android:textColor="@color/black"
@@ -185,16 +179,15 @@
 
                 <LinearLayout
                     android:layout_width="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
                     <RelativeLayout
                         android:id="@+id/rlAadhar"
                         android:layout_width="wrap_content"
-
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_10sdp"
-                        android:layout_marginTop="@dimen/_5sdp"
+                        android:layout_marginStart="@dimen/_15sdp"
                         android:background="@drawable/et_bg"
                         android:padding="@dimen/_5sdp"
 
@@ -210,7 +203,6 @@
                     <ImageView
                         android:id="@+id/ivAadhar"
                         android:layout_width="@dimen/_25sdp"
-
                         android:layout_height="@dimen/_25sdp"
                         android:layout_gravity="center_vertical"
                         android:layout_marginStart="@dimen/_10sdp"
@@ -221,7 +213,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginStart="@dimen/_15sdp"
                     android:layout_marginTop="30dp"
                     android:text="Upload Resume"
                     android:textColor="@color/black"
@@ -230,6 +222,8 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp"
+
                     android:orientation="horizontal">
 
                     <RelativeLayout
@@ -237,8 +231,7 @@
                         android:layout_width="wrap_content"
 
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_10sdp"
-                        android:layout_marginTop="@dimen/_5sdp"
+                        android:layout_marginStart="@dimen/_15sdp"
                         android:background="@drawable/et_bg"
                         android:padding="@dimen/_5sdp"
 
@@ -267,7 +260,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginStart="@dimen/_15sdp"
                     android:layout_marginTop="30dp"
                     android:text="Upload Photo"
                     android:textColor="@color/black"
@@ -276,6 +269,8 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp"
+
                     android:orientation="horizontal">
 
                     <RelativeLayout
@@ -283,8 +278,7 @@
                         android:layout_width="wrap_content"
 
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_10sdp"
-                        android:layout_marginTop="@dimen/_5sdp"
+                        android:layout_marginStart="@dimen/_15sdp"
                         android:background="@drawable/et_bg"
                         android:padding="@dimen/_5sdp"
 
@@ -313,7 +307,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginStart="@dimen/_15sdp"
                     android:layout_marginTop="30dp"
                     android:text="Upload Education Certificate"
                     android:textColor="@color/black"
@@ -321,6 +315,8 @@
 
                 <LinearLayout
                     android:layout_width="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp"
+
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
@@ -329,8 +325,7 @@
                         android:layout_width="wrap_content"
 
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_10sdp"
-                        android:layout_marginTop="@dimen/_5sdp"
+                        android:layout_marginStart="@dimen/_15sdp"
                         android:background="@drawable/et_bg"
                         android:padding="@dimen/_5sdp"
 
