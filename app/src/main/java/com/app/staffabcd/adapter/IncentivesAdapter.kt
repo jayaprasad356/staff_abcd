@@ -33,7 +33,6 @@ class IncentivesAdapter (
     override fun onBindViewHolder(holderParent: RecyclerView.ViewHolder, position: Int) {
         val holder:ItemHolder = holderParent as ItemHolder
         val incentives: Incentives = incentives[position]
-        holder.tvRank.text=incentives.id
         holder.tvName.text=incentives.first_name
         holder.tvAmount.text="₹ "+incentives.incentives
     }
@@ -47,12 +46,10 @@ class IncentivesAdapter (
     internal class ItemHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tvName: TextView
         val tvAmount: TextView
-        var tvRank: TextView
 
         init {
             tvName = itemView.findViewById(R.id.tvName)
             tvAmount=itemView.findViewById(R.id.tvAmount)
-            tvRank=itemView.findViewById(R.id.tvRank)
 
         }
     }

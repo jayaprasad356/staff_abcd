@@ -49,7 +49,7 @@ class HomeFragment : Fragment() {
         binding.cvSalary.setOnClickListener {
             navigateToWithdrawals()
         }
-        val linearLayoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+        val linearLayoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         binding.rvIncentives.layoutManager = linearLayoutManager
 
         incentivesList()
