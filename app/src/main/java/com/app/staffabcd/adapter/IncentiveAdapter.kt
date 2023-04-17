@@ -28,10 +28,11 @@ class IncentiveAdapter(val activity: Activity, wallets: ArrayList<Incentive>) :
     override fun onBindViewHolder(holderParent: RecyclerView.ViewHolder, position: Int) {
         val holder:ItemHolder = holderParent as ItemHolder
         val report: Incentive = reports[position]
-        holder.date.text=report.date
-        holder.earning.text="₹ "+report.incentives
-        holder.lead.text=report.total_leads
-        holder.joining.text=report.total_joinings
+        holder.tvName.text=report.name
+        holder.tvJoiningDate.text="₹ "+report.joined_date
+        holder.tvType.text=report.type
+        holder.tvAmount.text="₹ "+report.amount
+        holder.tvReferCode.text=report.refer_code
 
 
     }
@@ -41,17 +42,19 @@ class IncentiveAdapter(val activity: Activity, wallets: ArrayList<Incentive>) :
     }
 
     internal class ItemHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val date: TextView
-        val earning: TextView
-        val lead: TextView
-        val joining: TextView
+        val tvName: TextView
+        val tvJoiningDate: TextView
+        val tvType: TextView
+        val tvAmount: TextView
+        val tvReferCode: TextView
 
 
         init {
-            date = itemView.findViewById<TextView>(R.id.tvDate)
-            earning = itemView.findViewById<TextView>(R.id.tvEarning)
-            joining = itemView.findViewById<TextView>(R.id.tvJoining)
-            lead = itemView.findViewById<TextView>(R.id.tvLead)
+            tvName = itemView.findViewById<TextView>(R.id.tvName)
+            tvJoiningDate = itemView.findViewById<TextView>(R.id.tvJoinDate)
+            tvAmount = itemView.findViewById<TextView>(R.id.tvAmount)
+            tvType = itemView.findViewById<TextView>(R.id.tvType)
+            tvReferCode = itemView.findViewById<TextView>(R.id.tvReferCode)
 
         }
     }

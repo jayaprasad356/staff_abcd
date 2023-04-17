@@ -1,23 +1,26 @@
 package com.app.staffabcd.model
 
 class Incentive {
-    var date: String? = null
-    var incentives: String? = null
-    var total_joinings: String? = null
-    var total_leads: String? = null
+    var name: String? = null
+    var refer_code: String? = null
+    var joined_date: String? = null
+    var type: String? = null
+    var amount: String? = null
 
     constructor() {}
     constructor(
-        date: String?,
-        incentives: String?,
-        total_joinings: String?,
-        total_leads: String?,
+        name: String?,
+        refer_code: String?,
+        joined_date: String?,
+        type: String?,
+        amount:String?
 
         ) {
-        this.date = date
-        this.incentives = incentives
-        this.total_joinings = total_joinings
-        this.total_leads = total_leads
+        this.name = name
+        this.refer_code = refer_code
+        this.joined_date = joined_date
+        this.type = type
+        this.amount=amount
 
     }
 }
