@@ -1,6 +1,7 @@
 package com.app.staffabcd
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.FrameLayout
@@ -144,20 +145,14 @@ class HomeActivity : AppCompatActivity() {
                     val jsonObject = JSONObject(response)
                     if (jsonObject.getBoolean(Constant.SUCCESS)) {
 
-                        val message = jsonObject.getString("message")
-                        val documentUpload = jsonObject.getInt("document_upload")
-                        val salary = jsonObject.getString("salary")
-                        val incentiveEarn = jsonObject.getString("incentive_earn")
-                        val totalEarnings = jsonObject.getInt("total_earnings")
-                        val totalLeads = jsonObject.getString("total_leads")
-                        val totalJoinings = jsonObject.getString("total_joinings")
+//                        val message = jsonObject.getString("message")
+//                        val documentUpload = jsonObject.getInt("document_upload")
+//                        val salary = jsonObject.getString("salary")
+//                        val incentiveEarn = jsonObject.getString("incentive_earn")
+//                        val totalEarnings = jsonObject.getInt("total_earnings")
+//                        val totalLeads = jsonObject.getString("total_leads")
+//                        val totalJoinings = jsonObject.getString("total_joinings")
 
-                        session.setData(Constant.DOCUMENT_UPLOAD, documentUpload.toString())
-                        session.setData(Constant.SALARY, salary)
-                        session.setData(Constant.INCENTIVE_EARN, incentiveEarn)
-                        session.setData(Constant.TOTAL_EARNINGS, totalEarnings.toString())
-                        session.setData(Constant.TOTAL_LEADS, totalLeads)
-                        session.setData(Constant.TOTAL_JOININGS, totalJoinings)
 
                         val userData: JSONObject =
                             jsonObject.getJSONArray(Constant.DATA).getJSONObject(0)
@@ -197,12 +192,24 @@ class HomeActivity : AppCompatActivity() {
                         session.setData(Constant.BALANCE, userData.getString(Constant.BALANCE))
                         session.setData(Constant.STATUS, userData.getString(Constant.STATUS))
                         session.setData(
+                            Constant.TOTAL_JOININGS,
+                            userData.getString(Constant.SUPPORTS)
+                        )
+                        session.setData(Constant.TOTAL_LEADS, userData.getString(Constant.LEADS))
+                        session.setData(Constant.SALARY, userData.getString(Constant.SALARY))
+                        session.setData(
+                            Constant.INCENTIVE_EARN,
+                            userData.getString(Constant.INCENTIVES)
+                        )
+                        session.setData(Constant.TOTAL_EARNINGS, userData.getString(Constant.EARN))
+
+                        session.setData(
                             Constant.STAFF_DISPLAY_ID,
                             userData.getString(Constant.STAFF_ID)
                         )
-                        session.setData(Constant.DOB,userData.getString(Constant.DOB))
+                        session.setData(Constant.DOB, userData.getString(Constant.DOB))
                         if (!Constant.DEBUG) {
-                            if (!(session.getData(Constant.DOCUMENT_UPLOAD).toString().equals("1")))
+                            if (session.getData(Constant.AADHAR_CARD).isEmpty())
                                 showFillDocumentPopup(toolbar)
                         }
 
@@ -259,9 +266,11 @@ class HomeActivity : AppCompatActivity() {
         // Clear all the shared preferences data
         val sharedPreferences = getSharedPreferences("staffabcd", Context.MODE_PRIVATE)
         sharedPreferences.edit().clear().apply()
-
-        finishAffinity()
+        val intent = Intent(this, LoginActivity::class.java)
+        startActivity(intent)
+        finish()
     }
+
     override fun onBackPressed() {
 
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {

@@ -6,7 +6,7 @@ public class Constant {
     public static final String AUTHORIZATION = "Authorization";
     public static final String TOKEN = "token";
 
-    public static final String MainBaseUrl = "https://demoabcd.graymatterworks.com/";
+    public static final String MainBaseUrl = "https://abcd.graymatterworks.com/";
 
     //public static final String MainBaseUrl = "http://192.168.43.38/autobot/";
     public static final String BaseUrl = MainBaseUrl + "staff_api/";
@@ -20,12 +20,14 @@ public class Constant {
     public static final String MY_DETAILS = BaseUrl + "my_details.php";
     public static final String INCENTIVE = BaseUrl + "incentive.php";
     public static final String STAFFS_TRANSACTION_LIST = BaseUrl + "staffs_transaction-list.php";
+    public static final String STAFF_LEAVE_LIST = BaseUrl + "staff_leave_list.php";
+
     public static final String  STAFFS_WITHDRAWALS_LIST= BaseUrl + "staffs_withdrawals_list.php";
     public static final String STAFF_LEAVES = BaseUrl + "staff_leaves.php";
     public static final String STAFF_REPORTS = BaseUrl + "staff_reports.php";
     public static final String STAFF_TOPEARNERS = BaseUrl + "staff_topearners.php";
     public static final String STAFF_DOCUMENT = BaseUrl + "staffs_document.php";
-
+    public static final String WITHDRAWALS = BaseUrl + "withdrawals.php";
 
 
 
@@ -46,6 +48,7 @@ public class Constant {
 
 
     public static final String DATA = "data";
+    public static final String DATE = "date";
 
     public static final String NAME = "name";
     public static final String STAFF_ID = "staff_id";
@@ -53,6 +56,7 @@ public class Constant {
     public static final String LEVEL = "level";
     public static final String JOINED_DATE = "joined_date";
     public static final String HISTORY_DAYS = "history_days";
+    public static final String AMOUNT = "amount";
 
     public static final String FIRST_NAME = "first_name";
     public static final String LAST_NAME = "last_name";
@@ -81,6 +85,11 @@ public class Constant {
     public static final String ROLE = "role";
     public static final String BALANCE = "balance";
     public static final String STATUS = "status";
+    public static final String SUPPORTS = "supports";
+    public static final String LEADS = "leads";
+    public static final String EARN = "earn";
+    public static final String INCENTIVES = "incentives";
+
 
     public static final String DOCUMENT_UPLOAD = "document_upload";
     public static final String SALARY = "salary";

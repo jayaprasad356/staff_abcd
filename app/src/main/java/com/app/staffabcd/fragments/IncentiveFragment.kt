@@ -8,8 +8,14 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.staffabcd.adapter.IncentiveAdapter
 import com.app.staffabcd.databinding.FragmentIncentiveBinding
+import com.app.staffabcd.helper.ApiConfig
+import com.app.staffabcd.helper.Constant
 import com.app.staffabcd.helper.Session
 import com.app.staffabcd.model.Incentive
+import com.google.gson.Gson
+import org.json.JSONArray
+import org.json.JSONException
+import org.json.JSONObject
 
 class IncentiveFragment : Fragment() {
 
@@ -31,54 +37,54 @@ class IncentiveFragment : Fragment() {
     }
 
     private fun incentiveList() {
-//        val params : HashMap<String,String> = hashMapOf()
-//        params.apply {
-//            this[Constant.STAFF_ID] =  session.getData(Constant.STAFF_ID)
-//        }
-        val defaultIncentive = Incentive(
-            name = "Ajay",
-            refer_code = "42FDS3",
-            joined_date = "12-12-2021",
-            type = "join",
-            amount = "500"
-        )
-        val defaultIncentive1 = Incentive(
-            name = "krishna",
-            refer_code = "4FD3S3",
-            joined_date = "12-12-2021",
-            type = "join",
-            amount = "150"
-        )
-//        ApiConfig.RequestToVolley({ result, response ->
-//            if (result) {
-//                try {
-//                    val jsonObject = JSONObject(response)
-//                    if (jsonObject.getBoolean(Constant.SUCCESS)) {
-//                        val jsonArray: JSONArray = jsonObject.getJSONArray(Constant.DATA)
+        val params : HashMap<String,String> = hashMapOf()
+        params.apply {
+            this[Constant.STAFF_ID] =  session.getData(Constant.STAFF_ID)
+        }
+//        val defaultIncentive = Incentive(
+//            name = "Ajay",
+//            refer_code = "42FDS3",
+//            joined_date = "12-12-2021",
+//            type = "join",
+//            amount = "500"
+//        )
+//        val defaultIncentive1 = Incentive(
+//            name = "krishna",
+//            refer_code = "4FD3S3",
+//            joined_date = "12-12-2021",
+//            type = "join",
+//            amount = "150"
+//        )
+        ApiConfig.RequestToVolley({ result, response ->
+            if (result) {
+                try {
+                    val jsonObject = JSONObject(response)
+                    if (jsonObject.getBoolean(Constant.SUCCESS)) {
+                        val jsonArray: JSONArray = jsonObject.getJSONArray(Constant.DATA)
         val incentive: ArrayList<Incentive> = ArrayList<Incentive>()
-//                        val g = Gson()
-//                        for (i in 0 until jsonArray.length()) {
-//                            val jsonObject1 = jsonArray.getJSONObject(i)
-//                            if (jsonObject1 != null) {
-//                                val group: Incentive =
-//                                    g.fromJson(jsonObject1.toString(), Incentive::class.java)
-//                                incentive.add(group)
-//                            } else {
-//                                break
-//                            }
-//                        }
-        incentive.add(defaultIncentive)
-        incentive.add(defaultIncentive1)
+                        val g = Gson()
+                        for (i in 0 until jsonArray.length()) {
+                            val jsonObject1 = jsonArray.getJSONObject(i)
+                            if (jsonObject1 != null) {
+                                val group: Incentive =
+                                    g.fromJson(jsonObject1.toString(), Incentive::class.java)
+                                incentive.add(group)
+                            } else {
+                                break
+                            }
+                        }
+//        incentive.add(defaultIncentive)
+//        incentive.add(defaultIncentive1)
 
         incentiveAdapter = IncentiveAdapter(requireActivity(), incentive)
         binding.rvReport.setAdapter(incentiveAdapter)
 
-//                    }
-//                } catch (e: JSONException) {
-//                    e.printStackTrace()
-        //    }
-        //   }
-//        }, requireActivity(), Constant.INCENTIVE, params, true)
+                    }
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+            }
+           }
+        }, requireActivity(), Constant.INCENTIVE, params, true)
     }
 
 }

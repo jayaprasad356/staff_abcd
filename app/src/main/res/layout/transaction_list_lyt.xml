@@ -50,7 +50,7 @@
                 android:id="@+id/tvTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:text="Amount Credited For Qr Code"
+                tools:text="Amount Credited "
                 android:textStyle="bold"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_12sdp"

@@ -59,6 +59,7 @@
                 android:id="@+id/etEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:enabled="false"
                 />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -99,6 +100,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="number"
+                android:enabled="false"
                 android:maxLength="10"
                 />
 

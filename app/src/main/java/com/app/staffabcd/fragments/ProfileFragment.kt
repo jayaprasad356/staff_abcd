@@ -33,7 +33,7 @@ class ProfileFragment : Fragment() {
             }
         }
         initUi()
-        staffProfileDetails()
+        staffDetails()
 
         return binding.root
     }
@@ -130,7 +130,7 @@ class ProfileFragment : Fragment() {
 
     }
 
-    private fun staffProfileDetails() {
+    private fun staffDetails() {
         val params: HashMap<String, String> = hashMapOf()
         params.apply {
             this[Constant.STAFF_ID] = session.getData(Constant.STAFF_ID)
@@ -140,6 +140,16 @@ class ProfileFragment : Fragment() {
                 try {
                     val jsonObject = JSONObject(response)
                     if (jsonObject.getBoolean(Constant.SUCCESS)) {
+
+//                        val message = jsonObject.getString("message")
+//                        val documentUpload = jsonObject.getInt("document_upload")
+//                        val salary = jsonObject.getString("salary")
+//                        val incentiveEarn = jsonObject.getString("incentive_earn")
+//                        val totalEarnings = jsonObject.getInt("total_earnings")
+//                        val totalLeads = jsonObject.getString("total_leads")
+//                        val totalJoinings = jsonObject.getString("total_joinings")
+
+
                         val userData: JSONObject =
                             jsonObject.getJSONArray(Constant.DATA).getJSONObject(0)
                         session.setData(Constant.ID, userData.getString(Constant.ID))
@@ -178,14 +188,23 @@ class ProfileFragment : Fragment() {
                         session.setData(Constant.BALANCE, userData.getString(Constant.BALANCE))
                         session.setData(Constant.STATUS, userData.getString(Constant.STATUS))
                         session.setData(
+                            Constant.TOTAL_JOININGS,
+                            userData.getString(Constant.SUPPORTS)
+                        )
+                        session.setData(Constant.TOTAL_LEADS, userData.getString(Constant.LEADS))
+                        session.setData(Constant.SALARY, userData.getString(Constant.SALARY))
+                        session.setData(
+                            Constant.INCENTIVE_EARN,
+                            userData.getString(Constant.INCENTIVES)
+                        )
+                        session.setData(Constant.TOTAL_EARNINGS, userData.getString(Constant.EARN))
+
+                        session.setData(
                             Constant.STAFF_DISPLAY_ID,
                             userData.getString(Constant.STAFF_ID)
                         )
-                        session.setData(Constant.FAMILY1, userData.getString(Constant.FAMILY1))
-                        session.setData(Constant.FAMILY2, userData.getString(Constant.FAMILY2))
                         session.setData(Constant.DOB, userData.getString(Constant.DOB))
 
-                        initUi()
 
 
                         // extract other values as needed
@@ -200,9 +219,10 @@ class ProfileFragment : Fragment() {
                     e.printStackTrace()
                 }
             }
-        }, requireActivity(), Constant.MY_DETAILS, params, true)
+        }, requireActivity(), Constant.STAFFS_DETAILS, params, true)
 
     }
+
 
     private fun initUi() {
       binding.etFirstName.setText(session.getData(Constant.FIRST_NAME).toString())

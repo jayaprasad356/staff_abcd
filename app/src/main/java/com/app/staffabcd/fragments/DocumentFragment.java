@@ -76,12 +76,13 @@ public class DocumentFragment extends Fragment {
             "5", "6", "7", "8", "9", "10", "11",
             "12", "13", "14", "15", "16", "17",
             "18", "19", "20", "21", "22", "23",
-            "24", "25", "26", "27", "28", "29", "30", "31"};
+            "24", "25", "26", "27", "28", "29", "30"};
     String selectedOption;
     static int PICK_FILE_REQUEST = 1;
 
     Uri aadhar, resume, photo, eduCirtificate;
     ProgressDisplay progressDisplay;
+
     public DocumentFragment() {
 
     }
@@ -166,7 +167,7 @@ public class DocumentFragment extends Fragment {
 
         });
 
-        if (session.getData(Constant.DOCUMENT_UPLOAD).equals("1")) {
+        if (!(session.getData(Constant.AADHAR_CARD).isEmpty())) {
             notAllowUploadDoc();
         }
 
@@ -451,7 +452,7 @@ public class DocumentFragment extends Fragment {
     @SuppressLint("Range")
     public void processWithUri(Uri aadharUri, Uri resumeUri, Uri eduCertificateUri, Uri photoUri) {
         // Get the Uri of the selected file
-        progressDisplay  = new ProgressDisplay(getActivity());
+        progressDisplay = new ProgressDisplay(getActivity());
         progressDisplay.showProgress();
         String aadharUriString = aadharUri.toString();
         String resumeUriString = resumeUri.toString();
@@ -611,7 +612,7 @@ public class DocumentFragment extends Fragment {
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     if (jsonObject.getBoolean(Constant.SUCCESS)) {
-                      //  Toast.makeText(requireContext(), jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show();
+                        //  Toast.makeText(requireContext(), jsonObject.getString(Constant.MESSAGE), Toast.LENGTH_SHORT).show();
                         JSONArray data = jsonObject.getJSONArray("data");
                         JSONObject object = data.getJSONObject(0);
                         session.setData(Constant.STAFF_ID, object.getString(Constant.ID));

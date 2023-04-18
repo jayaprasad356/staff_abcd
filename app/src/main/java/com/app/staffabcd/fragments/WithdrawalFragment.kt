@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.staffabcd.adapter.WithdrawalAdapter
@@ -41,10 +42,18 @@ class WithdrawalFragment : Fragment() {
         btnWithdaw = binding.btnWithdraw
         activity = requireActivity()
         btnWithdaw.setOnClickListener {
-//            val bankDetailFragment = BankDetailFragment()
-//            val transaction = requireActivity().supportFragmentManager.beginTransaction()
-//            transaction.replace(R.id.FrameLyt, bankDetailFragment)
-//            transaction.commit()
+            val amount = binding.etAmount.text.toString().toIntOrNull()
+
+            if(session.getData(Constant.STATUS).equals("0")){
+                Toast.makeText(requireContext(),"Account Not Verified",Toast.LENGTH_SHORT).show()
+            }else{
+                if (amount != null && amount >= 250) {
+                    withdrawal()
+                }else{
+                    Toast.makeText(requireContext(),"Minimum Withdrawal 250",Toast.LENGTH_SHORT).show()
+                }
+            }
+
         }
         binding.tvwalletBalance.text=session.getData(Constant.BALANCE).toString()
 
@@ -92,6 +101,7 @@ class WithdrawalFragment : Fragment() {
         val params: HashMap<String, String> = hashMapOf()
         params.apply {
             this[Constant.STAFF_ID] = session.getData(Constant.STAFF_ID)
+            this[Constant.AMOUNT] = binding.etAmount.text.toString()
 
         }
         ApiConfig.RequestToVolley({ result, response ->
@@ -107,7 +117,7 @@ class WithdrawalFragment : Fragment() {
                     e.printStackTrace()
                 }
             }
-        }, requireActivity(), Constant.STAFFS_WITHDRAWALS_LIST, params, true)
+        }, requireActivity(), Constant.WITHDRAWALS, params, true)
     }
 
 

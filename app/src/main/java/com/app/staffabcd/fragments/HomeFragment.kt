@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -53,6 +54,7 @@ class HomeFragment : Fragment() {
         binding.rvIncentives.layoutManager = linearLayoutManager
 
         incentivesList()
+        staffDetails()
 
         return binding.root
     }
@@ -64,6 +66,8 @@ class HomeFragment : Fragment() {
         binding.tvStaffId.text = session.getData(Constant.STAFF_DISPLAY_ID)
         binding.tvwalletBalance.text = "₹ " + session.getData(Constant.BALANCE)
         binding.tvTotalEarning.text="₹ " + session.getData(Constant.TOTAL_EARNINGS)
+        binding.tvSalary.text="₹ " + session.getData(Constant.SALARY)
+
         var incentiveEarn = session.getData(Constant.INCENTIVE_EARN)
         if (session.getData(Constant.INCENTIVE_EARN).equals("null")){
              incentiveEarn = "0"
@@ -145,5 +149,98 @@ class HomeFragment : Fragment() {
             }
         }, requireActivity(), Constant.STAFF_TOPEARNERS, params, true)
     }
+    private fun staffDetails() {
+        val params: HashMap<String, String> = hashMapOf()
+        params.apply {
+            this[Constant.STAFF_ID] = session.getData(Constant.STAFF_ID)
+        }
+        ApiConfig.RequestToVolley({ result, response ->
+            if (result) {
+                try {
+                    val jsonObject = JSONObject(response)
+                    if (jsonObject.getBoolean(Constant.SUCCESS)) {
+
+//                        val message = jsonObject.getString("message")
+//                        val documentUpload = jsonObject.getInt("document_upload")
+//                        val salary = jsonObject.getString("salary")
+//                        val incentiveEarn = jsonObject.getString("incentive_earn")
+//                        val totalEarnings = jsonObject.getInt("total_earnings")
+//                        val totalLeads = jsonObject.getString("total_leads")
+//                        val totalJoinings = jsonObject.getString("total_joinings")
+
+
+                        val userData: JSONObject =
+                            jsonObject.getJSONArray(Constant.DATA).getJSONObject(0)
+                        session.setData(Constant.ID, userData.getString(Constant.ID))
+                        session.setData(
+                            Constant.FIRST_NAME,
+                            userData.getString(Constant.FIRST_NAME)
+                        )
+                        session.setData(Constant.LAST_NAME, userData.getString(Constant.LAST_NAME))
+                        session.setData(Constant.EMAIL, userData.getString(Constant.EMAIL))
+                        session.setData(Constant.PASSWORD, userData.getString(Constant.PASSWORD))
+                        session.setData(Constant.MOBILE, userData.getString(Constant.MOBILE))
+                        session.setData(
+                            Constant.BANK_ACCOUNT_NUMBER,
+                            userData.getString(Constant.BANK_ACCOUNT_NUMBER)
+                        )
+                        session.setData(Constant.IFSC_CODE, userData.getString(Constant.IFSC_CODE))
+                        session.setData(Constant.BANK_NAME, userData.getString(Constant.BANK_NAME))
+                        session.setData(Constant.BRANCH, userData.getString(Constant.BRANCH))
+                        session.setData(
+                            Constant.AADHAR_CARD,
+                            userData.getString(Constant.AADHAR_CARD)
+                        )
+                        session.setData(Constant.RESUME, userData.getString(Constant.RESUME))
+                        session.setData(Constant.PHOTO, userData.getString(Constant.PHOTO))
+                        session.setData(
+                            Constant.EDUCATION_CERTIFICATE,
+                            userData.getString(Constant.EDUCATION_CERTIFICATE)
+                        )
+                        session.setData(Constant.JOIN_DATE, userData.getString(Constant.JOIN_DATE))
+                        session.setData(
+                            Constant.SALARY_DATE,
+                            userData.getString(Constant.SALARY_DATE)
+                        )
+                        session.setData(Constant.BRANCH_ID, userData.getString(Constant.BRANCH_ID))
+                        session.setData(Constant.ROLE, userData.getString(Constant.ROLE))
+                        session.setData(Constant.BALANCE, userData.getString(Constant.BALANCE))
+                        session.setData(Constant.STATUS, userData.getString(Constant.STATUS))
+                        session.setData(
+                            Constant.TOTAL_JOININGS,
+                            userData.getString(Constant.SUPPORTS)
+                        )
+                        session.setData(Constant.TOTAL_LEADS, userData.getString(Constant.LEADS))
+                        session.setData(Constant.SALARY, userData.getString(Constant.SALARY))
+                        session.setData(
+                            Constant.INCENTIVE_EARN,
+                            userData.getString(Constant.INCENTIVES)
+                        )
+                        session.setData(Constant.TOTAL_EARNINGS, userData.getString(Constant.EARN))
+
+                        session.setData(
+                            Constant.STAFF_DISPLAY_ID,
+                            userData.getString(Constant.STAFF_ID)
+                        )
+                        session.setData(Constant.DOB, userData.getString(Constant.DOB))
+
+
+
+                        // extract other values as needed
+                    } else {
+                        Toast.makeText(
+                            requireContext(), jsonObject.getString(Constant.MESSAGE).toString(),
+                            Toast.LENGTH_SHORT
+                        ).show()
+
+                    }
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                }
+            }
+        }, requireActivity(), Constant.STAFFS_DETAILS, params, true)
+
+    }
+
 
 }

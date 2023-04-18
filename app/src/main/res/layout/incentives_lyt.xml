@@ -63,7 +63,7 @@
             android:textColor="@color/primary"
             android:textSize="@dimen/_12sdp"
             android:gravity="center"
-            android:textStyle="italic|bold" />
+            android:textStyle="bold" />
 
 
     </LinearLayout>

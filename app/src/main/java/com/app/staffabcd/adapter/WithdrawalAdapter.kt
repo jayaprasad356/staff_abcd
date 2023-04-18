@@ -5,7 +5,6 @@ import android.app.Activity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.app.staffabcd.R
@@ -35,7 +34,7 @@ class WithdrawalAdapter (
         val holder:ItemHolder = holderParent as ItemHolder
         val withdrawal: Withdrawal = withdrawals[position]
         holder.tvDateTime.text=withdrawal.datetime
-        if (withdrawal.status=="0") {
+        if (withdrawal.status=="pending") {
             holder.tvStatus.text = "Pending"
             holder.tvStatus.setTextColor(activity.resources.getColor(R.color.primary))
         }
@@ -43,7 +42,7 @@ class WithdrawalAdapter (
             holder.tvStatus.text = "Approved"
             holder.tvStatus.setTextColor(activity.resources.getColor(R.color.green))
         }
-        else if (withdrawal.status=="2") {
+        else if (withdrawal.status=="cancelled") {
             holder.tvStatus.text = "Rejected"
             holder.tvStatus.setTextColor(activity.resources.getColor(R.color.red))
         }

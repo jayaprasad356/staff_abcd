@@ -14,10 +14,10 @@
             android:layout_width="wrap_content"
             android:layout_marginTop="@dimen/_10sdp"
             android:layout_height="wrap_content"
-            android:text="From Date:" />
+            android:text="Select Date:" />
 
         <EditText
-            android:id="@+id/etFromDate"
+            android:id="@+id/etDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:focusable="false"
@@ -25,19 +25,6 @@
             android:inputType="none"
             android:onClick="showFromDateDatePicker" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:layout_height="wrap_content"
-            android:text="To Date:" />
-
-        <EditText
-            android:id="@+id/etToDate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="none"
-            android:focusable="false"
-            android:onClick="showToDateDatePicker" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -67,6 +54,10 @@
             android:layout_height="wrap_content"
             android:text="Apply"
             android:onClick="applyLeave" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvLeaves"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
     </LinearLayout>
 

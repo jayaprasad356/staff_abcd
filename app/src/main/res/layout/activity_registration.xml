@@ -149,25 +149,6 @@
                         android:maxLength="10" />
 
                 </com.google.android.material.textfield.TextInputLayout>
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/LoginTextInputLayoutStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_15sdp"
-                    android:layout_marginTop="@dimen/_20sdp"
-                    android:layout_marginEnd="@dimen/_15sdp"
-                    android:hint="Select Join Date"
-                    app:hintTextColor="@color/primary">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/etJoinDate"
-                        android:layout_width="match_parent"
-                        android:focusable="false"
-                        android:layout_height="wrap_content"
-                        android:inputType="number"
-                        android:maxLength="10" />
-
-                </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnRegister"
@@ -178,7 +159,7 @@
                     android:layout_marginTop="35dp"
                     android:backgroundTint="@color/primary"
                     android:padding="@dimen/_8sdp"
-                    android:text="Click here to Registr"
+                    android:text="Click here to Register"
                     android:textAllCaps="false"
                     android:textSize="@dimen/_12sdp"
                     app:cornerRadius="@dimen/_8sdp" />
