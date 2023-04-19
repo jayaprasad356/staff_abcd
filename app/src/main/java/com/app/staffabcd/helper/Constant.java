@@ -24,7 +24,7 @@ public class Constant {
 
     public static final String  STAFFS_WITHDRAWALS_LIST= BaseUrl + "staffs_withdrawals_list.php";
     public static final String STAFF_LEAVES = BaseUrl + "staff_leaves.php";
-    public static final String STAFF_REPORTS = BaseUrl + "staff_reports.php";
+    public static final String REPORTS_LIST = BaseUrl + "reports_list.php";
     public static final String STAFF_TOPEARNERS = BaseUrl + "staff_topearners.php";
     public static final String STAFF_DOCUMENT = BaseUrl + "staffs_document.php";
     public static final String WITHDRAWALS = BaseUrl + "withdrawals.php";

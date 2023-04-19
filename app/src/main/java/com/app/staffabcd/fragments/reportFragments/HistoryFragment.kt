@@ -42,7 +42,7 @@ class HistoryFragment : Fragment() {
         val params : HashMap<String,String> = hashMapOf()
         params.apply {
             this[Constant.STAFF_ID] =  session.getData(Constant.STAFF_ID)
-            this[Constant.LEVEL] =  "2"
+            this[Constant.LEVEL] =  "4"
 
         }
         ApiConfig.RequestToVolley({ result, response ->
@@ -60,28 +60,25 @@ class HistoryFragment : Fragment() {
                                 val name = jsonObject1.getString(Constant.NAME)
                                 val mobile = jsonObject1.getString(Constant.MOBILE)
                                 val date = jsonObject1.getString(Constant.JOINED_DATE)
-                                val level = jsonObject1.getString(Constant.LEVEL)
-                                val historyDay = jsonObject1.getString(Constant.HISTORY_DAYS)
 
-                                if (historyDay >= "6" && level.equals("4")){
                                     // Create a new Report object and add it to the list
-                                    val report = Report(id,name, mobile,date,level,historyDay)
+                                    val report = Report(id,name, mobile,date)
                                     reports.add(report)
-                                }
+
 
                             } else {
                                 break
                             }
                         }
-                        historyAdapter = HistoryAdapter(requireActivity(), reports)
-                        binding.historyRecyclerView.setAdapter(historyAdapter)
+                        reportAdapter = ReportAdapter(requireActivity(), reports,"1")
+                        binding.historyRecyclerView.setAdapter(reportAdapter)
 
 
                     }else{
                         val reports: ArrayList<Report> = ArrayList()
 
-                        val report1 = Report("1", "John Doe", "978738125", "2022-01-01", "1", "10")
-                        val report2 = Report("2", "Jane Smith", "904729712", "2022-02-01", "2", "20")
+                        val report1 = Report("1", "John Doe", "978738125", "2022-01-01")
+                        val report2 = Report("2", "Jane Smith", "904729712", "2022-02-01")
                         reports.add(report1)
                         reports.add(report2)
                         reportAdapter = ReportAdapter(requireActivity(), reports,"1")
@@ -92,6 +89,6 @@ class HistoryFragment : Fragment() {
                     e.printStackTrace()
                 }
             }
-        }, requireActivity(), Constant.STAFF_REPORTS, params, true)
+        }, requireActivity(), Constant.REPORTS_LIST, params, true)
     }
 }

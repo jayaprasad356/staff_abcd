@@ -130,7 +130,7 @@ class ReportAdapter(
                     e.printStackTrace()
                 }
             }
-        }, activity, Constant.STAFF_REPORTS, params, true)
+        }, activity, Constant.REPORTS_LIST, params, true)
     }
 
 }

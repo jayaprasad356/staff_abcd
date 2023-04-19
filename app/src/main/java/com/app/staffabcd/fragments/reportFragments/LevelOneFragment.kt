@@ -24,7 +24,7 @@ class LevelOneFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentLevelOneBinding.inflate(inflater, container, false)
         session = Session(requireActivity())
         val linearLayoutManager = LinearLayoutManager(activity)
@@ -37,7 +37,7 @@ class LevelOneFragment : Fragment() {
         val params: HashMap<String, String> = hashMapOf()
         params.apply {
             this[Constant.STAFF_ID] = session.getData(Constant.STAFF_ID)
-            this[Constant.LEVEL] = "3"
+            this[Constant.LEVEL] = "1"
 
         }
         ApiConfig.RequestToVolley({ result, response ->
@@ -55,15 +55,12 @@ class LevelOneFragment : Fragment() {
                                 val name = jsonObject1.getString(Constant.NAME)
                                 val mobile = jsonObject1.getString(Constant.MOBILE)
                                 val date = jsonObject1.getString(Constant.JOINED_DATE)
-                                val level = jsonObject1.getString(Constant.LEVEL)
-                                val historyDay = jsonObject1.getString(Constant.HISTORY_DAYS)
 
-                                if (historyDay >= "1" && level.equals("1")) {
 
                                     // Create a new Report object and add it to the list
-                                    val report = Report(id, name, mobile, date, level, historyDay)
+                                    val report = Report(id, name, mobile, date)
                                     reports.add(report)
-                                }
+
 
                             } else {
                                 break
@@ -76,19 +73,19 @@ class LevelOneFragment : Fragment() {
                     }else{
                         val reports: ArrayList<Report> = ArrayList()
 
-                        val report1 = Report("1", "John Doe", "1234567890", "2022-01-01", "1", "10")
-                        val report2 = Report("2", "Jane Smith", "0987654321", "2022-02-01", "2", "20")
+                        val report1 = Report("1", "John Doe", "1234567890", "2022-01-01")
+                        val report2 = Report("2", "Jane Smith", "0987654321", "2022-02-01")
                         reports.add(report1)
                         reports.add(report2)
                         reportAdapter = ReportAdapter(requireActivity(), reports,"1")
-                        binding.levelOneRecyclerView.setAdapter(reportAdapter)
+                        binding.levelOneRecyclerView.adapter = reportAdapter
 
                     }
                 } catch (e: JSONException) {
                     e.printStackTrace()
                 }
             }
-        }, requireActivity(), Constant.STAFF_REPORTS, params, true)
+        }, requireActivity(), Constant.REPORTS_LIST, params, true)
     }
 
 }
