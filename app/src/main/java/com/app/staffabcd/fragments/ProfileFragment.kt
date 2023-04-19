@@ -43,14 +43,11 @@ class ProfileFragment : Fragment() {
         val email: String = binding.etEmail.text!!.trim().toString()
         val mobile: String = binding.etMobile.text!!.trim().toString()
 
-        if (binding.etFirstName.text.isNullOrEmpty()) {
-            binding.etFirstName.error = "Please enter your First Name"
+        if (binding.etName.text.isNullOrEmpty()) {
+            binding.etName.error = "Please enter your Name"
             isValid = false
         }
-        if (binding.etLastName.text.isNullOrEmpty()) {
-            binding.etLastName.error = "Please enter your Last Name"
-            isValid = false
-        }
+
         if (!Utils().isValidEmail(email)) {
             binding.etEmail.error = getString(R.string.email_error)
             isValid = false
@@ -73,8 +70,7 @@ class ProfileFragment : Fragment() {
         val params: HashMap<String, String> = hashMapOf()
         params.apply {
             this[Constant.STAFF_ID] = session.getData(Constant.STAFF_ID)
-            this[Constant.FIRST_NAME] = binding.etFirstName.text.toString()
-            this[Constant.LAST_NAME] = binding.etLastName.text.toString()
+            this[Constant.NAME] = binding.etName.text.toString()
             this[Constant.EMAIL] = binding.etEmail.text.toString()
             this[Constant.MOBILE] = binding.etMobile.text.toString()
             this[Constant.PASSWORD] = binding.etPassword.text.toString()
@@ -93,9 +89,7 @@ class ProfileFragment : Fragment() {
                         val data = jsonObject.getJSONArray("data").getJSONObject(0)
                         session.setData(Constant.STAFF_ID, data.getString(Constant.ID))
                         session.setData(Constant.EMAIL, data.getString(Constant.EMAIL))
-                        session.setData(Constant.FIRST_NAME, data.getString(Constant.FIRST_NAME))
-                        session.setData(Constant.LAST_NAME, data.getString(Constant.LAST_NAME))
-
+                        session.setData(Constant.NAME, data.getString(Constant.NAME))
                         session.setData(Constant.PASSWORD, data.getString(Constant.PASSWORD))
                         session.setData(Constant.MOBILE, data.getString(Constant.MOBILE))
                         //  session.setData(Constant.ADDRESS, data.getString(Constant.ADDRESS))
@@ -153,11 +147,7 @@ class ProfileFragment : Fragment() {
                         val userData: JSONObject =
                             jsonObject.getJSONArray(Constant.DATA).getJSONObject(0)
                         session.setData(Constant.ID, userData.getString(Constant.ID))
-                        session.setData(
-                            Constant.FIRST_NAME,
-                            userData.getString(Constant.FIRST_NAME)
-                        )
-                        session.setData(Constant.LAST_NAME, userData.getString(Constant.LAST_NAME))
+                        session.setData(Constant.NAME, userData.getString(Constant.NAME))
                         session.setData(Constant.EMAIL, userData.getString(Constant.EMAIL))
                         session.setData(Constant.PASSWORD, userData.getString(Constant.PASSWORD))
                         session.setData(Constant.MOBILE, userData.getString(Constant.MOBILE))
@@ -225,8 +215,7 @@ class ProfileFragment : Fragment() {
 
 
     private fun initUi() {
-      binding.etFirstName.setText(session.getData(Constant.FIRST_NAME).toString())
-        binding.etLastName.setText(session.getData(Constant.LAST_NAME).toString())
+      binding.etName.setText(session.getData(Constant.NAME).toString())
         binding.etEmail.setText(session.getData(Constant.EMAIL).toString())
         binding.etPassword.setText(session.getData(Constant.PASSWORD).toString())
         binding.etMobile.setText(session.getData(Constant.MOBILE).toString())

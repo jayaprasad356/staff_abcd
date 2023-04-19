@@ -61,7 +61,7 @@ class HomeFragment : Fragment() {
 
     @SuppressLint("SetTextI18n")
     private fun initCall() {
-        binding.tvName.text = session.getData(Constant.FIRST_NAME)
+        binding.tvName.text = session.getData(Constant.NAME)
         binding.tvMobil.text = session.getData(Constant.MOBILE)
         binding.tvStaffId.text = session.getData(Constant.STAFF_DISPLAY_ID)
         binding.tvwalletBalance.text = "₹ " + session.getData(Constant.BALANCE)
@@ -173,10 +173,9 @@ class HomeFragment : Fragment() {
                             jsonObject.getJSONArray(Constant.DATA).getJSONObject(0)
                         session.setData(Constant.ID, userData.getString(Constant.ID))
                         session.setData(
-                            Constant.FIRST_NAME,
-                            userData.getString(Constant.FIRST_NAME)
+                            Constant.NAME,
+                            userData.getString(Constant.NAME)
                         )
-                        session.setData(Constant.LAST_NAME, userData.getString(Constant.LAST_NAME))
                         session.setData(Constant.EMAIL, userData.getString(Constant.EMAIL))
                         session.setData(Constant.PASSWORD, userData.getString(Constant.PASSWORD))
                         session.setData(Constant.MOBILE, userData.getString(Constant.MOBILE))

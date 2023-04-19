@@ -46,7 +46,7 @@ class HomeActivity : AppCompatActivity() {
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
         navHeaderBinding.navHeaderEmail.text = session.getData(Constant.EMAIL)
-        navHeaderBinding.navHeaderName.text = session.getData(Constant.FIRST_NAME)
+        navHeaderBinding.navHeaderName.text = session.getData(Constant.NAME)
 
         // Initialize the navigation view and set the item selected listener
         navView = binding.navView
@@ -158,10 +158,9 @@ class HomeActivity : AppCompatActivity() {
                             jsonObject.getJSONArray(Constant.DATA).getJSONObject(0)
                         session.setData(Constant.ID, userData.getString(Constant.ID))
                         session.setData(
-                            Constant.FIRST_NAME,
-                            userData.getString(Constant.FIRST_NAME)
+                            Constant.NAME,
+                            userData.getString(Constant.NAME)
                         )
-                        session.setData(Constant.LAST_NAME, userData.getString(Constant.LAST_NAME))
                         session.setData(Constant.EMAIL, userData.getString(Constant.EMAIL))
                         session.setData(Constant.PASSWORD, userData.getString(Constant.PASSWORD))
                         session.setData(Constant.MOBILE, userData.getString(Constant.MOBILE))

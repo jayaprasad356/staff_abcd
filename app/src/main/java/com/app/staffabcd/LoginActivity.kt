@@ -88,8 +88,7 @@ class LoginActivity : AppCompatActivity() {
 
                         val userData: JSONObject = data.getJSONObject(0)
                         session.setData(Constant.STAFF_ID, userData.getString(Constant.ID))
-                        session.setData(Constant.FIRST_NAME, userData.getString(Constant.FIRST_NAME))
-                        session.setData(Constant.LAST_NAME, userData.getString(Constant.LAST_NAME))
+                        session.setData(Constant.NAME, userData.getString(Constant.NAME))
                         session.setData(Constant.EMAIL, userData.getString(Constant.EMAIL))
                         session.setData(Constant.PASSWORD, userData.getString(Constant.PASSWORD))
                         session.setData(Constant.MOBILE, userData.getString(Constant.MOBILE))

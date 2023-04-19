@@ -47,11 +47,7 @@ class WithdrawalFragment : Fragment() {
             if(session.getData(Constant.STATUS).equals("0")){
                 Toast.makeText(requireContext(),"Account Not Verified",Toast.LENGTH_SHORT).show()
             }else{
-                if (amount != null && amount >= 250) {
-                    withdrawal()
-                }else{
-                    Toast.makeText(requireContext(),"Minimum Withdrawal 250",Toast.LENGTH_SHORT).show()
-                }
+                withdrawal()
             }
 
         }
@@ -109,8 +105,13 @@ class WithdrawalFragment : Fragment() {
                 try {
                     val jsonObject = JSONObject(response)
                     if (jsonObject.getBoolean(Constant.SUCCESS)) {
-                        val jsonArray: JSONArray = jsonObject.getJSONArray(Constant.DATA)
+                        Toast.makeText(activity,jsonObject.getString(Constant.MESSAGE).toString(),
+                            Toast.LENGTH_SHORT).show()
                         withdrawalList()
+
+                    }else {
+                        Toast.makeText(activity,jsonObject.getString(Constant.MESSAGE).toString(),
+                            Toast.LENGTH_SHORT).show()
 
                     }
                 } catch (e: JSONException) {

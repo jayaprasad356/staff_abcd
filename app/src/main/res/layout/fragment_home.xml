@@ -449,15 +449,16 @@
 
             </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_4sdp"
-                android:text="Staff incentive"
-                android:textStyle="bold"
-                android:textSize="@dimen/_14sdp"
-                android:layout_marginLeft="@dimen/_10sdp"
-                android:textColor="@color/black" />
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="@dimen/_4sdp"-->
+<!--                android:text="Staff incentive"-->
+<!--                android:textStyle="bold"-->
+<!--                -->
+<!--                android:textSize="@dimen/_14sdp"-->
+<!--                android:layout_marginLeft="@dimen/_10sdp"-->
+<!--                android:textColor="@color/black" />-->
 
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_marginTop="@dimen/_5sdp"

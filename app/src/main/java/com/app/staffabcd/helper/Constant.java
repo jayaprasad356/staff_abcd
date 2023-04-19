@@ -6,9 +6,9 @@ public class Constant {
     public static final String AUTHORIZATION = "Authorization";
     public static final String TOKEN = "token";
 
-    public static final String MainBaseUrl = "https://abcd.graymatterworks.com/";
+    //public static final String MainBaseUrl = "https://abcd.graymatterworks.com/";
 
-    //public static final String MainBaseUrl = "http://192.168.43.38/autobot/";
+    public static final String MainBaseUrl = "https://abcd.graymatterworks.com/";
     public static final String BaseUrl = MainBaseUrl + "staff_api/";
     public static final String LOGIN_URL = BaseUrl + "login.php";
     public static final String SIGN_UP = BaseUrl + "signup.php";
@@ -18,7 +18,7 @@ public class Constant {
     public static final String STAFFS_LOGIN = BaseUrl + "staffs_login.php";
     public static final String STAFFS_DETAILS = BaseUrl + "staff_details.php";
     public static final String MY_DETAILS = BaseUrl + "my_details.php";
-    public static final String INCENTIVE = BaseUrl + "incentive.php";
+    public static final String INCENTIVES_URL = BaseUrl + "incentives.php";
     public static final String STAFFS_TRANSACTION_LIST = BaseUrl + "staffs_transaction-list.php";
     public static final String STAFF_LEAVE_LIST = BaseUrl + "staff_leave_list.php";
 
@@ -58,8 +58,7 @@ public class Constant {
     public static final String HISTORY_DAYS = "history_days";
     public static final String AMOUNT = "amount";
 
-    public static final String FIRST_NAME = "first_name";
-    public static final String LAST_NAME = "last_name";
+
 
     public static final String EMAIL = "email";
     public static final String ADDRESS = "address";

@@ -41,20 +41,6 @@ class IncentiveFragment : Fragment() {
         params.apply {
             this[Constant.STAFF_ID] =  session.getData(Constant.STAFF_ID)
         }
-//        val defaultIncentive = Incentive(
-//            name = "Ajay",
-//            refer_code = "42FDS3",
-//            joined_date = "12-12-2021",
-//            type = "join",
-//            amount = "500"
-//        )
-//        val defaultIncentive1 = Incentive(
-//            name = "krishna",
-//            refer_code = "4FD3S3",
-//            joined_date = "12-12-2021",
-//            type = "join",
-//            amount = "150"
-//        )
         ApiConfig.RequestToVolley({ result, response ->
             if (result) {
                 try {
@@ -84,7 +70,7 @@ class IncentiveFragment : Fragment() {
                     e.printStackTrace()
             }
            }
-        }, requireActivity(), Constant.INCENTIVE, params, true)
+        }, requireActivity(), Constant.INCENTIVES_URL, params, true)
     }
 
 }

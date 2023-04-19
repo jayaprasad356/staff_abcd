@@ -2,6 +2,7 @@ package com.app.staffabcd
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -48,12 +49,10 @@ class RegistrationActivity : AppCompatActivity() {
     private fun doRegister() {
         val params : HashMap<String,String> = hashMapOf()
         params.apply {
-            this[Constant.FIRST_NAME] =  binding!!.etFirstName.text.toString()
-            this[Constant.LAST_NAME] =  binding!!.etLastName.text.toString()
+            this[Constant.NAME] =  binding!!.etName.text.toString()
             this[Constant.EMAIL] =  binding!!.etEmail.text.toString()
             this[Constant.MOBILE] =  binding!!.etMobile.text.toString()
             this[Constant.PASSWORD] =  binding!!.etPassword.text.toString()
-
         }
         ApiConfig.RequestToVolley({ result, response ->
             if (result) {
@@ -65,8 +64,7 @@ class RegistrationActivity : AppCompatActivity() {
 
                         val data = jsonObject.getJSONArray("data")
                         session.setData(Constant.STAFF_ID,data.getJSONObject(0).getString(Constant.ID))
-                        session.setData(Constant.FIRST_NAME,data.getJSONObject(0).getString(Constant.FIRST_NAME))
-                        session.setData(Constant.LAST_NAME,data.getJSONObject(0).getString(Constant.LAST_NAME))
+                        session.setData(Constant.NAME,data.getJSONObject(0).getString(Constant.NAME))
                         session.setData(Constant.EMAIL,data.getJSONObject(0).getString(Constant.EMAIL))
                         session.setData(Constant.PASSWORD,data.getJSONObject(0).getString(Constant.PASSWORD))
                         session.setData(Constant.MOBILE,data.getJSONObject(0).getString(Constant.MOBILE))
@@ -95,12 +93,8 @@ class RegistrationActivity : AppCompatActivity() {
         val email: String = binding!!.etEmail.text!!.trim().toString()
         val mobile: String = binding!!.etMobile.text!!.trim().toString()
 
-        if (binding!!.etFirstName.text.isNullOrEmpty()) {
-            binding!!.etFirstName.error = "Please enter your First Name"
-            isValid = false
-        }
-        if (binding!!.etLastName.text.isNullOrEmpty()) {
-            binding!!.etLastName.error = "Please enter your Last Name"
+        if (binding!!.etName.text.isNullOrEmpty()) {
+            binding!!.etName.error = "Please enter your Name"
             isValid = false
         }
         if (!Utils().isValidEmail(email)) {
