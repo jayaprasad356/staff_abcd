@@ -34,7 +34,6 @@ class HistoryFragment : Fragment() {
         val linearLayoutManager = LinearLayoutManager(activity)
         binding.historyRecyclerView.layoutManager = linearLayoutManager
         historyList()
-        Toast.makeText(requireContext(),"histy",Toast.LENGTH_SHORT).show()
         return binding.root
     }
 
@@ -70,19 +69,15 @@ class HistoryFragment : Fragment() {
                                 break
                             }
                         }
-                        reportAdapter = ReportAdapter(requireActivity(), reports,"1")
+                        reportAdapter = ReportAdapter(requireActivity(), reports,"4")
                         binding.historyRecyclerView.setAdapter(reportAdapter)
 
 
                     }else{
-                        val reports: ArrayList<Report> = ArrayList()
-
-                        val report1 = Report("1", "John Doe", "978738125", "2022-01-01")
-                        val report2 = Report("2", "Jane Smith", "904729712", "2022-02-01")
-                        reports.add(report1)
-                        reports.add(report2)
-                        reportAdapter = ReportAdapter(requireActivity(), reports,"1")
-                        binding.historyRecyclerView.setAdapter(reportAdapter)
+                        Toast.makeText(
+                            requireContext(), jsonObject.getString(Constant.MESSAGE).toString(),
+                            Toast.LENGTH_SHORT
+                        ).show()
 
                     }
                 } catch (e: JSONException) {

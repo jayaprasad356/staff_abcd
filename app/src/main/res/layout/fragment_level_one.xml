@@ -5,9 +5,12 @@
     android:layout_height="match_parent"
     tools:context=".fragments.reportFragments.LevelOneFragment">
 
-<androidx.recyclerview.widget.RecyclerView
-    android:id="@+id/levelOneRecyclerView"
-    android:layout_width="match_parent"
-    android:layout_marginHorizontal="@dimen/_4sdp"
-    android:layout_height="wrap_content"/>
+
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/levelOneRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_marginHorizontal="@dimen/_4sdp"
+        android:layout_height="wrap_content"/>
 </LinearLayout>

@@ -59,7 +59,7 @@ class ReportAdapter(
     private fun sendMsgToWhatsapp(mobile: String?) {
 
         val phoneNumber = "+91$mobile"
-        val message = "Hello, this is a test message." // Replace with the message you want to send
+        val message = "Hi, How are you?" // Replace with the message you want to send
 // Replace with the phone number you want to navigate to in WhatsApp
 
         val packageManager: PackageManager =

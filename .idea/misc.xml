@@ -3,10 +3,16 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Studio Projects/StaffAbcd/app/src/main/res/layout/activity_home.xml" value="0.17552083333333332" />
         <entry key="..\:/Studio Projects/StaffAbcd/app/src/main/res/layout/activity_main.xml" value="0.17552083333333332" />
         <entry key="..\:/Studio Projects/StaffAbcd/app/src/main/res/layout/activity_registration.xml" value="0.17552083333333332" />
+        <entry key="..\:/Studio Projects/StaffAbcd/app/src/main/res/layout/activity_splash.xml" value="0.17552083333333332" />
+        <entry key="..\:/Studio Projects/StaffAbcd/app/src/main/res/layout/fragment_bank_detail.xml" value="0.17552083333333332" />
         <entry key="..\:/Studio Projects/StaffAbcd/app/src/main/res/layout/fragment_home.xml" value="0.17552083333333332" />
+        <entry key="..\:/Studio Projects/StaffAbcd/app/src/main/res/layout/fragment_incentive.xml" value="0.17552083333333332" />
+        <entry key="..\:/Studio Projects/StaffAbcd/app/src/main/res/layout/fragment_level_one.xml" value="0.17552083333333332" />
         <entry key="..\:/Studio Projects/StaffAbcd/app/src/main/res/layout/fragment_profile.xml" value="0.1" />
+        <entry key="..\:/Studio Projects/StaffAbcd/app/src/main/res/layout/fragment_withdrawal.xml" value="0.17552083333333332" />
         <entry key="..\:/Studio Projects/StaffAbcd/app/src/main/res/layout/transaction_list_lyt.xml" value="0.17552083333333332" />
       </map>
     </option>
