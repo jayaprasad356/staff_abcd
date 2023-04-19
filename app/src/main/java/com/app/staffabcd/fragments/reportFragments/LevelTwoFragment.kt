@@ -1,10 +1,10 @@
 package com.app.staffabcd.fragments.reportFragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.staffabcd.adapter.ReportAdapter
 import com.app.staffabcd.databinding.FragmentLevelTwoBinding
@@ -70,6 +70,16 @@ class LevelTwoFragment : Fragment() {
                         reportAdapter = ReportAdapter(requireActivity(), reports, "2")
                         binding.levelTwoRecyclerView.setAdapter(reportAdapter)
 
+
+                    }else{
+                        val reports: ArrayList<Report> = ArrayList()
+
+                        val report1 = Report("1", "John Doe", "1234567890", "2022-01-01", "1", "10")
+                        val report2 = Report("2", "Jane Smith", "0987654321", "2022-02-01", "2", "20")
+                        reports.add(report1)
+                        reports.add(report2)
+                        reportAdapter = ReportAdapter(requireActivity(), reports,"1")
+                        binding.levelTwoRecyclerView.setAdapter(reportAdapter)
 
                     }
                 } catch (e: JSONException) {

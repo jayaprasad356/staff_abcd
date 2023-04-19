@@ -67,6 +67,7 @@ class HomeFragment : Fragment() {
         binding.tvwalletBalance.text = "₹ " + session.getData(Constant.BALANCE)
         binding.tvTotalEarning.text="₹ " + session.getData(Constant.TOTAL_EARNINGS)
         binding.tvSalary.text="₹ " + session.getData(Constant.SALARY)
+        binding.tvRole.text=session.getData(Constant.ROLE)
 
         var incentiveEarn = session.getData(Constant.INCENTIVE_EARN)
         if (session.getData(Constant.INCENTIVE_EARN).equals("null")){
@@ -136,9 +137,9 @@ class HomeFragment : Fragment() {
                                 break
                             }
                         }
-                        val sortedIncentives = incentive.sortedBy { it.id }
-                        incentive.clear()
-                        incentive.addAll(sortedIncentives)
+//                        val sortedIncentives = incentive.sortedBy { it.id }
+//                        incentive.clear()
+//                        incentive.addAll(sortedIncentives)
                         incentivesAdapter = IncentivesAdapter(requireActivity(), incentive)
                         binding.rvIncentives.adapter = incentivesAdapter
 
@@ -224,7 +225,7 @@ class HomeFragment : Fragment() {
                         session.setData(Constant.DOB, userData.getString(Constant.DOB))
 
 
-
+initCall()
                         // extract other values as needed
                     } else {
                         Toast.makeText(

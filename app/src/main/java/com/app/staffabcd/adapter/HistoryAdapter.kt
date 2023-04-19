@@ -38,7 +38,7 @@ class HistoryAdapter (
         val holder:ItemHolder = holderParent as ItemHolder
         val report: Report = reports[position]
         holder.name.text=report.name
-        holder.joining.text=report.joining
+        holder.joining.text=report.refer_code
         holder.btnMsg.setOnClickListener {
             sendMsgToWhatsapp(report.mobile)
         }

@@ -278,6 +278,12 @@ class HomeActivity : AppCompatActivity() {
             val currentFragment = supportFragmentManager.findFragmentById(container.id)
             if (currentFragment is HomeFragment) {
                 super.onBackPressed()
+            } else if (currentFragment is BankDetailFragment) {
+                supportFragmentManager.beginTransaction()
+                    .replace(container.id, WithdrawalFragment()).commit()
+                toolbar.setTitle(R.string.withdrawal)
+                drawerLayout.closeDrawer(GravityCompat.START)
+                true
             } else {
                 supportFragmentManager.beginTransaction()
                     .replace(container.id, HomeFragment()).commit()

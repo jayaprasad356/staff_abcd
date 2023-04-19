@@ -4,7 +4,7 @@ class Report {
     var id: String? = null
     var name: String? = null
     var mobile: String? = null
-    var joining: String? = null
+    var refer_code: String? = null
     var level: String? = null
     var history_days: String? = null
 
@@ -16,14 +16,14 @@ class Report {
         id: String?,
         name: String?,
         mobile: String?,
-        joining: String?,
+        refer_code: String?,
         level: String?,
         history_days: String?
     ) {
         this.id = id
         this.name = name
         this.mobile = mobile
-        this.joining = joining
+        this.refer_code = refer_code
         this.level = level
         this.history_days = history_days
     }

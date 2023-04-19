@@ -24,7 +24,7 @@ lateinit var session:Session
     ): View? {
         binding= FragmentBankDetailBinding.inflate(inflater, container, false)
         session= Session(requireActivity())
-
+initCall()
         binding.btnUpdate.setOnClickListener {
             if (validateFields()){
                 updateStaffDetails()
@@ -33,6 +33,14 @@ lateinit var session:Session
         }
 
         return binding.root
+    }
+
+    private fun initCall() {
+        binding.etBankAccountNumber.setText(session.getData(Constant.BANK_ACCOUNT_NUMBER))
+        binding.etIfsc.setText(session.getData(Constant.IFSC_CODE))
+        binding.etBankName.setText(session.getData(Constant.BANK_NAME))
+        binding.etBranch.setText(session.getData(Constant.BRANCH))
+
     }
 
     private fun validateFields(): Boolean {
@@ -91,7 +99,7 @@ lateinit var session:Session
                         session.setData(Constant.PHOTO, data.getString(Constant.PHOTO))
                         session.setData(Constant.EDUCATION_CERTIFICATE, data.getString(Constant.EDUCATION_CERTIFICATE))
                         session.setData(Constant.SALARY_DATE, data.getString(Constant.SALARY_DATE))
-                        requireActivity().onBackPressed()
+                        initCall()
                     } else {
                         Toast.makeText(requireContext(),jsonObject.getString(Constant.MESSAGE).toString(),Toast.LENGTH_SHORT).show()
                     }

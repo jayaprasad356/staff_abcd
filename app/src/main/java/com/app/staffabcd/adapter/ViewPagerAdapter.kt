@@ -35,7 +35,7 @@ class ViewPagerAdapter(
         else if (position == 1)
             title ="Level 2"
         else if (position == 2) title = "Level 3"
-        else if (position == 3) title = "History"
+        else if (position == 3) title = "Level 4"
 
         return title
     }

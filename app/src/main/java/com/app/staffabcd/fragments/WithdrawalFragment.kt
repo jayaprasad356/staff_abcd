@@ -10,6 +10,7 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.app.staffabcd.R
 import com.app.staffabcd.adapter.WithdrawalAdapter
 import com.app.staffabcd.databinding.FragmentWithdrawalBinding
 import com.app.staffabcd.helper.ApiConfig
@@ -56,6 +57,13 @@ class WithdrawalFragment : Fragment() {
         val linearLayoutManager = LinearLayoutManager(activity)
         binding.rvWithdrawalHistory.layoutManager = linearLayoutManager
         withdrawalList()
+
+        binding.btnBankDetails.setOnClickListener {
+            val bankDetailFragment = BankDetailFragment()
+            val transaction = requireActivity().supportFragmentManager.beginTransaction()
+            transaction.replace(R.id.FrameLyt, bankDetailFragment)
+            transaction.commit()
+        }
         return binding.root
     }
 
@@ -107,6 +115,12 @@ class WithdrawalFragment : Fragment() {
                     if (jsonObject.getBoolean(Constant.SUCCESS)) {
                         Toast.makeText(activity,jsonObject.getString(Constant.MESSAGE).toString(),
                             Toast.LENGTH_SHORT).show()
+                        val userData: JSONObject =
+                            jsonObject.getJSONArray(Constant.DATA).getJSONObject(0)
+                        session.setData(Constant.BALANCE, userData.getString(Constant.BALANCE))
+                        binding.tvwalletBalance.text=session.getData(Constant.BALANCE).toString()
+
+
                         withdrawalList()
 
                     }else {

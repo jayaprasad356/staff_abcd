@@ -1,11 +1,11 @@
 package com.app.staffabcd.fragments.reportFragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.staffabcd.adapter.HistoryAdapter
 import com.app.staffabcd.adapter.ReportAdapter
@@ -22,6 +22,7 @@ import org.json.JSONObject
 class HistoryFragment : Fragment() {
 
     lateinit var historyAdapter: HistoryAdapter
+    lateinit var reportAdapter: ReportAdapter
     lateinit var binding: FragmentHistoryBinding
     lateinit var session: Session
     override fun onCreateView(
@@ -75,6 +76,16 @@ class HistoryFragment : Fragment() {
                         historyAdapter = HistoryAdapter(requireActivity(), reports)
                         binding.historyRecyclerView.setAdapter(historyAdapter)
 
+
+                    }else{
+                        val reports: ArrayList<Report> = ArrayList()
+
+                        val report1 = Report("1", "John Doe", "978738125", "2022-01-01", "1", "10")
+                        val report2 = Report("2", "Jane Smith", "904729712", "2022-02-01", "2", "20")
+                        reports.add(report1)
+                        reports.add(report2)
+                        reportAdapter = ReportAdapter(requireActivity(), reports,"1")
+                        binding.historyRecyclerView.setAdapter(reportAdapter)
 
                     }
                 } catch (e: JSONException) {

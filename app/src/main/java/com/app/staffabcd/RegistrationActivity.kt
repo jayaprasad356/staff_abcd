@@ -2,7 +2,6 @@ package com.app.staffabcd
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -107,7 +106,7 @@ class RegistrationActivity : AppCompatActivity() {
             isValid = false
         }
 
-        if (!Utils().isValidPhone(mobile)) {
+        if (mobile.length != 10) {
             binding!!.etMobile.error = "Please enter valid mobile number"
             isValid = false
         }

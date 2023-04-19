@@ -47,14 +47,13 @@ class ReportAdapter(
         val holder: ItemHolder = holderParent as ItemHolder
         val report: Report = reports[position]
         holder.name.text = report.name
-        holder.joining.text = report.joining
-        holder.btnRemind.setOnClickListener {
+        holder.tvReferCode.text = report.refer_code
+        holder.tvMobile.text=report.mobile
+        holder.btnChat.setOnClickListener {
             sendMsgToWhatsapp(report.mobile)
             // sendMessage("Hello, this is a test message.")
         }
-        holder.btnMark.setOnClickListener {
-            markMessaged(level, report.id.toString())
-        }
+
     }
 
     private fun sendMsgToWhatsapp(mobile: String?) {
@@ -89,16 +88,16 @@ class ReportAdapter(
 
     internal class ItemHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val name: TextView
-        val joining: TextView
-        val btnRemind: Button
-        val btnMark: Button
+        val tvReferCode: TextView
+        val btnChat: Button
+        val tvMobile: TextView
 
 
         init {
             name = itemView.findViewById(R.id.tvName)
-            joining = itemView.findViewById(R.id.tvJoining)
-            btnMark = itemView.findViewById(R.id.btnMark)
-            btnRemind = itemView.findViewById(R.id.btnRemind)
+            tvReferCode = itemView.findViewById(R.id.tvReferCode)
+            tvMobile = itemView.findViewById(R.id.tvMobile)
+            btnChat = itemView.findViewById(R.id.btnChat)
 
         }
     }

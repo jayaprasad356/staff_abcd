@@ -77,9 +77,9 @@
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/tvWallet"
                             android:layout_gravity="center_horizontal"
+                            android:fontFamily="@font/gafigste"
                             android:gravity="right"
                             android:text="000"
-                            android:fontFamily="@font/gafigste"
                             android:textColor="@color/primary_light"
                             android:textSize="@dimen/_12sdp" />
                     </LinearLayout>
@@ -106,19 +106,20 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="R.Arunkumar"
-                        android:textSize="@dimen/_12sdp"
                         android:textColor="@color/black"
+                        android:textSize="@dimen/_12sdp"
                         android:textStyle="bold" />
 
                     <TextView
-                        android:visibility="gone"
                         android:id="@+id/tvMobil"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_4sdp"
                         android:text="7092310035"
                         android:textSize="@dimen/_12sdp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:visibility="gone" />
+
                     <TextView
                         android:id="@+id/tvStaffId"
                         android:layout_width="wrap_content"
@@ -132,13 +133,16 @@
                 </LinearLayout>
 
                 <TextView
-                    android:visibility="gone"
+                    android:id="@+id/tvRole"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
-                    android:text="attendence 28 days"
-                    android:textSize="@dimen/_12sdp" />
+                    android:gravity="center_horizontal"
+                    android:text=""
+                    android:textColor="@color/primary"
+                    android:textSize="@dimen/_12sdp"
+                    android:visibility="visible" />
             </LinearLayout>
 
             <com.google.android.material.card.MaterialCardView
@@ -157,15 +161,11 @@
                     android:orientation="horizontal">
 
 
-
-                        <ImageView
-                            android:layout_width="@dimen/_30sdp"
-                            android:layout_height="@dimen/_30sdp"
-                            android:background="@drawable/ic_earning"
-                            android:backgroundTint="@color/primary"
-                            />
-
-
+                    <ImageView
+                        android:layout_width="@dimen/_30sdp"
+                        android:layout_height="@dimen/_30sdp"
+                        android:background="@drawable/ic_earning"
+                        android:backgroundTint="@color/primary" />
 
 
                     <LinearLayout
@@ -226,16 +226,12 @@
                         android:orientation="vertical">
 
 
-
-                            <ImageView
-                                android:layout_gravity="center"
-                                android:layout_width="@dimen/_30sdp"
-                                android:layout_height="@dimen/_30sdp"
-                                android:background="@drawable/ic_incentive"
-                                android:backgroundTint="@color/primary"
-                                />
-
-
+                        <ImageView
+                            android:layout_width="@dimen/_30sdp"
+                            android:layout_height="@dimen/_30sdp"
+                            android:layout_gravity="center"
+                            android:background="@drawable/ic_incentive"
+                            android:backgroundTint="@color/primary" />
 
 
                         <TextView
@@ -282,18 +278,13 @@
                         android:orientation="vertical">
 
 
-
-                            <ImageView
-                                android:layout_gravity="center"
-                                android:id="@+id/ivsales2"
-                                android:layout_width="@dimen/_30sdp"
-                                android:layout_height="@dimen/_30sdp"
-                                android:background="@drawable/salary"
-                                android:backgroundTint="@color/primary"
-                                />
-
-
-
+                        <ImageView
+                            android:id="@+id/ivsales2"
+                            android:layout_width="@dimen/_30sdp"
+                            android:layout_height="@dimen/_30sdp"
+                            android:layout_gravity="center"
+                            android:background="@drawable/salary"
+                            android:backgroundTint="@color/primary" />
 
 
                         <TextView
@@ -349,18 +340,13 @@
                         android:orientation="vertical">
 
 
-
-                            <ImageView
-                                android:layout_gravity="center"
-                                android:id="@+id/ivProfile2"
-                                android:layout_width="@dimen/_30sdp"
-                                android:layout_height="@dimen/_30sdp"
-                                android:background="@drawable/ic_joining"
-                                android:backgroundTint="@color/primary"
-                                />
-
-
-
+                        <ImageView
+                            android:id="@+id/ivProfile2"
+                            android:layout_width="@dimen/_30sdp"
+                            android:layout_height="@dimen/_30sdp"
+                            android:layout_gravity="center"
+                            android:background="@drawable/ic_joining"
+                            android:backgroundTint="@color/primary" />
 
 
                         <TextView
@@ -407,17 +393,12 @@
                         android:orientation="vertical">
 
 
-
-                            <ImageView
-                                android:layout_gravity="center"
-                                android:layout_width="@dimen/_30sdp"
-                                android:layout_height="@dimen/_30sdp"
-                                android:background="@drawable/ic_lead"
-                                android:backgroundTint="@color/primary"
-                                />
-
-
-
+                        <ImageView
+                            android:layout_width="@dimen/_30sdp"
+                            android:layout_height="@dimen/_30sdp"
+                            android:layout_gravity="center"
+                            android:background="@drawable/ic_lead"
+                            android:backgroundTint="@color/primary" />
 
 
                         <TextView
@@ -449,19 +430,60 @@
 
             </LinearLayout>
 
-<!--            <TextView-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginTop="@dimen/_4sdp"-->
-<!--                android:text="Staff incentive"-->
-<!--                android:textStyle="bold"-->
-<!--                -->
-<!--                android:textSize="@dimen/_14sdp"-->
-<!--                android:layout_marginLeft="@dimen/_10sdp"-->
-<!--                android:textColor="@color/black" />-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:text="Staff incentive"
+                android:textColor="@color/black"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:textSize="@dimen/_14sdp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="4">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.4"
+                    android:gravity="center"
+                    android:text="Name"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.6"
+                    android:gravity="center"
+                    android:text="Role"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+
+                <TextView
+                    android:id="@+id/tvAmount"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Incentives"
+
+                    android:singleLine="true"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_12sdp"
+                    android:textStyle="bold" />
+            </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
-                android:layout_marginTop="@dimen/_5sdp"
                 android:id="@+id/rvIncentives"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

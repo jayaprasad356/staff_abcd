@@ -6,6 +6,19 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.WithdrawalFragment">
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnBankDetails"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_15sdp"
+        android:backgroundTint="@color/primary"
+        android:padding="@dimen/_8sdp"
+        android:text="Update Bank Details"
+        android:textAllCaps="false"
+        android:textSize="@dimen/_12sdp"
+        app:cornerRadius="@dimen/_8sdp" />
 
     <LinearLayout
         android:id="@+id/llWallet"
