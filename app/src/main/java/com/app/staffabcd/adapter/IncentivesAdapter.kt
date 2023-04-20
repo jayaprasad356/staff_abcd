@@ -35,7 +35,7 @@ class IncentivesAdapter (
         val incentives: Incentives = incentives[position]
         holder.tvName.text=incentives.name
         holder.tvAmount.text="₹ "+incentives.incentives
-        holder.tvBranch.text=incentives.branch
+        holder.tvBranch.text=incentives.branch_name
     }
 
 
