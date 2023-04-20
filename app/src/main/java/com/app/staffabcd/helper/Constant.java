@@ -98,6 +98,9 @@ public class Constant {
     public static final String TOTAL_EARNINGS = "total_earnings";
     public static final String TOTAL_LEADS = "total_leads";
     public static final String TOTAL_JOININGS = "total_joinings";
+    public static final String TOTAL_ACTIVE_USERS = "total_active_users";
+    public static final String TODAY_PERFORMANCE = "today_performance";
+    public static final String TODAY_REFERS = "today_refers";
 
     public static final String FROM_DATE = "from_date";
     public static final String TO_DATE = "to_date";

@@ -42,13 +42,13 @@ class HomeFragment : Fragment() {
             navigateMyUsers()
         }
         binding.cvIncentive.setOnClickListener {
-            navigateToReport()
+            navigateToIncentive()
         }
         binding.cvLead.setOnClickListener {
             navigateMyUsers()
         }
-        binding.cvSalary.setOnClickListener {
-            navigateToWithdrawals()
+        binding.cvActiveUsers.setOnClickListener {
+            navigateMyUsers()
         }
         val linearLayoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         binding.rvIncentives.layoutManager = linearLayoutManager
@@ -65,28 +65,33 @@ class HomeFragment : Fragment() {
         binding.tvMobil.text = session.getData(Constant.MOBILE)
         binding.tvStaffId.text = session.getData(Constant.STAFF_DISPLAY_ID)
         binding.tvwalletBalance.text = "₹ " + session.getData(Constant.BALANCE)
-        binding.tvTotalEarning.text="₹ " + session.getData(Constant.TOTAL_EARNINGS)
-        binding.tvSalary.text="₹ " + session.getData(Constant.SALARY)
-        binding.tvRole.text=session.getData(Constant.ROLE)
+        binding.tvTotalEarning.text = "₹ " + session.getData(Constant.TOTAL_EARNINGS)
+        binding.tvTotalActiveUsers.text = session.getData(Constant.TOTAL_ACTIVE_USERS)
+        binding.tvRole.text = session.getData(Constant.ROLE)
+        binding.tvTotalJoins.text =
+            "Total Active Joins - " + session.getData(Constant.TOTAL_ACTIVE_USERS)
+        binding.tvMyUsers.text =
+            "My users joins - " + session.getData(Constant.TODAY_REFERS)+" ("+session.getData(Constant.TODAY_PERFORMANCE)+"%)"
 
         var incentiveEarn = session.getData(Constant.INCENTIVE_EARN)
-        if (session.getData(Constant.INCENTIVE_EARN).equals("null")){
-             incentiveEarn = "0"
+        if (session.getData(Constant.INCENTIVE_EARN).equals("null")) {
+            incentiveEarn = "0"
         }
 
-        binding.tvIncentiveEarn.text= "₹ $incentiveEarn"
-        binding.tvTotalLead.text=session.getData(Constant.TOTAL_LEADS)
-        binding.tvTotalJoining.text= session.getData(Constant.TOTAL_JOININGS)
+        binding.tvIncentiveEarn.text = "₹ $incentiveEarn"
+        binding.tvTotalLead.text = session.getData(Constant.TOTAL_LEADS)
+        binding.tvTotalJoining.text = session.getData(Constant.TOTAL_JOININGS)
 
     }
 
-    private fun navigateToReport() {
-        val reportFragment = ReportFragment()
+    private fun navigateToIncentive() {
+        val incentiveFragment = IncentiveFragment()
         val transaction = requireActivity().supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.FrameLyt, reportFragment)
+        transaction.replace(R.id.FrameLyt, incentiveFragment)
         transaction.addToBackStack(null)
         transaction.commit()
     }
+
     private fun navigateMyUsers() {
         val myUsersFragment = MyUsersFragment()
         val transaction = requireActivity().supportFragmentManager.beginTransaction()
@@ -94,6 +99,7 @@ class HomeFragment : Fragment() {
         transaction.addToBackStack(null)
         transaction.commit()
     }
+
     private fun navigateToWithdrawals() {
         val withdrawalFragment = WithdrawalFragment()
         val transaction = requireActivity().supportFragmentManager.beginTransaction()
@@ -122,9 +128,9 @@ class HomeFragment : Fragment() {
     }
 
     private fun incentivesList() {
-        val params : HashMap<String,String> = hashMapOf()
+        val params: HashMap<String, String> = hashMapOf()
         params.apply {
-            this[Constant.STAFF_ID] =  session.getData(Constant.STAFF_ID)
+            this[Constant.STAFF_ID] = session.getData(Constant.STAFF_ID)
         }
         ApiConfig.RequestToVolley({ result, response ->
             if (result) {
@@ -157,6 +163,7 @@ class HomeFragment : Fragment() {
             }
         }, requireActivity(), Constant.STAFF_TOPEARNERS, params, true)
     }
+
     private fun staffDetails() {
         val params: HashMap<String, String> = hashMapOf()
         params.apply {
@@ -176,7 +183,9 @@ class HomeFragment : Fragment() {
 //                        val totalLeads = jsonObject.getString("total_leads")
 //                        val totalJoinings = jsonObject.getString("total_joinings")
 
-
+                        session.setData(Constant.TOTAL_ACTIVE_USERS, jsonObject.getString(Constant.TOTAL_ACTIVE_USERS))
+                        session.setData(Constant.TODAY_REFERS, jsonObject.getString(Constant.TODAY_REFERS))
+                        session.setData(Constant.TODAY_PERFORMANCE, jsonObject.getString(Constant.TODAY_PERFORMANCE))
                         val userData: JSONObject =
                             jsonObject.getJSONArray(Constant.DATA).getJSONObject(0)
                         session.setData(Constant.ID, userData.getString(Constant.ID))
@@ -230,9 +239,7 @@ class HomeFragment : Fragment() {
                             userData.getString(Constant.STAFF_ID)
                         )
                         session.setData(Constant.DOB, userData.getString(Constant.DOB))
-
-
-initCall()
+                        initCall()
                         // extract other values as needed
                     } else {
                         Toast.makeText(

@@ -142,7 +142,9 @@ class ProfileFragment : Fragment() {
 //                        val totalEarnings = jsonObject.getInt("total_earnings")
 //                        val totalLeads = jsonObject.getString("total_leads")
 //                        val totalJoinings = jsonObject.getString("total_joinings")
-
+                        session.setData(Constant.TOTAL_ACTIVE_USERS, jsonObject.getString(Constant.TOTAL_ACTIVE_USERS))
+                        session.setData(Constant.TODAY_REFERS, jsonObject.getString(Constant.TODAY_REFERS))
+                        session.setData(Constant.TODAY_PERFORMANCE, jsonObject.getString(Constant.TODAY_PERFORMANCE))
 
                         val userData: JSONObject =
                             jsonObject.getJSONArray(Constant.DATA).getJSONObject(0)
