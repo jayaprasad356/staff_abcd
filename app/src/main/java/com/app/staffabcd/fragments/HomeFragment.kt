@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.app.staffabcd.HomeActivity
 import com.app.staffabcd.R
 import com.app.staffabcd.adapter.IncentivesAdapter
 import com.app.staffabcd.databinding.FragmentHomeBinding
@@ -50,6 +51,9 @@ class HomeFragment : Fragment() {
         binding.cvActiveUsers.setOnClickListener {
             navigateMyUsers()
         }
+        binding.cvTotalEarnings.setOnClickListener {
+            navigateToTransactions()
+        }
         val linearLayoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         binding.rvIncentives.layoutManager = linearLayoutManager
 
@@ -89,6 +93,8 @@ class HomeFragment : Fragment() {
         val transaction = requireActivity().supportFragmentManager.beginTransaction()
         transaction.replace(R.id.FrameLyt, incentiveFragment)
         transaction.addToBackStack(null)
+        (requireActivity() as HomeActivity).supportActionBar?.title = getString(R.string.incentive)
+
         transaction.commit()
     }
 
@@ -98,14 +104,18 @@ class HomeFragment : Fragment() {
         transaction.replace(R.id.FrameLyt, myUsersFragment)
         transaction.addToBackStack(null)
         transaction.commit()
+        (requireActivity() as HomeActivity).supportActionBar?.title = getString(R.string.my_users)
+
     }
 
-    private fun navigateToWithdrawals() {
-        val withdrawalFragment = WithdrawalFragment()
+    private fun navigateToTransactions() {
+        val transactionFragment = TransactionFragment()
         val transaction = requireActivity().supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.FrameLyt, withdrawalFragment)
+        transaction.replace(R.id.FrameLyt, transactionFragment)
         transaction.addToBackStack(null)
         transaction.commit()
+        // Set the app bar title
+        (requireActivity() as HomeActivity).supportActionBar?.title = "Transactions"
     }
 
     private fun showMoveSalaryDialog() {
