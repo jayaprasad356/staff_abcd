@@ -104,7 +104,7 @@ class HomeActivity : AppCompatActivity() {
                 R.id.nav_report -> {
                     supportFragmentManager.beginTransaction()
                         .replace(container.id, ReportFragment()).commit()
-                    toolbar.setTitle(R.string.report)
+                    toolbar.setTitle(R.string.follow_ups)
                     drawerLayout.closeDrawer(GravityCompat.START)
                     true
                 }
@@ -112,6 +112,13 @@ class HomeActivity : AppCompatActivity() {
                     supportFragmentManager.beginTransaction()
                         .replace(container.id, ApplyLeaveFragment()).commit()
                     toolbar.setTitle(R.string.apply_leave)
+                    drawerLayout.closeDrawer(GravityCompat.START)
+                    true
+                }
+                R.id.nav_myUsers -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(container.id, MyUsersFragment()).commit()
+                    toolbar.setTitle(R.string.my_users)
                     drawerLayout.closeDrawer(GravityCompat.START)
                     true
                 }

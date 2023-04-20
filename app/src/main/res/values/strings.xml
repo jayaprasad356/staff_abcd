@@ -13,7 +13,8 @@
     <string name="transaction">Transaction</string>
     <string name="apply_leave">Apply Leave</string>
     <string name="adv_salary">Advance Salary</string>
-    <string name="report">Report</string>
+    <string name="follow_ups">Follow-ups</string>
+    <string name="my_users">My Users</string>
     <string name="update">Update</string>
     <string name="email_error">Please enter a Valid Email </string>
     <string name="mobile_error">Please enter a Valid Mobile Number </string>

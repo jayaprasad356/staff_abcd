@@ -29,7 +29,12 @@
         android:id="@+id/nav_report"
         android:icon="@drawable/report"
         android:iconTint="@color/white"
-        android:title="@string/report" />
+        android:title="@string/follow_ups" />
+    <item
+        android:id="@+id/nav_myUsers"
+        android:icon="@drawable/report"
+        android:iconTint="@color/white"
+        android:title="@string/my_users" />
     <item
         android:id="@+id/nav_transaction"
         android:icon="@drawable/transaction"

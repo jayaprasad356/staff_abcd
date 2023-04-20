@@ -39,13 +39,13 @@ class HomeFragment : Fragment() {
 
 
         binding.cvJoining.setOnClickListener {
-            navigateToReport()
+            navigateMyUsers()
         }
         binding.cvIncentive.setOnClickListener {
             navigateToReport()
         }
         binding.cvLead.setOnClickListener {
-            navigateToReport()
+            navigateMyUsers()
         }
         binding.cvSalary.setOnClickListener {
             navigateToWithdrawals()
@@ -84,6 +84,13 @@ class HomeFragment : Fragment() {
         val reportFragment = ReportFragment()
         val transaction = requireActivity().supportFragmentManager.beginTransaction()
         transaction.replace(R.id.FrameLyt, reportFragment)
+        transaction.addToBackStack(null)
+        transaction.commit()
+    }
+    private fun navigateMyUsers() {
+        val myUsersFragment = MyUsersFragment()
+        val transaction = requireActivity().supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.FrameLyt, myUsersFragment)
         transaction.addToBackStack(null)
         transaction.commit()
     }

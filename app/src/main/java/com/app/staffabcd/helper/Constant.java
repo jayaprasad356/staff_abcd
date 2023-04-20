@@ -28,6 +28,8 @@ public class Constant {
     public static final String STAFF_TOPEARNERS = BaseUrl + "staff_topearners.php";
     public static final String STAFF_DOCUMENT = BaseUrl + "staffs_document.php";
     public static final String WITHDRAWALS = BaseUrl + "withdrawals.php";
+    public static final String MY_USERS_LIST = BaseUrl + "my_users_list.php";
+
 
 
 

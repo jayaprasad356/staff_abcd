@@ -35,7 +35,7 @@ class IncentivesAdapter (
         val incentives: Incentives = incentives[position]
         holder.tvName.text=incentives.name
         holder.tvAmount.text="₹ "+incentives.incentives
-        holder.tvRole.text=incentives.role
+        holder.tvBranch.text=incentives.branch
     }
 
 
@@ -47,12 +47,12 @@ class IncentivesAdapter (
     internal class ItemHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tvName: TextView
         val tvAmount: TextView
-        val tvRole: TextView
+        val tvBranch: TextView
 
         init {
             tvName = itemView.findViewById(R.id.tvName)
             tvAmount=itemView.findViewById(R.id.tvAmount)
-            tvRole=itemView.findViewById(R.id.tvRole)
+            tvBranch=itemView.findViewById(R.id.tvBranch)
 
         }
     }
