@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.staffabcd.adapter.IncentiveAdapter
@@ -29,7 +30,12 @@ class IncentiveFragment : Fragment() {
     ): View? {
         binding = FragmentIncentiveBinding.inflate(inflater, container, false)
         session = Session(requireActivity())
+        val swipeRefreshLayout = binding.swipeRefreshLayout
+        swipeRefreshLayout.setOnRefreshListener {
+            incentiveList()
 
+            swipeRefreshLayout.isRefreshing = false
+        }
         val linearLayoutManager = LinearLayoutManager(activity)
         binding.rvReport.layoutManager = linearLayoutManager
         incentiveList()
@@ -65,6 +71,8 @@ class IncentiveFragment : Fragment() {
         incentiveAdapter = IncentiveAdapter(requireActivity(), incentive)
         binding.rvReport.setAdapter(incentiveAdapter)
 
+                    }else{
+                        Toast.makeText(requireContext(),"No Data Found",Toast.LENGTH_SHORT).show()
                     }
                 } catch (e: JSONException) {
                     e.printStackTrace()

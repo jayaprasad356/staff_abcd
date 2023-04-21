@@ -64,6 +64,11 @@ class WithdrawalFragment : Fragment() {
             transaction.replace(R.id.FrameLyt, bankDetailFragment)
             transaction.commit()
         }
+        val swipeRefreshLayout = binding.swipeRefreshLayout
+        swipeRefreshLayout.setOnRefreshListener {
+            withdrawalList()
+            swipeRefreshLayout.isRefreshing = false
+        }
         return binding.root
     }
 

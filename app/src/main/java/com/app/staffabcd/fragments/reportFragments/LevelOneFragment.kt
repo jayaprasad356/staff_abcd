@@ -31,6 +31,11 @@ class LevelOneFragment : Fragment() {
         val linearLayoutManager = LinearLayoutManager(activity)
         binding.levelOneRecyclerView.layoutManager = linearLayoutManager
         reportOneList()
+        val swipeRefreshLayout = binding.swipeRefreshLayout
+        swipeRefreshLayout.setOnRefreshListener {
+            reportOneList()
+            swipeRefreshLayout.isRefreshing = false
+        }
         return binding.root
     }
 
@@ -73,7 +78,7 @@ class LevelOneFragment : Fragment() {
 
                     }else{
                         Toast.makeText(
-                            requireContext(), jsonObject.getString(Constant.MESSAGE).toString(),
+                            requireContext(), "No Data Found",
                             Toast.LENGTH_SHORT
                         ).show()
 

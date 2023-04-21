@@ -59,7 +59,12 @@ class HomeFragment : Fragment() {
 
         incentivesList()
         staffDetails()
-
+        val swipeRefreshLayout = binding.swipeRefreshLayout
+        swipeRefreshLayout.setOnRefreshListener {
+            incentivesList()
+            staffDetails()
+            swipeRefreshLayout.isRefreshing = false
+        }
         return binding.root
     }
 

@@ -34,6 +34,11 @@ class HistoryFragment : Fragment() {
         val linearLayoutManager = LinearLayoutManager(activity)
         binding.historyRecyclerView.layoutManager = linearLayoutManager
         historyList()
+        val swipeRefreshLayout = binding.swipeRefreshLayout
+        swipeRefreshLayout.setOnRefreshListener {
+            historyList()
+            swipeRefreshLayout.isRefreshing = false
+        }
         return binding.root
     }
 
@@ -75,7 +80,7 @@ class HistoryFragment : Fragment() {
 
                     }else{
                         Toast.makeText(
-                            requireContext(), jsonObject.getString(Constant.MESSAGE).toString(),
+                            requireContext(), "No Data Found",
                             Toast.LENGTH_SHORT
                         ).show()
 

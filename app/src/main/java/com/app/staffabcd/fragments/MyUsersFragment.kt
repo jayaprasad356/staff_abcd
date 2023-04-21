@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.staffabcd.adapter.MyUsersAdapter
@@ -32,6 +33,11 @@ class MyUsersFragment : Fragment() {
         val linearLayoutManager = LinearLayoutManager(activity)
         binding.rvMyUsers.layoutManager = linearLayoutManager
         myUserLists()
+        val swipeRefreshLayout = binding.swipeRefreshLayout
+        swipeRefreshLayout.setOnRefreshListener {
+            myUserLists()
+            swipeRefreshLayout.isRefreshing = false
+        }
         return binding.root
     }
     private fun myUserLists() {
@@ -59,6 +65,8 @@ class MyUsersFragment : Fragment() {
                         }
                         myUsersAdapter = MyUsersAdapter(requireActivity(), users)
                         binding.rvMyUsers.adapter = myUsersAdapter
+                    }else{
+                        Toast.makeText(requireContext(),"No Data Found",Toast.LENGTH_SHORT).show()
                     }
                 } catch (e: JSONException) {
                     e.printStackTrace()

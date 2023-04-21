@@ -31,6 +31,11 @@ class LevelThreeFragment : Fragment() {
         val linearLayoutManager = LinearLayoutManager(activity)
         binding.levelThreeRecyclerView.layoutManager = linearLayoutManager
         reportThreeList()
+        val swipeRefreshLayout = binding.swipeRefreshLayout
+        swipeRefreshLayout.setOnRefreshListener {
+            reportThreeList()
+            swipeRefreshLayout.isRefreshing = false
+        }
         return binding.root
     }
 
@@ -72,7 +77,7 @@ class LevelThreeFragment : Fragment() {
 
                     }else{
                         Toast.makeText(
-                            requireContext(), jsonObject.getString(Constant.MESSAGE).toString(),
+                            requireContext(), "No Data Found",
                             Toast.LENGTH_SHORT
                         ).show()
 

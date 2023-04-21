@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.viewpager.widget.ViewPager
 import com.app.staffabcd.adapter.ViewPagerAdapter
 import com.app.staffabcd.databinding.FragmentReportBinding
 
@@ -27,7 +26,13 @@ class ReportFragment : Fragment() {
         binding.viewPager.adapter = viewPagerAdapter
 
         binding.tabLayout.setupWithViewPager(binding.viewPager)
+        val swipeRefreshLayout = binding.swipeRefreshLayout
+        swipeRefreshLayout.setOnRefreshListener {
+            binding.viewPager.adapter = viewPagerAdapter
 
+            binding.tabLayout.setupWithViewPager(binding.viewPager)
+            swipeRefreshLayout.isRefreshing = false
+        }
         return binding.root
     }
 

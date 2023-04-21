@@ -34,7 +34,12 @@ class ProfileFragment : Fragment() {
         }
         initUi()
         staffDetails()
+        val swipeRefreshLayout = binding.swipeRefreshLayout
+        swipeRefreshLayout.setOnRefreshListener {
+            staffDetails()
 
+            swipeRefreshLayout.isRefreshing = false
+        }
         return binding.root
     }
 

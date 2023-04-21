@@ -1,7 +1,6 @@
 package com.app.staffabcd.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -34,6 +33,11 @@ lateinit var session:Session
         val linearLayoutManager = LinearLayoutManager(activity)
         binding.rvTransaction.layoutManager = linearLayoutManager
         transactionList()
+        val swipeRefreshLayout = binding.swipeRefreshLayout
+        swipeRefreshLayout.setOnRefreshListener {
+            transactionList()
+            swipeRefreshLayout.isRefreshing = false
+        }
         return binding.root
     }
 
@@ -62,6 +66,8 @@ lateinit var session:Session
                         }
                         transactionAdapter = TransactionAdapter(requireActivity(), transanctions)
                         binding.rvTransaction.setAdapter(transactionAdapter)
+                    }else{
+                        Toast.makeText(requireContext(),"No Data Found",Toast.LENGTH_SHORT).show()
                     }
                 } catch (e: JSONException) {
                     e.printStackTrace()

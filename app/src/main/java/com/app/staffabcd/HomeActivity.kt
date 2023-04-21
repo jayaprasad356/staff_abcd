@@ -73,6 +73,13 @@ class HomeActivity : AppCompatActivity() {
                     drawerLayout.closeDrawer(GravityCompat.START)
                     true
                 }
+                R.id.nav_my_performance -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(container.id, MyPerformanceFragment()).commit()
+                    toolbar.setTitle(R.string.my_performance)
+                    drawerLayout.closeDrawer(GravityCompat.START)
+                    true
+                }
                 R.id.nav_incentive -> {
                     supportFragmentManager.beginTransaction()
                         .replace(container.id, IncentiveFragment()).commit()

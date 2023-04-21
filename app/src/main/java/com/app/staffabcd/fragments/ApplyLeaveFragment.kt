@@ -80,6 +80,11 @@ class ApplyLeaveFragment : Fragment() {
         val linearLayoutManager = LinearLayoutManager(activity)
         binding.rvLeaves.layoutManager = linearLayoutManager
         leaveLists()
+        val swipeRefreshLayout = binding.swipeRefreshLayout
+        swipeRefreshLayout.setOnRefreshListener {
+            leaveLists()
+            swipeRefreshLayout.isRefreshing = false
+        }
         return binding.root
     }
 

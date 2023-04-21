@@ -11,6 +11,11 @@
         android:iconTint="@color/white"
         android:title="Profile" />
     <item
+        android:id="@+id/nav_my_performance"
+        android:icon="@drawable/performance"
+        android:iconTint="@color/white"
+        android:title="@string/my_performance" />
+    <item
         android:id="@+id/nav_incentive"
         android:icon="@drawable/ic_incentive"
         android:iconTint="@color/white"
