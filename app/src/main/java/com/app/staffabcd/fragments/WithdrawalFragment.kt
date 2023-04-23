@@ -2,6 +2,7 @@ package com.app.staffabcd.fragments
 
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -30,6 +31,7 @@ class WithdrawalFragment : Fragment() {
     lateinit var activity: Activity
     lateinit var withdrawalAdapter: WithdrawalAdapter
     lateinit var session: Session
+    var type: String = "incentives"
 
 
     override fun onCreateView(
@@ -48,14 +50,47 @@ class WithdrawalFragment : Fragment() {
             if(session.getData(Constant.STATUS).equals("0")){
                 Toast.makeText(requireContext(),"Account Not Verified",Toast.LENGTH_SHORT).show()
             }else{
-                withdrawal()
+                if(type.equals("incentives")){
+
+
+                    val builder = AlertDialog.Builder(activity)
+                    builder.setMessage("You are eligible to withdraw only "+session.getData(Constant.INCENTIVE_PERCENTAGE)+"% of your incentive earnings. Please review with your manager for changes.\n" +
+                            "                         Or\n" +
+                            "Continue to withdraw your eligible incentives.")
+                    builder.setPositiveButton("Continue") { dialog, which ->
+                        withdrawal()
+                    }
+                    builder.setNegativeButton("No") { dialog, which ->
+                        // Action to be performed when the user clicks the No button
+                    }
+                    val dialog = builder.create()
+                    dialog.show()
+
+                }else{
+                    withdrawal()
+                }
+
+
+
             }
 
         }
-        binding.tvwalletBalance.text=session.getData(Constant.BALANCE).toString()
+        binding.tvIncentiveBalance.text=session.getData(Constant.BALANCE).toString()
+        binding.tvSalBalance.text=session.getData(Constant.SALARY_BALANCE).toString()
 
         val linearLayoutManager = LinearLayoutManager(activity)
         binding.rvWithdrawalHistory.layoutManager = linearLayoutManager
+
+        binding.cbIncentive.setOnClickListener {
+            IncentiveWallet()
+
+        }
+        binding.cbSalary.setOnClickListener {
+            salaryWallet()
+
+
+        }
+
         withdrawalList()
 
         binding.btnBankDetails.setOnClickListener {
@@ -70,6 +105,24 @@ class WithdrawalFragment : Fragment() {
             swipeRefreshLayout.isRefreshing = false
         }
         return binding.root
+    }
+    private fun salaryWallet() {
+        binding.cbSalary.setChecked(true)
+        binding.cbIncentive.setChecked(false)
+        binding.rlSalaryWallet.setBackgroundResource(R.drawable.card_bg_selected)
+        binding.rlIncentiveWallet.setBackgroundResource(R.drawable.card_bg)
+        type = "salary"
+
+
+    }
+
+    private fun IncentiveWallet() {
+        binding.cbIncentive.setChecked(true)
+        binding.cbSalary.setChecked(false)
+        binding.rlIncentiveWallet.setBackgroundResource(R.drawable.card_bg_selected)
+        binding.rlSalaryWallet.setBackgroundResource(R.drawable.card_bg)
+        type = "incentives"
+
     }
 
     private fun withdrawalList() {
@@ -111,7 +164,7 @@ class WithdrawalFragment : Fragment() {
         params.apply {
             this[Constant.STAFF_ID] = session.getData(Constant.STAFF_ID)
             this[Constant.AMOUNT] = binding.etAmount.text.toString()
-
+            this[Constant.TYPE] = type
         }
         ApiConfig.RequestToVolley({ result, response ->
             if (result) {
@@ -123,7 +176,9 @@ class WithdrawalFragment : Fragment() {
                         val userData: JSONObject =
                             jsonObject.getJSONArray(Constant.DATA).getJSONObject(0)
                         session.setData(Constant.BALANCE, userData.getString(Constant.BALANCE))
-                        binding.tvwalletBalance.text=session.getData(Constant.BALANCE).toString()
+                        session.setData(Constant.SALARY_BALANCE, userData.getString(Constant.SALARY_BALANCE))
+                        binding.tvIncentiveBalance.text=session.getData(Constant.BALANCE).toString()
+                        binding.tvSalBalance.text=session.getData(Constant.SALARY_BALANCE).toString()
 
 
                         withdrawalList()

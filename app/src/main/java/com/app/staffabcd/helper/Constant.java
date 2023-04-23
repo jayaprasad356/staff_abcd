@@ -7,8 +7,9 @@ public class Constant {
     public static final String TOKEN = "token";
 
     //public static final String MainBaseUrl = "https://abcd.graymatterworks.com/";
+    public static final String MainBaseUrl = "https://appadmin.abcdapp.in/";
 
-    public static final String MainBaseUrl = "https://abcd.graymatterworks.com/";
+    //public static final String MainBaseUrl = "http://192.168.43.38/abcd/";
     public static final String BaseUrl = MainBaseUrl + "staff_api/";
     public static final String LOGIN_URL = BaseUrl + "login.php";
     public static final String SIGN_UP = BaseUrl + "signup.php";
@@ -59,6 +60,7 @@ public class Constant {
     public static final String JOINED_DATE = "joined_date";
     public static final String HISTORY_DAYS = "history_days";
     public static final String AMOUNT = "amount";
+    public static final String TYPE = "type";
 
 
 
@@ -100,6 +102,8 @@ public class Constant {
     public static final String TOTAL_JOININGS = "total_joinings";
     public static final String TOTAL_ACTIVE_USERS = "total_active_users";
     public static final String TODAY_PERFORMANCE = "today_performance";
+    public static final String INCENTIVE_PERCENTAGE = "incentive_percentage";
+    public static final String SALARY_BALANCE = "salary_balance";
     public static final String TODAY_REFERS = "today_refers";
 
     public static final String FROM_DATE = "from_date";
