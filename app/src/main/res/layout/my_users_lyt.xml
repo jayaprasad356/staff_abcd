@@ -43,7 +43,7 @@
                     android:textColor="@color/primary"
                     android:textSize="@dimen/_12sdp" />
                 <TextView
-                    android:id="@+id/tvTodayCodes"
+                    android:id="@+id/tvTotalcodes"
                     android:layout_width="wrap_content"
                     android:layout_marginBottom="@dimen/_4sdp"
                     android:layout_height="wrap_content"
@@ -73,6 +73,13 @@
                     android:text="7092310035"
                     android:layout_marginBottom="@dimen/_4sdp"
                     android:textSize="@dimen/_12sdp" />
+                <TextView
+                    android:id="@+id/tvTotalreferrals"
+                    android:layout_width="wrap_content"
+                    android:layout_marginBottom="@dimen/_4sdp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:text="No. of refers: 25"/>
 
 
             </LinearLayout>

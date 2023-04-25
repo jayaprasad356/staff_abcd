@@ -59,11 +59,14 @@ class LevelThreeFragment : Fragment() {
                                 // Extract the values from the JSON object
                                 val id = jsonObject1.getString(Constant.ID)
                                 val name = jsonObject1.getString(Constant.NAME)
+                                val refer_code = jsonObject1.getString(Constant.REFER_CODE)
+                                val total_codes = jsonObject1.getString(Constant.TOTAL_CODES)
+                                val worked_days = jsonObject1.getString(Constant.WORKED_DAYS)
                                 val mobile = jsonObject1.getString(Constant.MOBILE)
-                                val date = jsonObject1.getString(Constant.JOINED_DATE)
+                                val total_referrals = jsonObject1.getString(Constant.TOTAL_REFERRALS)
 
                                     // Create a new Report object and add it to the list
-                                    val report = Report(id, name, mobile, date)
+                                    val report = Report(id, name,refer_code,total_codes,worked_days,mobile, total_referrals)
                                     reports.add(report)
 
 

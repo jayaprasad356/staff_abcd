@@ -78,7 +78,7 @@ class HomeFragment : Fragment() {
         binding.tvTotalActiveUsers.text = session.getData(Constant.TOTAL_ACTIVE_USERS)
         binding.tvRole.text = session.getData(Constant.ROLE)
         binding.tvTotalJoins.text =
-            "Total Active Joins - " + session.getData(Constant.TOTAL_ACTIVE_USERS)
+            "Today's total joins - " + session.getData(Constant.TOTAL_ACTIVE_USERS)
         binding.tvMyUsers.text =
             "My users joins - " + session.getData(Constant.TODAY_REFERS)+" ("+session.getData(Constant.TODAY_PERFORMANCE)+"%)"
 

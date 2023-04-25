@@ -46,9 +46,13 @@ class ReportAdapter(
     override fun onBindViewHolder(holderParent: RecyclerView.ViewHolder, position: Int) {
         val holder: ItemHolder = holderParent as ItemHolder
         val report: Report = reports[position]
-        holder.name.text = report.name
-        holder.tvReferCode.text = report.refer_code
+        holder.tvName.text = report.name
+        holder.tvReferCode.text=report.refer_code
+        holder.tvTotalcodes.text="Total Codes: "+report.total_codes
         holder.tvMobile.text=report.mobile
+        holder.tvWokedDays.text="Worked Days: "+report.worked_days
+        holder.tvTotalreferrals.text="No. of refers: "+report.total_referrals
+        holder.tvTotalreferrals.text="No. of refers: "+report.total_referrals
         holder.btnChat.setOnClickListener {
             sendMsgToWhatsapp(report.mobile)
             // sendMessage("Hello, this is a test message.")
@@ -87,18 +91,21 @@ class ReportAdapter(
     }
 
     internal class ItemHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val name: TextView
+        val tvName: TextView
         val tvReferCode: TextView
-        val btnChat: Button
+        val tvTotalcodes: TextView
         val tvMobile: TextView
-
-
+        val tvWokedDays: TextView
+        val tvTotalreferrals: TextView
+        val btnChat: Button
         init {
-            name = itemView.findViewById(R.id.tvName)
-            tvReferCode = itemView.findViewById(R.id.tvReferCode)
-            tvMobile = itemView.findViewById(R.id.tvMobile)
-            btnChat = itemView.findViewById(R.id.btnChat)
-
+            tvName = itemView.findViewById<TextView>(R.id.tvName)
+            tvReferCode = itemView.findViewById<TextView>(R.id.tvReferCode)
+            tvTotalcodes = itemView.findViewById<TextView>(R.id.tvTotalcodes)
+            tvMobile = itemView.findViewById<TextView>(R.id.tvMobile)
+            tvWokedDays = itemView.findViewById<TextView>(R.id.tvWokedDays)
+            tvTotalreferrals = itemView.findViewById<TextView>(R.id.tvTotalreferrals)
+            btnChat = itemView.findViewById<Button>(R.id.btnChat)
         }
     }
 

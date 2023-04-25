@@ -31,9 +31,11 @@ class MyUsersAdapter(val activity: Activity, users: ArrayList<Users>) :
 
         holder.tvName.text = users1.name
         holder.tvReferCode.text=users1.refer_code
-        holder.tvTodayCodes.text="Today Codes: "+users1.today_codes
+        holder.tvTotalcodes.text="Total Codes: "+users1.total_codes
         holder.tvMobile.text=users1.mobile
         holder.tvWokedDays.text="Worked Days: "+users1.worked_days
+        holder.tvTotalreferrals.text="No. of refers: "+users1.total_referrals
+        holder.tvTotalreferrals.text="No. of refers: "+users1.total_referrals
     }
 
     override fun getItemCount(): Int {
@@ -43,15 +45,17 @@ class MyUsersAdapter(val activity: Activity, users: ArrayList<Users>) :
     internal class ItemHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tvName: TextView
         val tvReferCode: TextView
-        val tvTodayCodes: TextView
+        val tvTotalcodes: TextView
         val tvMobile: TextView
         val tvWokedDays: TextView
+        val tvTotalreferrals: TextView
         init {
             tvName = itemView.findViewById<TextView>(R.id.tvName)
             tvReferCode = itemView.findViewById<TextView>(R.id.tvReferCode)
-            tvTodayCodes = itemView.findViewById<TextView>(R.id.tvTodayCodes)
+            tvTotalcodes = itemView.findViewById<TextView>(R.id.tvTotalcodes)
             tvMobile = itemView.findViewById<TextView>(R.id.tvMobile)
             tvWokedDays = itemView.findViewById<TextView>(R.id.tvWokedDays)
+            tvTotalreferrals = itemView.findViewById<TextView>(R.id.tvTotalreferrals)
         }
     }
 }
