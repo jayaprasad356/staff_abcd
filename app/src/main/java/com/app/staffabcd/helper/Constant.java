@@ -7,9 +7,9 @@ public class Constant {
     public static final String TOKEN = "token";
 
     public static final String MainBaseUrl = "https://abcd.graymatterworks.com/";
-   // public static final String MainBaseUrl = "https://appadmin.abcdapp.in/";
+    //public static final String MainBaseUrl = "https://appadmin.abcdapp.in/";
 
-   // public static final String MainBaseUrl = "http://192.168.43.38/abcd/";
+    //public static final String MainBaseUrl = "http://192.168.43.38/abcd/";
     public static final String BaseUrl = MainBaseUrl + "staff_api/";
     public static final String LOGIN_URL = BaseUrl + "login.php";
     public static final String SIGN_UP = BaseUrl + "signup.php";
@@ -26,12 +26,12 @@ public class Constant {
     public static final String  STAFFS_WITHDRAWALS_LIST= BaseUrl + "staffs_withdrawals_list.php";
     public static final String STAFF_LEAVES = BaseUrl + "staff_leaves.php";
     public static final String REPORTS_LIST = BaseUrl + "reports_list.php";
+    public static final String MYPERFORMANCE = BaseUrl + "myperformance.php";
     public static final String STAFF_TOPEARNERS = BaseUrl + "staff_topearners.php";
     public static final String STAFF_DOCUMENT = BaseUrl + "staffs_document.php";
     public static final String WITHDRAWALS = BaseUrl + "withdrawals.php";
     public static final String MY_USERS_LIST = BaseUrl + "my_users_list.php";
 
-    public static final String MYPERFORMANCE = BaseUrl + "myperformance.php";
 
 
 
@@ -106,6 +106,10 @@ public class Constant {
     public static final String INCENTIVE_PERCENTAGE = "incentive_percentage";
     public static final String SALARY_BALANCE = "salary_balance";
     public static final String TODAY_REFERS = "today_refers";
+    public static final String REFER_CODE = "refer_code";
+    public static final String TOTAL_CODES = "total_codes";
+    public static final String WORKED_DAYS = "worked_days";
+    public static final String TOTAL_REFERRALS = "total_referrals";
 
     public static final String FROM_DATE = "from_date";
     public static final String TO_DATE = "to_date";
