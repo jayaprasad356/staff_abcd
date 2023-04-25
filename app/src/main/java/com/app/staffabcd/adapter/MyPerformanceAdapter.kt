@@ -30,7 +30,7 @@ class MyPerformanceAdapter(val activity: Activity, performances: ArrayList<Perfo
         val performance: Performance = performances[position]
 
         holder.tvdate.text = performance.date
-        holder.tvTotalEarnings.text="Total Earnings : ₹"+performance.total_earnings
+        holder.tvTotalEarnings.text="Total Earnings : ₹"+performance.total_earn
         holder.tvTotalJoins.text="Total Joins: "+performance.total_joins
         holder.tvDirectJoins.text="Direct Joins: "+performance.direct_joins
     }

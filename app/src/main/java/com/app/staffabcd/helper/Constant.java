@@ -6,10 +6,10 @@ public class Constant {
     public static final String AUTHORIZATION = "Authorization";
     public static final String TOKEN = "token";
 
-    //public static final String MainBaseUrl = "https://abcd.graymatterworks.com/";
-    public static final String MainBaseUrl = "https://appadmin.abcdapp.in/";
+    public static final String MainBaseUrl = "https://abcd.graymatterworks.com/";
+   // public static final String MainBaseUrl = "https://appadmin.abcdapp.in/";
 
-    //public static final String MainBaseUrl = "http://192.168.43.38/abcd/";
+   // public static final String MainBaseUrl = "http://192.168.43.38/abcd/";
     public static final String BaseUrl = MainBaseUrl + "staff_api/";
     public static final String LOGIN_URL = BaseUrl + "login.php";
     public static final String SIGN_UP = BaseUrl + "signup.php";
@@ -31,6 +31,7 @@ public class Constant {
     public static final String WITHDRAWALS = BaseUrl + "withdrawals.php";
     public static final String MY_USERS_LIST = BaseUrl + "my_users_list.php";
 
+    public static final String MYPERFORMANCE = BaseUrl + "myperformance.php";
 
 
 
