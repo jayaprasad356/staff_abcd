@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.PopupMenu
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
@@ -53,14 +54,13 @@ class ReportAdapter(
         holder.tvWokedDays.text="Worked Days: "+report.worked_days
         holder.tvTotalreferrals.text="No. of refers: "+report.total_referrals
         holder.tvTotalreferrals.text="No. of refers: "+report.total_referrals
-        holder.btnChat.setOnClickListener {
-            sendMsgToWhatsapp(report.mobile)
-            // sendMessage("Hello, this is a test message.")
+        holder.btnChat.setOnClickListener {view ->
+            showPopupMenu(view,report.mobile)
         }
 
     }
 
-    private fun sendMsgToWhatsapp(mobile: String?) {
+    private fun sendMsgToWhatsapp(mobile: String?, packageName: String) {
 
         val phoneNumber = "+91$mobile"
         val message = "Hi, How are you?" // Replace with the message you want to send
@@ -74,7 +74,7 @@ class ReportAdapter(
             val url =
                 "https://api.whatsapp.com/send?phone=$phoneNumber&text=$message" // Include the message in the URL
 
-            i.setPackage("com.whatsapp")
+            i.setPackage(packageName)
             i.data = Uri.parse(url)
 
             activity.startActivity(i)
@@ -84,6 +84,19 @@ class ReportAdapter(
 
 
     }
+    private fun showPopupMenu(view: View, mobile: String?) {
+        val popup = PopupMenu(activity, view)
+        popup.inflate(R.menu.whatsapp_menu)
+        popup.setOnMenuItemClickListener { item ->
+            when (item.itemId) {
+                R.id.whatsapp -> sendMsgToWhatsapp(mobile,"com.whatsapp")
+                R.id.business_whatsapp -> sendMsgToWhatsapp(mobile,"com.whatsapp.w4b")
+            }
+            true
+        }
+        popup.show()
+    }
+
 
 
     override fun getItemCount(): Int {
