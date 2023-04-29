@@ -224,7 +224,7 @@ class HomeActivity : AppCompatActivity() {
                         )
                         session.setData(Constant.DOB, userData.getString(Constant.DOB))
                         if (!Constant.DEBUG) {
-                            if (session.getData(Constant.AADHAR_CARD).isEmpty())
+                            if (session.getData(Constant.STAFF_DISPLAY_ID).isEmpty())
                                 showFillDocumentPopup(toolbar)
                         }
 
