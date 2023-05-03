@@ -30,6 +30,8 @@ class LevelTwoFragment : Fragment() {
         val linearLayoutManager = LinearLayoutManager(activity)
         binding.levelTwoRecyclerView.layoutManager = linearLayoutManager
         val swipeRefreshLayout = binding.swipeRefreshLayout
+        reportList()
+
         swipeRefreshLayout.setOnRefreshListener {
             reportList()
             swipeRefreshLayout.isRefreshing = false
