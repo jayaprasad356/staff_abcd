@@ -169,6 +169,8 @@ class ProfileFragment : Fragment() {
                             Constant.AADHAR_CARD,
                             userData.getString(Constant.AADHAR_CARD)
                         )
+                        session.setData(Constant.INCENTIVE_PERCENTAGE, userData.getString(Constant.INCENTIVE_PERCENTAGE))
+
                         session.setData(Constant.RESUME, userData.getString(Constant.RESUME))
                         session.setData(Constant.PHOTO, userData.getString(Constant.PHOTO))
                         session.setData(
