@@ -81,7 +81,16 @@
                     android:textColor="@color/black"
                     android:text="No. of refers: 25"/>
 
-
+                <Button
+                    android:id="@+id/btnChat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_weight="1.3"
+                    android:backgroundTint="@color/whatsapp"
+                    android:gravity="center"
+                    android:text="Chat"
+                    android:textAllCaps="false"
+                    android:textSize="@dimen/_8sdp" />
             </LinearLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
