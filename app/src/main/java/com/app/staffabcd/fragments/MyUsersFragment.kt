@@ -1,6 +1,10 @@
 package com.app.staffabcd.fragments
 
+import android.graphics.Color
+import android.graphics.Paint
+import android.graphics.pdf.PdfDocument
 import android.os.Bundle
+import android.os.Environment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +21,8 @@ import com.google.gson.Gson
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
+import java.io.File
+import java.io.FileOutputStream
 
 class MyUsersFragment : Fragment() {
 
@@ -33,6 +39,9 @@ class MyUsersFragment : Fragment() {
         val linearLayoutManager = LinearLayoutManager(activity)
         binding.rvMyUsers.layoutManager = linearLayoutManager
         myUserLists()
+        binding.btnDownload.setOnClickListener {
+            createPdf()
+        }
         val swipeRefreshLayout = binding.swipeRefreshLayout
         swipeRefreshLayout.setOnRefreshListener {
             myUserLists()
@@ -74,5 +83,58 @@ class MyUsersFragment : Fragment() {
             }
         }, requireActivity(), Constant.MY_USERS_LIST, params, true)
     }
+
+    private fun createPdf() {
+        val document = PdfDocument()
+        val pageInfo = PdfDocument.PageInfo.Builder(595, 842, 1).create()
+        val page = document.startPage(pageInfo)
+        val canvas = page.canvas
+        val paint = Paint()
+
+        val title = "User Information"
+        paint.textSize = 40f
+        paint.color = Color.BLACK
+        paint.textAlign = Paint.Align.CENTER
+        canvas.drawText(title, (pageInfo.pageWidth / 2).toFloat(), 50f, paint)
+
+        val y = 150
+        val x = 50
+        val titleWidth = 150
+        val contentWidth = 200
+
+        paint.textSize = 20f
+        paint.color = Color.GRAY
+        canvas.drawText("Name", x.toFloat(), y.toFloat(), paint)
+        canvas.drawText("Refer Code", (x + titleWidth).toFloat(), y.toFloat(), paint)
+        canvas.drawText("Total Codes", (x + titleWidth + contentWidth).toFloat(), y.toFloat(), paint)
+        canvas.drawText("Worked Days", (x + titleWidth + contentWidth * 2).toFloat(), y.toFloat(), paint)
+        canvas.drawText("Mobile", (x + titleWidth + contentWidth * 3).toFloat(), y.toFloat(), paint)
+        canvas.drawText("Total Referrals", (x + titleWidth + contentWidth * 4).toFloat(), y.toFloat(), paint)
+
+        paint.color = Color.BLACK
+        paint.textSize = 18f
+        var currentY = y + 50
+        myUsersAdapter.users.forEach { user ->
+            user.name?.let { canvas.drawText(it, x.toFloat(), currentY.toFloat(), paint) }
+            user.refer_code?.let { canvas.drawText(it, (x + titleWidth).toFloat(), currentY.toFloat(), paint) }
+            user.total_codes?.let { canvas.drawText(it, (x + titleWidth + contentWidth).toFloat(), currentY.toFloat(), paint) }
+            user.worked_days?.let { canvas.drawText(it, (x + titleWidth + contentWidth * 2).toFloat(), currentY.toFloat(), paint) }
+            user.mobile?.let { canvas.drawText(it, (x + titleWidth + contentWidth * 3).toFloat(), currentY.toFloat(), paint) }
+            user.total_referrals?.let { canvas.drawText(it, (x + titleWidth + contentWidth * 4).toFloat(), currentY.toFloat(), paint) }
+            currentY += 50
+        }
+
+        document.finishPage(page)
+        val directory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+        val file = File(directory, "my_document.pdf")
+        val outputStream = FileOutputStream(file)
+        document.writeTo(outputStream)
+        document.close()
+        outputStream.flush()
+        outputStream.close()
+
+        Toast.makeText(activity, "PDF created successfully.", Toast.LENGTH_SHORT).show()
+    }
+
 
 }
