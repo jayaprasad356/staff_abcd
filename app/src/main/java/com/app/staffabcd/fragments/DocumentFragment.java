@@ -144,18 +144,19 @@ public class DocumentFragment extends Fragment {
 //                }
 //            }
 //        });
-        if (!(session.getData(Constant.STAFF_DISPLAY_ID).isEmpty())) {
-            binding.successLayout.setVisibility(View.VISIBLE);
-            binding.pendingLayout.setVisibility(View.GONE);
-            binding.scrollView.setVisibility(View.GONE);
-        } else if (session.getData(Constant.AADHAR_CARD).isEmpty()) {
-            binding.successLayout.setVisibility(View.GONE);
-            binding.pendingLayout.setVisibility(View.GONE);
-            binding.scrollView.setVisibility(View.VISIBLE);
-        } else if (!session.getData(Constant.AADHAR_CARD).isEmpty() && session.getData(Constant.STAFF_DISPLAY_ID).isEmpty()) {
+        if ((session.getData(Constant.STATUS).equals("0") && !session.getData(Constant.AADHAR_CARD).isEmpty())) {
             binding.successLayout.setVisibility(View.GONE);
             binding.pendingLayout.setVisibility(View.VISIBLE);
             binding.scrollView.setVisibility(View.GONE);
+        } else if (session.getData(Constant.STATUS).equals("0")) {
+            binding.successLayout.setVisibility(View.GONE);
+            binding.pendingLayout.setVisibility(View.GONE);
+            binding.scrollView.setVisibility(View.VISIBLE);
+        } else if (session.getData(Constant.STATUS).equals("1")) {
+            binding.successLayout.setVisibility(View.VISIBLE);
+            binding.pendingLayout.setVisibility(View.GONE);
+            binding.scrollView.setVisibility(View.GONE);
+
         }
 
         initCall();
