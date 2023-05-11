@@ -78,7 +78,7 @@ class HomeFragment : Fragment() {
         binding.tvTotalActiveUsers.text = session.getData(Constant.TOTAL_ACTIVE_USERS)
         binding.tvRole.text = session.getData(Constant.ROLE)
         binding.tvTotalJoins.text =
-            "Today's total joins - " + session.getData(Constant.TOTAL_ACTIVE_USERS)
+            "Today's total joins - " + session.getData(Constant.TODAY_JOININGS)
         binding.tvMyUsers.text =
             "My users joins - " + session.getData(Constant.TODAY_REFERS)+" ("+session.getData(Constant.TODAY_PERFORMANCE)+"%)"
 
@@ -190,6 +190,7 @@ class HomeFragment : Fragment() {
                     val jsonObject = JSONObject(response)
                     if (jsonObject.getBoolean(Constant.SUCCESS)) {
                         session.setData(Constant.TOTAL_ACTIVE_USERS, jsonObject.getString(Constant.TOTAL_ACTIVE_USERS))
+                        session.setData(Constant.TODAY_JOININGS, jsonObject.getString(Constant.TODAY_JOININGS))
                         session.setData(Constant.TODAY_REFERS, jsonObject.getString(Constant.TODAY_REFERS))
                         session.setData(Constant.TODAY_PERFORMANCE, jsonObject.getString(Constant.TODAY_PERFORMANCE))
 

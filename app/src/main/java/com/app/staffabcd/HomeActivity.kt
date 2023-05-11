@@ -167,6 +167,7 @@ class HomeActivity : AppCompatActivity() {
 //                        val totalLeads = jsonObject.getString("total_leads")
 //                        val totalJoinings = jsonObject.getString("total_joinings")
                         session.setData(Constant.TOTAL_ACTIVE_USERS, jsonObject.getString(Constant.TOTAL_ACTIVE_USERS))
+                        session.setData(Constant.TODAY_JOININGS, jsonObject.getString(Constant.TODAY_JOININGS))
                         session.setData(Constant.TODAY_REFERS, jsonObject.getString(Constant.TODAY_REFERS))
                         session.setData(Constant.TODAY_PERFORMANCE, jsonObject.getString(Constant.TODAY_PERFORMANCE))
 

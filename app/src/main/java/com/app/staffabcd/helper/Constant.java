@@ -103,6 +103,7 @@ public class Constant {
     public static final String TOTAL_JOININGS = "total_joinings";
     public static final String TOTAL_ACTIVE_USERS = "total_active_users";
     public static final String TODAY_PERFORMANCE = "today_performance";
+    public static final String TODAY_JOININGS = "today_joinings";
     public static final String INCENTIVE_PERCENTAGE = "incentive_percentage";
     public static final String SALARY_BALANCE = "salary_balance";
     public static final String TODAY_REFERS = "today_refers";
