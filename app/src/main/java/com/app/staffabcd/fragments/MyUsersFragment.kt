@@ -2,6 +2,7 @@ package com.app.staffabcd.fragments
 
 import android.graphics.Color
 import android.graphics.Paint
+import android.graphics.Rect
 import android.graphics.pdf.PdfDocument
 import android.os.Bundle
 import android.os.Environment
@@ -9,8 +10,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.app.staffabcd.R
 import com.app.staffabcd.adapter.MyUsersAdapter
 import com.app.staffabcd.databinding.FragmentMyUsersBinding
 import com.app.staffabcd.helper.ApiConfig
@@ -40,7 +43,7 @@ class MyUsersFragment : Fragment() {
         binding.rvMyUsers.layoutManager = linearLayoutManager
         myUserLists()
         binding.btnDownload.setOnClickListener {
-            createPdf()
+            generatePDF()
         }
         val swipeRefreshLayout = binding.swipeRefreshLayout
         swipeRefreshLayout.setOnRefreshListener {
@@ -84,50 +87,76 @@ class MyUsersFragment : Fragment() {
         }, requireActivity(), Constant.MY_USERS_LIST, params, true)
     }
 
-    private fun createPdf() {
+    private fun generatePDF() {
+        // Create a new document with A4 size
         val document = PdfDocument()
         val pageInfo = PdfDocument.PageInfo.Builder(595, 842, 1).create()
         val page = document.startPage(pageInfo)
         val canvas = page.canvas
+     //   val typeface = Typeface.createFromAsset(context?.assets, "font/boldwall.ttf")
+        val typeface = context?.let { context ->
+            ResourcesCompat.getFont(context, R.font.gafigste)
+        }
+
+        // Initialize the paint object
         val paint = Paint()
+        paint.textSize = 10f
 
-        val title = "User Information"
-        paint.textSize = 40f
+        // Calculate the title and content widths
+        val titleWidth = 120
+        val contentWidth = ((page.canvas.width - titleWidth - 40) / 5)
+
+        // Draw the table headers
+        val x = 20
+        var currentY = 50
+        paint.typeface = typeface
+        paint.style = Paint.Style.STROKE
+        paint.strokeWidth = 0.50f
+        canvas.drawRect(x.toFloat(), currentY.toFloat(), (x + titleWidth + contentWidth * 5).toFloat(), (currentY + 50).toFloat(), paint)
         paint.color = Color.BLACK
-        paint.textAlign = Paint.Align.CENTER
-        canvas.drawText(title, (pageInfo.pageWidth / 2).toFloat(), 50f, paint)
+        canvas.drawText("Name", (x + 10).toFloat(), (currentY + 30).toFloat(), paint)
+        canvas.drawText("Refer Code", (x + titleWidth + 10).toFloat(), (currentY + 30).toFloat(), paint)
+        canvas.drawText("Total Codes", (x + titleWidth + contentWidth + 10).toFloat(), (currentY + 30).toFloat(), paint)
+        canvas.drawText("Worked Days", (x + titleWidth + contentWidth * 2 + 10).toFloat(), (currentY + 30).toFloat(), paint)
+        canvas.drawText("Mobile", (x + titleWidth + contentWidth * 3 + 10).toFloat(), (currentY + 30).toFloat(), paint)
+        canvas.drawText("Total Referrals", (x + titleWidth + contentWidth * 4 + 10).toFloat(), (currentY + 30).toFloat(), paint)
 
-        val y = 150
-        val x = 50
-        val titleWidth = 150
-        val contentWidth = 200
-
-        paint.textSize = 20f
-        paint.color = Color.GRAY
-        canvas.drawText("Name", x.toFloat(), y.toFloat(), paint)
-        canvas.drawText("Refer Code", (x + titleWidth).toFloat(), y.toFloat(), paint)
-        canvas.drawText("Total Codes", (x + titleWidth + contentWidth).toFloat(), y.toFloat(), paint)
-        canvas.drawText("Worked Days", (x + titleWidth + contentWidth * 2).toFloat(), y.toFloat(), paint)
-        canvas.drawText("Mobile", (x + titleWidth + contentWidth * 3).toFloat(), y.toFloat(), paint)
-        canvas.drawText("Total Referrals", (x + titleWidth + contentWidth * 4).toFloat(), y.toFloat(), paint)
-
-        paint.color = Color.BLACK
-        paint.textSize = 18f
-        var currentY = y + 50
-        myUsersAdapter.users.forEach { user ->
-            user.name?.let { canvas.drawText(it, x.toFloat(), currentY.toFloat(), paint) }
-            user.refer_code?.let { canvas.drawText(it, (x + titleWidth).toFloat(), currentY.toFloat(), paint) }
-            user.total_codes?.let { canvas.drawText(it, (x + titleWidth + contentWidth).toFloat(), currentY.toFloat(), paint) }
-            user.worked_days?.let { canvas.drawText(it, (x + titleWidth + contentWidth * 2).toFloat(), currentY.toFloat(), paint) }
-            user.mobile?.let { canvas.drawText(it, (x + titleWidth + contentWidth * 3).toFloat(), currentY.toFloat(), paint) }
-            user.total_referrals?.let { canvas.drawText(it, (x + titleWidth + contentWidth * 4).toFloat(), currentY.toFloat(), paint) }
+        // Draw the table data
+        currentY += 50
+        myUsersAdapter.users.forEach() { user ->
+            paint.color = Color.BLACK
+//             Draw the cell borders
+            canvas.drawRect(x.toFloat(), currentY.toFloat(), (x + titleWidth).toFloat(), (currentY + 50).toFloat(), paint)
+            canvas.drawRect((x + titleWidth).toFloat(), currentY.toFloat(), (x + titleWidth + contentWidth).toFloat(), (currentY + 50).toFloat(), paint)
+            canvas.drawRect((x + titleWidth + contentWidth).toFloat(), currentY.toFloat(), (x + titleWidth + contentWidth * 2).toFloat(), (currentY + 50).toFloat(), paint)
+            canvas.drawRect((x + titleWidth + contentWidth * 2).toFloat(), currentY.toFloat(), (x + titleWidth + contentWidth * 3).toFloat(), (currentY + 50).toFloat(), paint)
+            canvas.drawRect((x + titleWidth + contentWidth * 3).toFloat(), currentY.toFloat(), (x + titleWidth + contentWidth * 4).toFloat(), (currentY + 50).toFloat(), paint)
+            canvas.drawRect((x + titleWidth + contentWidth * 4).toFloat(), currentY.toFloat(), (x + titleWidth + contentWidth * 5).toFloat(), (currentY + 50).toFloat(), paint)
+            paint.color = Color.BLACK
+            user.name?.let { canvas.drawText(it, (x + 10).toFloat(), (currentY + 30).toFloat(), paint) }
+            user.refer_code?.let { canvas.drawText(it, (x + titleWidth + 10).toFloat(), (currentY + 30).toFloat(), paint) }
+            user.total_codes?.let { canvas.drawText(it, (x + titleWidth + contentWidth + 10).toFloat(), (currentY + 30).toFloat(), paint) }
+            user.worked_days?.let { workedDays ->
+                val textBounds = Rect()
+                paint.getTextBounds(workedDays, 0, workedDays.length, textBounds)
+                val textWidth = textBounds.width()
+                val centerX = x + titleWidth + contentWidth * 2 + (contentWidth - textWidth) / 2f
+                canvas.drawText(workedDays, centerX, currentY + 30f, paint)
+            }
+            user.mobile?.let { canvas.drawText(it, (x + titleWidth + contentWidth * 3 + 10).toFloat(), (currentY + 30).toFloat(), paint) }
+            user.total_referrals?.let { canvas.drawText(it, (x + titleWidth + contentWidth * 4 + 10).toFloat(), (currentY + 30).toFloat(), paint) }
             currentY += 50
+
+
+
+
         }
 
         document.finishPage(page)
         val directory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
         val file = File(directory, "my_document.pdf")
         val outputStream = FileOutputStream(file)
+
         document.writeTo(outputStream)
         document.close()
         outputStream.flush()
@@ -135,6 +164,5 @@ class MyUsersFragment : Fragment() {
 
         Toast.makeText(activity, "PDF created successfully.", Toast.LENGTH_SHORT).show()
     }
-
 
 }
