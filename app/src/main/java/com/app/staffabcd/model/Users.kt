@@ -1,6 +1,7 @@
 package com.app.staffabcd.model
 
 class Users {
+    var  id : String? = null
     var name: String? = null
     var refer_code: String? = null
     var total_codes: String? = null

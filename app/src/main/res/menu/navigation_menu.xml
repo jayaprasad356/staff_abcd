@@ -40,6 +40,14 @@
         android:icon="@drawable/users"
         android:iconTint="@color/white"
         android:title="@string/my_users" />
+
+    <item
+        android:id="@+id/nav_myLeads"
+        android:icon="@drawable/ic_lead"
+        android:iconTint="@color/white"
+        android:title="@string/my_leads" />
+
+
     <item
         android:id="@+id/nav_transaction"
         android:icon="@drawable/transaction"

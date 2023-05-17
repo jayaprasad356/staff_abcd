@@ -66,6 +66,16 @@ class HomeActivity : AppCompatActivity() {
                     drawerLayout.closeDrawer(GravityCompat.START)
                     true
                 }
+
+
+                R.id.nav_myLeads -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(container.id, MyLeadsFragment()).commit()
+                    toolbar.setTitle(R.string.my_leads)
+                    drawerLayout.closeDrawer(GravityCompat.START)
+                    true
+                }
+
                 R.id.nav_profile -> {
                     supportFragmentManager.beginTransaction()
                         .replace(container.id, ProfileFragment()).commit()

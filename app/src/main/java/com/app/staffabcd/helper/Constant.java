@@ -31,6 +31,7 @@ public class Constant {
     public static final String STAFF_DOCUMENT = BaseUrl + "staffs_document.php";
     public static final String WITHDRAWALS = BaseUrl + "withdrawals.php";
     public static final String MY_USERS_LIST = BaseUrl + "my_users_list.php";
+    public static final String MY_LEADS_LIST = BaseUrl + "my_leads_list.php";
 
 
 
@@ -39,6 +40,11 @@ public class Constant {
 
     public static final String PASSWORD = "password";
     public static final String JOIN_DATE = "join_date";
+    public static final String USER_ID = "user_id";
+    public static final String REMARKS = "remarks";
+
+
+
 
 
 
