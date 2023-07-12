@@ -144,7 +144,7 @@ class MyUsersFragment : Fragment() {
                 canvas.drawText(workedDays, centerX, currentY + 30f, paint)
             }
             user.mobile?.let { canvas.drawText(it, (x + titleWidth + contentWidth * 3 + 10).toFloat(), (currentY + 30).toFloat(), paint) }
-            user.total_referrals?.let { canvas.drawText(it, (x + titleWidth + contentWidth * 4 + 10).toFloat(), (currentY + 30).toFloat(), paint) }
+            user.l_referral_count?.let { canvas.drawText(it, (x + titleWidth + contentWidth * 4 + 10).toFloat(), (currentY + 30).toFloat(), paint) }
             currentY += 50
 
 

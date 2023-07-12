@@ -17,6 +17,7 @@ public class Constant {
     public static final String UPDATE_STAFF = BaseUrl + "update_staff.php";
     public static final String STAFFS_SIGNUP = BaseUrl + "staffs_signup.php";
     public static final String STAFFS_LOGIN = BaseUrl + "staffs_login.php";
+    public static final String UPDATE_REMARKS = BaseUrl + "update_remarks.php";
     public static final String STAFFS_DETAILS = BaseUrl + "staff_details.php";
     public static final String MY_DETAILS = BaseUrl + "my_details.php";
     public static final String INCENTIVES_URL = BaseUrl + "incentives.php";

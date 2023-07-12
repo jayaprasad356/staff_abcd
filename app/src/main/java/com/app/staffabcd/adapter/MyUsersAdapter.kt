@@ -41,8 +41,7 @@ class MyUsersAdapter(val activity: Activity, users: ArrayList<Users>) :
         holder.tvTotalcodes.text="Total Codes: "+users1.total_codes
         holder.tvMobile.text=users1.mobile
         holder.tvWokedDays.text="Worked Days: "+users1.worked_days
-        holder.tvTotalreferrals.text="No. of refers: "+users1.total_referrals
-        holder.tvTotalreferrals.text="No. of refers: "+users1.total_referrals
+        holder.tvTotalreferrals.text="No. of refers: "+users1.l_referral_count
         holder.btnChat.setOnClickListener {view ->
             showPopupMenu(view,users1.mobile)
         }

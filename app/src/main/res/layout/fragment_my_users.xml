@@ -18,6 +18,7 @@
             android:backgroundTint="@color/primary"
             android:padding="@dimen/_8sdp"
             android:text="Download Pdf"
+            android:visibility="gone"
             android:textAllCaps="false"
             android:layout_marginEnd="@dimen/_10sdp"
             android:textSize="@dimen/_12sdp"

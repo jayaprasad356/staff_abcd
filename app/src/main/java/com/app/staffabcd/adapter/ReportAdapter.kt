@@ -52,8 +52,7 @@ class ReportAdapter(
         holder.tvTotalcodes.text="Total Codes: "+report.total_codes
         holder.tvMobile.text=report.mobile
         holder.tvWokedDays.text="Worked Days: "+report.worked_days
-        holder.tvTotalreferrals.text="No. of refers: "+report.total_referrals
-        holder.tvTotalreferrals.text="No. of refers: "+report.total_referrals
+        holder.tvTotalreferrals.text="No. of refers: "+report.l_referral_count
         holder.btnChat.setOnClickListener {view ->
             showPopupMenu(view,report.mobile)
         }

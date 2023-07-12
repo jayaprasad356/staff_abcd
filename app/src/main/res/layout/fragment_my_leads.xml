@@ -20,6 +20,7 @@
             android:padding="@dimen/_8sdp"
             android:text="Download Pdf"
             android:textAllCaps="false"
+            android:visibility="gone"
             android:layout_marginEnd="@dimen/_10sdp"
             android:textSize="@dimen/_12sdp"
             app:cornerRadius="@dimen/_4sdp" />
