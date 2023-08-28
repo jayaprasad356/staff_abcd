@@ -30,5 +30,7 @@
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
     <string name="my_leads">My Leads</string>
+    <string name="opporutunity_leads">Opportunity Leads</string>
+    <string name="my_opportunity_leads">My Opportunity Leads</string>
 
 </resources>

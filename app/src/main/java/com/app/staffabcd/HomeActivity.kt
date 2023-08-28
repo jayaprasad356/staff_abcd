@@ -76,6 +76,14 @@ class HomeActivity : AppCompatActivity() {
                     true
                 }
 
+                R.id.nav_myOpportunities -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(container.id, MyOpportunityFragment()).commit()
+                    toolbar.setTitle(R.string.my_opportunity_leads)
+                    drawerLayout.closeDrawer(GravityCompat.START)
+                    true
+                }
+
                 R.id.nav_profile -> {
                     supportFragmentManager.beginTransaction()
                         .replace(container.id, ProfileFragment()).commit()
@@ -83,6 +91,15 @@ class HomeActivity : AppCompatActivity() {
                     drawerLayout.closeDrawer(GravityCompat.START)
                     true
                 }
+
+                R.id.nav_opportunities -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(container.id, OpportunityLeadsFragment()).commit()
+                    toolbar.setTitle(R.string.opporutunity_leads)
+                    drawerLayout.closeDrawer(GravityCompat.START)
+                    true
+                }
+
                 R.id.nav_my_performance -> {
                     supportFragmentManager.beginTransaction()
                         .replace(container.id, MyPerformanceFragment()).commit()

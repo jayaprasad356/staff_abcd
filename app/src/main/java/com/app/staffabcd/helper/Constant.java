@@ -32,6 +32,9 @@ public class Constant {
     public static final String STAFF_DOCUMENT = BaseUrl + "staffs_document.php";
     public static final String WITHDRAWALS = BaseUrl + "withdrawals.php";
     public static final String MY_USERS_LIST = BaseUrl + "my_users_list.php";
+    public static final String OPEN_SUPPORTS = BaseUrl + "open_supports.php";
+    public static final String MY_TOOK_USERS = BaseUrl + "my_took_users.php";
+    public static final String TAKE_USER = BaseUrl + "take_user.php";
     public static final String MY_LEADS_LIST = BaseUrl + "my_leads_list.php";
 
 

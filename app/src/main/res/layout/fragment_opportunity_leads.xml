@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/swipeRefreshLayout"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragments.OpportunityLeadsFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnDownload"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:backgroundTint="@color/primary"
+            android:padding="@dimen/_8sdp"
+            android:text="Download Pdf"
+            android:visibility="gone"
+            android:textAllCaps="false"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:textSize="@dimen/_12sdp"
+            app:cornerRadius="@dimen/_4sdp" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvMyUsers"
+            android:layout_below="@+id/btnDownload"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </RelativeLayout>
+
+
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

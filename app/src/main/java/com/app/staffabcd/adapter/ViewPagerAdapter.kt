@@ -3,10 +3,7 @@ package com.app.staffabcd.adapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import com.app.staffabcd.fragments.reportFragments.HistoryFragment
-import com.app.staffabcd.fragments.reportFragments.LevelOneFragment
-import com.app.staffabcd.fragments.reportFragments.LevelThreeFragment
-import com.app.staffabcd.fragments.reportFragments.LevelTwoFragment
+import com.app.staffabcd.fragments.reportFragments.*
 
 class ViewPagerAdapter(
     fm: FragmentManager
@@ -21,11 +18,14 @@ class ViewPagerAdapter(
             fragment = LevelThreeFragment()
         else if (position == 3)
             fragment = HistoryFragment()
+        else if (position == 4)
+            fragment = LevelFiveFragment()
+
         return fragment!!
     }
 
     override fun getCount(): Int {
-        return 4
+        return 5
     }
 
     override fun getPageTitle(position: Int): CharSequence? {
@@ -36,6 +36,7 @@ class ViewPagerAdapter(
             title ="Level 2"
         else if (position == 2) title = "Level 3"
         else if (position == 3) title = "Level 4"
+        else if (position == 4) title = "Level 5"
 
         return title
     }
