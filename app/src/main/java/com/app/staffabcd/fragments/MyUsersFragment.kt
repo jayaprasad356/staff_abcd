@@ -56,6 +56,8 @@ class MyUsersFragment : Fragment() {
         val params : HashMap<String,String> = hashMapOf()
         params.apply {
             this[Constant.STAFF_ID] =  session.getData(Constant.STAFF_ID)
+            this[Constant.PROJECT_TYPE] =  "abcd"
+
         }
         ApiConfig.RequestToVolley({ result, response ->
             if (result) {

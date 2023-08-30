@@ -6,6 +6,11 @@
     android:layout_height="wrap_content"
     >
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
 
 
 
@@ -14,4 +19,15 @@
         android:layout_width="match_parent"
         android:layout_marginHorizontal="@dimen/_4sdp"
         android:layout_height="wrap_content"/>
+
+
+        <Button
+            android:layout_alignParentBottom="true"
+            android:id="@+id/shareMobileNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="share Mobile Number"
+            />
+
+    </RelativeLayout>
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

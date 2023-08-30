@@ -6,7 +6,7 @@ public class Constant {
     public static final String AUTHORIZATION = "Authorization";
     public static final String TOKEN = "token";
 
-   // public static final String MainBaseUrl = "https://abcd.graymatterworks.com/";
+  //public static final String MainBaseUrl = "https://abcd.graymatterworks.com/";
     public static final String MainBaseUrl = "https://appadmin.abcdapp.in/";
 
     //public static final String MainBaseUrl = "http://192.168.43.38/abcd/";
@@ -66,6 +66,7 @@ public class Constant {
 
     public static final String NAME = "name";
     public static final String STAFF_ID = "staff_id";
+    public static final String PROJECT_TYPE = "project_type";
     public static final String STAFF_DISPLAY_ID = "staff_isplay_id";
     public static final String LEVEL = "level";
     public static final String JOINED_DATE = "joined_date";
@@ -121,6 +122,9 @@ public class Constant {
     public static final String TOTAL_CODES = "total_codes";
     public static final String WORKED_DAYS = "worked_days";
     public static final String TOTAL_REFERRALS = "total_referrals";
+
+
+  public static final String L_REFERRAL_COUNT = "l_referral_count";
 
     public static final String FROM_DATE = "from_date";
     public static final String TO_DATE = "to_date";

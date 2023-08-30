@@ -152,7 +152,14 @@ class HomeActivity : AppCompatActivity() {
                 R.id.nav_myUsers -> {
                     supportFragmentManager.beginTransaction()
                         .replace(container.id, MyUsersFragment()).commit()
-                    toolbar.setTitle(R.string.my_users)
+                    toolbar.setTitle(R.string.abcd_user)
+                    drawerLayout.closeDrawer(GravityCompat.START)
+                    true
+                }
+                R.id.nav_myAmailusers -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(container.id, AmailUsersFragment()).commit()
+                    toolbar.setTitle(R.string.amail_user)
                     drawerLayout.closeDrawer(GravityCompat.START)
                     true
                 }

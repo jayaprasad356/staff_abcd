@@ -14,12 +14,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.FileProvider
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.staffabcd.R
-import com.app.staffabcd.adapter.MyLeadsAdapter
 import com.app.staffabcd.adapter.MyUsersAdapter
-import com.app.staffabcd.databinding.FragmentMyLeadsBinding
+import com.app.staffabcd.databinding.FragmentAmailUsersBinding
 import com.app.staffabcd.databinding.FragmentMyUsersBinding
 import com.app.staffabcd.helper.ApiConfig
 import com.app.staffabcd.helper.Constant
@@ -33,23 +33,26 @@ import java.io.File
 import java.io.FileOutputStream
 
 
-class MyLeadsFragment : Fragment() {
+class AmailUsersFragment : Fragment() {
 
-
-    lateinit var myUsersAdapter: MyLeadsAdapter
-    lateinit var binding: FragmentMyLeadsBinding
+    lateinit var  myUsersAdapter: MyUsersAdapter
+    lateinit var binding: FragmentAmailUsersBinding
     lateinit var session: Session
+
     val mobileNumbers: ArrayList<String> = ArrayList()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentMyLeadsBinding.inflate(inflater, container, false)
-        session = Session(requireActivity())
+        binding = FragmentAmailUsersBinding.inflate(inflater, container, false)
+        session= Session(requireActivity())
+
 
         binding.shareMobileNumber.setOnClickListener {
+
             shareMobileNumbersInWhatsApp(mobileNumbers)
+
         }
 
         val linearLayoutManager = LinearLayoutManager(activity)
@@ -64,62 +67,60 @@ class MyLeadsFragment : Fragment() {
             swipeRefreshLayout.isRefreshing = false
         }
         return binding.root
-
     }
-
-
     private fun myUserLists() {
-        val params: HashMap<String, String> = hashMapOf()
+        val params : HashMap<String,String> = hashMapOf()
         params.apply {
-            this[Constant.STAFF_ID] = session.getData(Constant.STAFF_ID)
-        }
+            this[Constant.STAFF_ID] =  session.getData(Constant.STAFF_ID)
+            this[Constant.PROJECT_TYPE] =  "amail"
 
+            Log.d("staffid",  session.getData(Constant.STAFF_ID ))
+
+        }
         ApiConfig.RequestToVolley({ result, response ->
             if (result) {
                 try {
                     val jsonObject = JSONObject(response)
                     if (jsonObject.getBoolean(Constant.SUCCESS)) {
+                        Log.d("hh",response);
                         val jsonArray: JSONArray = jsonObject.getJSONArray(Constant.DATA)
                         val users: ArrayList<Users> = ArrayList<Users>()
                         val g = Gson()
                         for (i in 0 until jsonArray.length()) {
                             val jsonObject1 = jsonArray.getJSONObject(i)
                             if (jsonObject1 != null) {
-                                val group: Users = g.fromJson(jsonObject1.toString(), Users::class.java)
+                                val group: Users =
+                                    g.fromJson(jsonObject1.toString(), Users::class.java)
                                 users.add(group)
+
+                                val mobile = jsonObject1.getString(Constant.MOBILE)
+
+
+                                mobileNumbers.add(mobile)
+
+
                             } else {
                                 break
                             }
                         }
-
-                        // Create an ArrayList to store mobile numbers
-
-                        // Extract and add mobile numbers to the ArrayList
-                        for (user in users) {
-                            val mobileNumber = user.mobile // Assuming the field name is "mobile"
-                            if (mobileNumber != null) {
-                                mobileNumbers.add(mobileNumber)
-                            }
-                        }
-
-                        // Use the mobileNumbers ArrayList as needed
-                        myUsersAdapter = MyLeadsAdapter(requireActivity(), users)
+                        myUsersAdapter = MyUsersAdapter(requireActivity(), users)
                         binding.rvMyUsers.adapter = myUsersAdapter
+
 
                         // Now the mobileNumbers ArrayList contains all the mobile numbers
                         // You can use it as needed, for example, print each mobile number
                         for (mobileNumber in mobileNumbers) {
-                            Log.d("MobileNumberlist", mobileNumber)
+                            Log.d("MobileNumberamil", mobileNumber)
                         }
 
-                    } else {
-                        Toast.makeText(requireContext(), "No Data Found", Toast.LENGTH_SHORT).show()
+                    }else{
+                        Toast.makeText(requireContext(),"No Data Found", Toast.LENGTH_SHORT).show()
                     }
                 } catch (e: JSONException) {
                     e.printStackTrace()
                 }
             }
-        }, requireActivity(), Constant.MY_LEADS_LIST, params, true)
+        }, requireActivity(), Constant.MY_USERS_LIST, params, true)
     }
 
     private fun generatePDF() {
@@ -201,11 +202,20 @@ class MyLeadsFragment : Fragment() {
     }
 
 
+
     private fun shareMobileNumbersInWhatsApp(mobileNumbers: ArrayList<String>) {
+        val mobileNumbersText = mobileNumbers.joinToString("\n") // Join the mobile numbers with line breaks
+
+        val file = File(requireContext().cacheDir, "mobile_numbers.txt") // Create a file in the app's cache directory
+        file.writeText(mobileNumbersText) // Write the mobile numbers to the file
+
         val whatsappIntent = Intent(Intent.ACTION_SEND)
         whatsappIntent.type = "text/plain"
-        val mobileNumbersText = mobileNumbers.joinToString("\n") // Join the mobile numbers with line breaks
-        whatsappIntent.putExtra(Intent.EXTRA_TEXT, mobileNumbersText)
+        whatsappIntent.putExtra(Intent.EXTRA_TEXT, "Check out these mobile numbers!") // Optional message
+
+        val uri = FileProvider.getUriForFile(requireContext(), "com.your.package.name.fileprovider", file) // Use FileProvider to get the content URI
+        whatsappIntent.putExtra(Intent.EXTRA_STREAM, uri)
+        whatsappIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
 
         // Create a chooser intent to let the user select WhatsApp or WhatsApp Business
         val chooserIntent = Intent.createChooser(whatsappIntent, "Share via")

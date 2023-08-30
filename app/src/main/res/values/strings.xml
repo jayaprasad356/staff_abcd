@@ -32,5 +32,7 @@
     <string name="my_leads">My Leads</string>
     <string name="opporutunity_leads">Opportunity Leads</string>
     <string name="my_opportunity_leads">My Opportunity Leads</string>
+    <string name="abcd_user">Abcd User</string>
+    <string name="amail_user">Amail User</string>
 
 </resources>
